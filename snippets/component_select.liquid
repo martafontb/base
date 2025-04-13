@@ -1,0 +1,60 @@
+{% comment %} 
+  Props:
+    id: String (required),
+    name: String (required),
+    label: String (only required if no label),
+    options: Array (required) – formatted as label|value,label|value,
+    selected_index: Number – index of the selected option
+{% endcomment %}
+
+{%- unless selected_index -%}
+  {%- assign selected_index = 0 -%}
+{%- endunless -%}
+
+{%- assign selected_option = options[selected_index] -%}
+
+<custom-select selected-index="{{ selected_index }}">
+  <button 
+    type="button" 
+    class="custom-select--toggle"
+    aria-haspopup="true"
+    aria-controls="{{ id }}"
+    data-toggle
+  >
+    <span class="custom-select--option" data-selected>
+      {%- assign selected_label = selected_option | split: '|' | first -%}
+      {{ selected_label }}
+    </span>
+  </button>
+  <popup-modal
+    id="{{ id }}"
+    open="false"
+    aria-hidden="true"
+    tabindex="-1"
+    role="menu"
+  >
+    <ul class="custom-select--options">
+      {%- for option in options -%}
+        {%- assign label = option | split: '|' | first -%}
+        {%- assign value = option | split: '|' | last -%}
+        <li class="custom-select--option">
+          <input 
+            type="radio"
+            id="{{ value }}"
+            name="{{ name }}"
+            value="{{ value }}"
+            class="visually-hidden"
+            {%- if selected_index == forloop.index -%} checked {%- endif -%}
+            data-option
+          >
+          <label for="{{ value }}">
+            {{ label }}
+          </label>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </popup-modal>
+</custom-select>
+
+{{ 'custom-select.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-select.js' | asset_url }}" defer></script>

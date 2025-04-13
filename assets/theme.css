@@ -1,0 +1,48 @@
+:root {
+  --container-gutter: 18px;
+  --container-width: calc(100vw - calc(var(--container-gutter) * 2));
+
+  --transition-duration: 300ms;
+  --transition-ease: ease-in-out;
+
+  --btn-radius-none: 0;
+  --btn-radius-sm: 0.25em;
+  --btn-radius-md: 0.5em;
+  --btn-radius-full: 9999px;
+
+  --btn-padding-xs: 0.5em;
+  --btn-padding-sm: 0.75rem;
+  --btn-padding-md: 1em;
+  --btn-padding-lg: 1.5em;
+  --btn-padding-xl: 2em;
+  --btn-padding-xxl: 3rem;
+
+  /* make these dynamic and link to styleguide somehow */
+
+  --aspect-auto: auto;
+  --aspect-square: 1 / 1;
+  --aspect-landscape: 2 / 1;
+  --aspect-portrait: 3 / 4;
+
+  --radius-none: 0;
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 2rem;
+  --radius-full: 9999px;
+
+  --padding-none: 0;
+  --padding-sm: 1rem;
+  --padding-md: 1.5rem;
+  --padding-lg: 2rem;
+
+  --border-none: 0;
+  --border-sm: 0.5px;
+  --border-md: 1px;
+  --border-lg: 2px;
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --container-width: calc(1920px - calc(var(--container-gutter) * 2));
+  }
+}

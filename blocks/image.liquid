@@ -1,0 +1,194 @@
+{%- assign config = block.settings -%}
+
+{%- assign aspect_mobile = config.aspect_mobile -%}
+{%- assign aspect_desktop = config.aspect_desktop -%}
+
+{%- if aspect_mobile == 'natural' -%}
+  {%- assign aspect_mobile = config.image.aspect_ratio -%}
+{%- endif -%}
+
+{%- if aspect_desktop == 'natural' -%}
+  {%- assign aspect_desktop = config.image.aspect_ratio -%}
+{%- endif -%}
+
+<figure 
+  class="{{ config.type }}"
+  style="
+    --aspect-m: {{ aspect_mobile }};
+    --aspect-d: {{ aspect_desktop }};
+    
+    --border-radius: {{ config.border_radius }};
+    --border-weight: {{ config.border_weight }};
+    --border-style: {{ config.border_style }};
+  "
+>
+  {%- if config.image != blank -%}
+    {{
+      config.image
+      | image_url: width: 3840
+      | image_tag: 
+        width: config.image.width,
+        widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+        class: config.size
+    }}
+  {%- else -%}
+    {{ 'image' | placeholder_svg_tag: config.size }}
+  {%- endif -%}
+</figure>
+
+{%- if config.type == 'background' -%}
+  <style>
+    {{ section.id | prepend: '#shopify-section-' }} *:has(> {{ block.id | prepend: '#shopify-block-' }} figure.background) {
+      position: relative;
+      aspect-ratio: {{ aspect_mobile }};
+      overflow: unset;
+    }
+
+    {{ section.id | prepend: '#shopify-section-' }} *:has(> {{ block.id | prepend: '#shopify-block-' }} figure.background) > *:not(.block--image) {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (min-width: 1024px) {
+      {{ section.id | prepend: '#shopify-section-' }} *:has(> {{ block.id | prepend: '#shopify-block-' }} figure.background) {
+        aspect-ratio: {{ aspect_desktop }};
+      }
+    }
+  </style>
+{%- endif -%}
+
+{{ 'block-image.css' | asset_url | stylesheet_tag }}
+
+{%- schema -%}
+  {
+    "name": "Image",
+    "tag": "div",
+    "class": "block--image",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "header",
+        "content": "Style"
+      },
+      {
+        "type": "select",
+        "id": "type",
+        "label": "Type",
+        "options": [
+          { "label": "Inline image", "value": "inline" },
+          { "label": "Background image", "value": "background" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "size",
+        "label": "Size",
+        "options": [
+          { "label": "Cover", "value": "cover" },
+          { "label": "Contain", "value": "contain" }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Aspect Ratio"
+      },
+      {
+        "type": "select",
+        "id": "aspect_mobile",
+        "label": "Mobile",
+        "options": [
+          { "label": "None", "value": "var(--aspect-auto)" },
+          { "label": "Natural", "value": "natural" },
+          { "label": "Square", "value": "var(--aspect-square)" },
+          { "label": "Landscape", "value": "var(--aspect-landscape)" },
+          { "label": "Portrait", "value": "var(--aspect-portrait)" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "aspect_desktop",
+        "label": "Desktop",
+        "options": [
+          { "label": "None", "value": "var(--aspect-auto)" },
+          { "label": "Natural", "value": "natural" },
+          { "label": "Square", "value": "var(--aspect-square)" },
+          { "label": "Landscape", "value": "var(--aspect-landscape)" },
+          { "label": "Portrait", "value": "var(--aspect-portrait)" }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Border"
+      },
+      {
+        "type": "paragraph",
+        "content": "Border settings apply to inline images only."
+      },
+      {
+        "type": "select",
+        "id": "border_radius",
+        "label": "Border radius",
+        "options": [
+          { "label": "None", "value": "var(--radius-none)" },
+          { "label": "Small", "value": "var(--radius-sm)" },
+          { "label": "Medium", "value": "var(--radius-md)" },
+          { "label": "Large", "value": "var(--radius-lg)" },
+          { "label": "Full", "value": "var(--radius-full)" },
+        ]
+      },
+      {
+        "type": "select",
+        "id": "border_weight",
+        "label": "Border weight",
+        "options": [
+          { "label": "None", "value": "var(--border-none)" },
+          { "label": "Small", "value": "var(--border-sm)" },
+          { "label": "Medium", "value": "var(--border-md)" },
+          { "label": "Large", "value": "var(--border-lg)" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "border_style",
+        "label": "Border style",
+        "options": [
+          { "label": "Solid", "value": "solid" },
+          { "label": "Dashed", "value": "dashed" },
+          { "label": "Dotted", "value": "dotted" },
+          { "label": "Double", "value": "double" }
+        ],
+        "default": "solid"
+      }
+    ],
+    "presets": [
+      { 
+        "name": "Image",
+        "settings": {
+          "type": "inline",
+          "size": "cover",
+          "aspect_mobile": "var(--aspect-auto)",
+          "aspect_desktop": "var(--aspect-auto)",
+          "border_radius": "var(--radius-none)"
+        }
+      },
+      {
+        "name": "Background Image",
+        "settings": {
+          "type": "background",
+          "size": "cover",
+          "aspect_mobile": "var(--aspect-auto)",
+          "aspect_desktop": "var(--aspect-auto)",
+          "border_radius": "var(--radius-none)"
+        }
+      }
+    ]
+  }
+{%- endschema -%}

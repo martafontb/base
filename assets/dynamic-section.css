@@ -1,0 +1,19 @@
+.dynamic-section--inner {
+  display: flex;
+  flex-direction: var(--direction-m);
+  gap: var(--gap-m);
+  align-items: var(--align-m);
+  justify-content: var(--justify-m);
+  padding: var(--padding-v) var(--padding-h);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .dynamic-section--inner {
+    flex-direction: var(--direction-d);
+    gap: var(--gap-d);
+    align-items: var(--align-d);
+    justify-content: var(--justify-d);
+  }
+}

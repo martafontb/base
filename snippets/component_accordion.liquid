@@ -1,0 +1,35 @@
+{% comment %} 
+  Props:
+    id: String,
+    heading: Liquid,
+    heading_class: String,
+    content: Liquid,
+    open: Boolean
+{% endcomment %}
+
+{%- assign details_id = id | append: '-details' -%}
+
+<accordion-content open="{%- if open -%} true {%- else -%} false {%- endif -%}">
+  <button 
+    id="{{ id }}"
+    type="button"
+    aria-expanded="{{ open }}"
+    aria-controls="{{ details_id }}"
+    class="{{ heading_class }}"
+    data-toggle
+  >
+    {{ heading }}
+  </button>
+  <div 
+    role="region"
+    id="{{ details_id }}"
+    aria-hidden="{%- if open -%} false {%- else -%} true {%- endif -%}"
+    aria-labelledby="{{ id }}"
+    data-content
+  >
+    {{ content }}
+  </div>
+</accordion-content>
+
+{{ 'accordion-content.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'accordion-content.js' | asset_url }}" defer></script>

@@ -1,0 +1,25 @@
+{% comment %} 
+  Props
+    props: Object – Swiper parameters https://swiperjs.com/swiper-api#parameters,
+    tag: String – an identifier for the container, eg: '[data-hero-carousel]'
+{% endcomment %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<script type="module">
+  import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs';
+
+  const initSwiper = () => {
+    const swiper = new Swiper('{{ tag }}', {{ props }});
+  }
+
+  initSwiper();
+
+  if (Shopify.designMode) {
+    document.addEventListener('shopify:section:load', (ev) => {
+      if(ev.target.querySelector('{{ tag }}')) {
+        initSwiper();
+      }
+    })
+  }
+</script>

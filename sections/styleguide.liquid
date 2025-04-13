@@ -1,0 +1,48 @@
+<div class="styleguide container">
+  <span class="h1">This is a H1</span>
+  <span class="h2">This is a H2</span>
+  <span class="h3">This is a H3</span>
+  <p class="styleguide--description">
+    This is some body text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  </p>
+  <div class="styleguide--buttons">
+    <button type="button" class="btn btn--primary">
+      Primary Button
+    </button>
+    <button type="button" class="btn btn--primary" disabled>
+      Disabled Primary Button
+    </button>
+  </div>
+  <div class="styleguide--buttons">
+    <button type="button" class="btn btn--secondary">
+      Secondary Button
+    </button>
+    <button type="button" class="btn btn--secondary" disabled>
+      Disabled Secondary Button
+    </button>
+  </div>
+  <div class="styleguide--input">
+    <label>
+      Label
+    </label>
+  </div>
+</div>
+
+<style>
+  .styleguide {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+
+  .styleguide--description {
+    max-width: 420px;
+  }
+
+  .styleguide--buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+</style>

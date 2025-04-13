@@ -1,0 +1,38 @@
+.animate--fade,
+img[loading="lazy"],
+video.lazy {
+  opacity: 0;
+  transition: opacity var(--transition-duration) var(--transition-ease) var(--delay, 0ms);
+}
+
+.animate--fade.in-view,
+img.in-view,
+video.in-view {
+  opacity: 1;
+}
+
+.animate--up > * {
+  transition: 
+    transform var(--transition-duration) var(--transition-ease) calc(var(--delay, 0ms) + 600ms),
+    opacity var(--transition-duration) var(--transition-ease) calc(var(--delay, 0ms) + 600ms)
+  ;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.in-view .animate--up > *,
+.animate--up.in-view > * {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.hover--scale {
+  transition: transform var(--transition-duration) var(--transition-ease);
+}
+
+@media (min-width: 1024px) {
+  .group:hover .hover--scale,
+  .hover--scale:hover {
+    transform: scale(var(--scale, 1.05));
+  }
+}

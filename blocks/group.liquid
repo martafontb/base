@@ -1,0 +1,269 @@
+{%- assign config = block.settings -%}
+
+<div
+  class="block--group"
+  style="
+    --padding-h: {{ config.padding_h }};
+    --padding-v: {{ config.padding_v }};
+
+    --width-m: {{ config.width_mobile }};
+    --height-m: {{ config.height_mobile }};
+    --direction-m: {{ config.direction_mobile }};
+    --gap-m: {{ config.gap_mobile | divided_by: 16.00 | append: 'rem' }};
+    --align-m: {{ config.alignment_mobile }};
+    --justify-m: {{ config.justification_mobile }};
+    --text-align-m: {{ config.text_align_mobile }};
+
+    --width-d: {{ config.width_desktop }};
+    --height-d: {{ config.height_desktop }};
+    --direction-d: {{ config.direction_desktop }};
+    --gap-d: {{ config.gap_desktop | divided_by: 16.00 | append: 'rem' }};
+    --align-d: {{ config.alignment_desktop }};
+    --justify-d: {{ config.justification_desktop }};
+    --text-align-d: {{ config.text_align_desktop }};
+
+    --border-radius: {{ config.border_radius }};
+    --border-weight: {{ config.border_weight }};
+    --border-style: {{ config.border_style }};
+
+    {%- if config.color_scheme != settings.primary_color_scheme -%}
+      --color-text: {{ config.color_scheme.settings.text }};
+      --color-background: {{ config.color_scheme.settings.background }};
+      --color-border: {{ config.color_scheme.settings.border }};
+      --color-shadow: {{ config.color_scheme.settings.shadow }};
+    {%- endif -%}
+  "
+  {{ block.shopify_attributes }}
+>
+  {%- content_for 'blocks' -%}
+</div>
+
+{{ 'block-group.css' | asset_url | stylesheet_tag }}
+
+{%- schema -%}
+  {
+    "name": "Group",
+    "tag": null,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "main"
+      },
+      {
+        "type": "header",
+        "content": "Mobile Layout"
+      },
+      {
+        "type": "select",
+        "id": "width_mobile",
+        "label": "Width",
+        "options": [
+          { "label": "Fit", "value": "fit-content" },
+          { "label": "Fill", "value": "100%" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "height_mobile",
+        "label": "Height",
+        "options": [
+          { "label": "Fit", "value": "fit-content" },
+          { "label": "Fill", "value": "100%" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "direction_mobile",
+        "label": "Direction",
+        "options": [
+          { "label": "Column", "value": "column" },
+          { "label": "Row", "value": "row" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "gap_mobile",
+        "label": "Gap",
+        "info": "The space between elements.",
+        "min": 0,
+        "max": 60,
+        "step": 2,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "alignment_mobile",
+        "label": "Alignment",
+        "options": [
+          { "label": "Start", "value": "start" },
+          { "label": "Center", "value": "center" },
+          { "label": "End", "value": "end" },
+          { "label": "Stretch", "value": "stretch" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "justification_mobile",
+        "label": "Justification",
+        "options": [
+          { "label": "Start", "value": "start" },
+          { "label": "Center", "value": "center" },
+          { "label": "End", "value": "end" },
+          { "label": "Space between", "value": "space-between" },
+          { "label": "Space around", "value": "space-around" }
+        ]
+      },
+      {
+        "type": "text_alignment",
+        "id": "text_align_mobile",
+        "label": "Text Alignment",
+        "info": "If this setting has no effect, try changing the Alignment setting to 'Stretch'. "
+      },
+      {
+        "type": "header",
+        "content": "Desktop Layout"
+      },
+      {
+        "type": "select",
+        "id": "width_desktop",
+        "label": "Width",
+        "options": [
+          { "label": "Fit", "value": "fit-content" },
+          { "label": "Fill", "value": "100%" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "height_desktop",
+        "label": "Height",
+        "options": [
+          { "label": "Fit", "value": "fit-content" },
+          { "label": "Fill", "value": "100%" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "direction_desktop",
+        "label": "Direction",
+        "options": [
+          { "label": "Column", "value": "column" },
+          { "label": "Row", "value": "row" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "gap_desktop",
+        "label": "Gap",
+        "info": "The space between elements.",
+        "min": 0,
+        "max": 60,
+        "step": 2,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "alignment_desktop",
+        "label": "Alignment",
+        "options": [
+          { "label": "Start", "value": "start" },
+          { "label": "Center", "value": "center" },
+          { "label": "End", "value": "end" },
+          { "label": "Stretch", "value": "stretch" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "justification_desktop",
+        "label": "Justification",
+        "options": [
+          { "label": "Start", "value": "start" },
+          { "label": "Center", "value": "center" },
+          { "label": "End", "value": "end" },
+          { "label": "Space between", "value": "space-between" },
+          { "label": "Space around", "value": "space-around" }
+        ]
+      },
+      {
+        "type": "text_alignment",
+        "id": "text_align_desktop",
+        "label": "Text Alignment",
+        "info": "If this setting has no effect, try changing the Alignment setting to 'Stretch'. "
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type": "select",
+        "id": "padding_h",
+        "label": "Horizontal",
+        "options": [
+          { "label": "None", "value": "var(--padding-none)" },
+          { "label": "Small", "value": "var(--padding-sm)" },
+          { "label": "Medium", "value": "var(--padding-md)" },
+          { "label": "Large", "value": "var(--padding-lg)" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "padding_v",
+        "label": "Vertical",
+        "options": [
+          { "label": "None", "value": "var(--padding-none)" },
+          { "label": "Small", "value": "var(--padding-sm)" },
+          { "label": "Medium", "value": "var(--padding-md)" },
+          { "label": "Large", "value": "var(--padding-lg)" }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Border"
+      },
+      {
+        "type": "select",
+        "id": "border_radius",
+        "label": "Border radius",
+        "options": [
+          { "label": "None", "value": "var(--radius-none)" },
+          { "label": "Small", "value": "var(--radius-sm)" },
+          { "label": "Medium", "value": "var(--radius-md)" },
+          { "label": "Large", "value": "var(--radius-lg)" },
+          { "label": "Full", "value": "var(--radius-full)" },
+        ]
+      },
+      {
+        "type": "select",
+        "id": "border_weight",
+        "label": "Border weight",
+        "options": [
+          { "label": "None", "value": "var(--border-none)" },
+          { "label": "Small", "value": "var(--border-sm)" },
+          { "label": "Medium", "value": "var(--border-md)" },
+          { "label": "Large", "value": "var(--border-lg)" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "border_style",
+        "label": "Border style",
+        "options": [
+          { "label": "Solid", "value": "solid" },
+          { "label": "Dashed", "value": "dashed" },
+          { "label": "Dotted", "value": "dotted" },
+          { "label": "Double", "value": "double" }
+        ],
+        "default": "solid"
+      }
+    ],
+    "blocks": [{"type": "@theme"}],
+    "presets": [{ "name": "Group" }]
+  }
+{%- endschema -%}

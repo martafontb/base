@@ -1,0 +1,45 @@
+<!doctype html>
+<html class="js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preload" href="{{ 'fonts.css' | asset_url }}" as="style">
+    <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style">
+
+    {% if settings.favicon %}
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {% endif %}
+
+    <title>{{ page_title | escape }}</title>
+
+    {{ 'preflight.css' | asset_url | stylesheet_tag }}
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ 'global.css' | asset_url | stylesheet_tag }}
+    {{ 'typography.css' | asset_url | stylesheet_tag }}
+    {{ 'buttons.css' | asset_url | stylesheet_tag }}
+    {{ 'inputs.css' | asset_url | stylesheet_tag }}
+    {{ 'animate.css' | asset_url | stylesheet_tag }}
+
+    {%- render 'theme_styles' -%}
+
+    <!-- header hook for Shopify plugins -->
+    {{ content_for_header }}
+  </head>
+  <body>
+    {% section 'header' %}
+
+    <main id="main" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+    {{ 'lazyload.js' | asset_url | script_tag }}
+    {{ 'popup-modal.js' | asset_url | script_tag }}
+    {{ 'cookies.js' | asset_url | script_tag }}
+    {{ 'cart.js' | asset_url | script_tag }}
+  </body>
+</html>

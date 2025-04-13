@@ -1,0 +1,196 @@
+{%- assign config = section.settings -%}
+
+<div class="dynamic-section--container {% if config.width == 'contained' %} container {% endif %}">
+  <div
+    class="dynamic-section--inner"
+    style="
+      --direction-m: {{ config.direction_mobile }};
+      --gap-m: {{ config.gap_mobile | divided_by: 16.00 | append: 'rem' }};
+      --align-m: {{ config.alignment_mobile }};
+      --justify-m: {{ config.justification_mobile }};
+      --direction-d: {{ config.direction_desktop }};
+      --gap-d: {{ config.gap_desktop | divided_by: 16.00 | append: 'rem' }};
+      --align-d: {{ config.alignment_desktop }};
+      --justify-d: {{ config.justification_desktop }};
+
+      --padding-h: {{ config.padding_h }};
+      --padding-v: {{ config.padding_v }};
+
+      --border-radius: {{ config.radius }};
+    "
+  >
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{{ 'dynamic-section.css' | asset_url | stylesheet_tag }}
+
+{%- schema -%}
+  {
+    "name": "Dynamic Section",
+    "tag": "section",
+    "class": "dynamic-section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Dimensions"
+      },
+      {
+        "type": "select",
+        "id": "width",
+        "label": "Width",
+        "options": [
+          { "label": "Contained", "value": "contained" },
+          { "label": "Full width", "value": "full" }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type": "select",
+        "id": "padding_h",
+        "label": "Horizontal",
+        "options": [
+          { "label": "None", "value": "var(--padding-none)" },
+          { "label": "Small", "value": "var(--padding-sm)" },
+          { "label": "Medium", "value": "var(--padding-md)" },
+          { "label": "Large", "value": "var(--padding-lg)" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "padding_v",
+        "label": "Vertical",
+        "options": [
+          { "label": "None", "value": "var(--padding-none)" },
+          { "label": "Small", "value": "var(--padding-sm)" },
+          { "label": "Medium", "value": "var(--padding-md)" },
+          { "label": "Large", "value": "var(--padding-lg)" }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Mobile Layout"
+      },
+      {
+        "type": "select",
+        "id": "direction_mobile",
+        "label": "Direction",
+        "options": [
+          { "label": "Column", "value": "column" },
+          { "label": "Row", "value": "row" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "gap_mobile",
+        "label": "Gap",
+        "info": "The space between elements.",
+        "min": 0,
+        "max": 60,
+        "step": 2,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "alignment_mobile",
+        "label": "Alignment",
+        "options": [
+          { "label": "Start", "value": "start" },
+          { "label": "Center", "value": "center" },
+          { "label": "End", "value": "end" },
+          { "label": "Stretch", "value": "stretch" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "justification_mobile",
+        "label": "Justification",
+        "options": [
+          { "label": "Start", "value": "start" },
+          { "label": "Center", "value": "center" },
+          { "label": "End", "value": "end" },
+          { "label": "Space between", "value": "space-between" },
+          { "label": "Space around", "value": "space-around" }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Desktop Layout"
+      },
+      {
+        "type": "select",
+        "id": "direction_desktop",
+        "label": "Direction",
+        "options": [
+          { "label": "Column", "value": "column" },
+          { "label": "Row", "value": "row" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "gap_desktop",
+        "label": "Gap",
+        "info": "The space between elements.",
+        "min": 0,
+        "max": 60,
+        "step": 2,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "alignment_desktop",
+        "label": "Alignment",
+        "options": [
+          { "label": "Start", "value": "start" },
+          { "label": "Center", "value": "center" },
+          { "label": "End", "value": "end" },
+          { "label": "Stretch", "value": "stretch" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "justification_desktop",
+        "label": "Justification",
+        "options": [
+          { "label": "Start", "value": "start" },
+          { "label": "Center", "value": "center" },
+          { "label": "End", "value": "end" },
+          { "label": "Space between", "value": "space-between" },
+          { "label": "Space around", "value": "space-around" }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Border"
+      },
+      {
+        "type": "select",
+        "id": "radius",
+        "label": "Border radius",
+        "options": [
+          { "label": "None", "value": "var(--radius-none)" },
+          { "label": "Small", "value": "var(--radius-sm)" },
+          { "label": "Medium", "value": "var(--radius-md)" },
+          { "label": "Large", "value": "var(--radius-lg)" },
+          { "label": "Full", "value": "var(--radius-full)" },
+        ],
+        "info": "Applies to contained sections only."
+      }
+    ],
+    "max_blocks": 2,
+    "blocks": [
+      { "type": "image" },
+      { "type": "group" }
+    ],
+    "presets": [
+      {
+        "name": "Image & Text"
+      }
+    ]
+  }
+{%- endschema -%}

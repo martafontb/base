@@ -1,0 +1,49 @@
+body {
+  font-family: var(--body-font);
+  font-weight: var(--body-weight);
+  font-style: var(--body-style);
+  font-size: var(--body-size);
+  line-height: var(--body-line);
+  letter-spacing: var(--body-letter);
+}
+
+.h1 {
+  font-family: var(--h1-font);
+  font-weight: var(--h1-weight);
+  font-style: var(--h1-style);
+  font-size: var(--h1-size);
+  line-height: var(--h1-line);
+  letter-spacing: var(--h1-letter);
+  text-transform: var(--h1-transform);
+}
+
+.h2 {
+  font-family: var(--h2-font);
+  font-weight: var(--h2-weight);
+  font-style: var(--h2-style);
+  font-size: var(--h2-size);
+  line-height: var(--h2-line);
+  letter-spacing: var(--h2-letter);
+  text-transform: var(--h2-transform);
+}
+
+.h3 {
+  font-family: var(--h3-font);
+  font-weight: var(--h3-weight);
+  font-style: var(--h3-style);
+  font-size: var(--h3-size);
+  line-height: var(--h3-line);
+  letter-spacing: var(--h3-letter);
+  text-transform: var(--h3-transform);
+}
+
+label,
+.tag {
+  font-family: var(--accent-font);
+  font-weight: var(--accent-weight);
+  font-style: var(--accent-style);
+  font-size: var(--accent-size);
+  line-height: var(--accent-line);
+  letter-spacing: var(--accent-letter);
+  text-transform: var(--accent-transform);
+}

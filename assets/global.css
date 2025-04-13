@@ -1,0 +1,88 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  hyphens: none;
+  image-rendering: optimizeQuality;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  overscroll-behavior: none;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-bg-1);
+}
+
+body.overflow-hidden {
+  overflow: hidden;
+}
+
+main {
+  padding-top: var(--margin-main);
+}
+
+.container,
+.shopify-policy__container {
+  width: var(--container-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+}
+
+@media (max-width: 1023px) {
+  .visually-hidden--mobile {
+    position: absolute;
+    overflow: hidden;
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+  }
+}
+
+@media (min-width: 1024px) {
+  .visually-hidden--desktop {
+    position: absolute;
+    overflow: hidden;
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+  }
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+figure:not(.transparent) {
+  background-color: var(--color-accent);
+}

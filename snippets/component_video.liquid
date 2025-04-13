@@ -1,0 +1,12 @@
+{% comment %} 
+  Props
+    video: Media Object (required),
+    size: String (required) – width followed by x,
+    autoplay: Boolean (required),
+    controls: Boolean (required),
+    class: String
+{% endcomment %}
+
+{%- capture video_tag -%}
+  {{ video | video_tag: image_size: size, autoplay: autoplay, loop: autoplay, muted: autoplay, controls: controls, class: class }}
+{%- endcapture -%}

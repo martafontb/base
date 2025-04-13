@@ -1,0 +1,113 @@
+{%- assign main_color_scheme = settings.primary_color_scheme.settings -%}
+
+{%- assign btn_primary_scheme_default = settings.btn_primary_colors_default.settings -%}
+{%- assign btn_primary_scheme_hover = settings.btn_primary_colors_hover.settings -%}
+
+{%- assign btn_secondary_scheme_default = settings.btn_secondary_colors_default.settings -%}
+{%- assign btn_secondary_scheme_hover = settings.btn_secondary_colors_hover.settings -%}
+
+{%- assign btn_border = settings.btn_border_weight | append: 'px ' | append: settings.btn_border_style | append: ' ' -%}
+{%- assign btn_shadow = settings.btn_shadow_x | append: 'px ' | append: settings.btn_shadow_y | append: 'px ' | append: settings.btn_shadow_blur | append: 'px ' | append: settings.btn_shadow_spread | append: 'px ' -%}
+
+<style>
+  {{ settings.font_primary | font_face }}
+  {{ settings.font_secondary | font_face }}
+  {{ settings.font_tertiary | font_face }}
+
+  :root {
+    --color-text: {{ main_color_scheme.text }};
+    --color-background: {{ main_color_scheme.background }};
+    --color-border: {{ main_color_scheme.border }};
+    --color-shadow: {{ main_color_scheme.shadow }};
+
+    --btn-1-default-text: {{ btn_primary_scheme_default.text }};
+    --btn-1-default-bg: {{ btn_primary_scheme_default.background }};
+    --btn-1-default-border: {{ btn_border | append: btn_primary_scheme_default.border }};
+    --btn-1-default-shadow: {{ btn_shadow | append: btn_primary_scheme_default.shadow }};
+    --btn-1-hover-text: {{ btn_primary_scheme_hover.text }};
+    --btn-1-hover-bg: {{ btn_primary_scheme_hover.background }};
+    --btn-1-hover-border: {{ btn_border | append: btn_primary_scheme_hover.border }};
+    --btn-1-hover-shadow: {{ btn_shadow | append: btn_primary_scheme_hover.shadow }};
+
+    --btn-2-default-text: {{ btn_secondary_scheme_default.text }};
+    --btn-2-default-bg: {{ btn_secondary_scheme_default.background }};
+    --btn-2-default-border: {{ btn_border | append: btn_secondary_scheme_default.border }};
+    --btn-2-default-shadow: {{ btn_shadow | append: btn_secondary_scheme_default.shadow }};
+    --btn-2-hover-text: {{ btn_secondary_scheme_hover.text }};
+    --btn-2-hover-bg: {{ btn_secondary_scheme_hover.background }};
+    --btn-2-hover-border: {{ btn_border | append: btn_secondary_scheme_hover.border }};
+    --btn-2-hover-shadow: {{ btn_shadow | append: btn_secondary_scheme_hover.shadow }};
+
+    --btn-padding-h: {{ settings.btn_padding_h }};
+    --btn-padding-v: {{ settings.btn_padding_v }};
+    --btn-radius-std: {{ settings.btn_radius_std }};
+    --btn-radius-icon: {{ settings.btn_radius_icon }};
+
+    --type-1-font: {{ settings.font_primary.family }}, {{ settings.font_primary.fallback_families }};
+    --type-1-weight: {{ settings.font_primary.weight }};
+    --type-1-style: {{ settings.font_primary.style }};
+    
+    --type-2-font: {{ settings.font_secondary.family }}, {{ settings.font_secondary.fallback_families }};
+    --type-2-weight: {{ settings.font_secondary.weight }};
+    --type-2-style: {{ settings.font_secondary.style }};
+
+    --type-3-font: {{ settings.font_tertiary.family }}, {{ settings.font_tertiary.fallback_families }};
+    --type-3-weight: {{ settings.font_tertiary.weight }};
+    --type-3-style: {{ settings.font_tertiary.style }};
+
+    --h1-font: var(--{{ settings.h1_font }}-font);
+    --h1-weight: var(--{{ settings.h1_font }}-weight);
+    --h1-style: var(--{{ settings.h1_font }}-style);
+    --h1-size: {{ settings.h1_size_m | divided_by: 16.0 | append: 'rem' }};
+    --h1-line: {{ settings.h1_line | divided_by: 100.00 }};
+    --h1-letter: {{ settings.h1_letter | divided_by: 10.0 | append: 'em' }};
+    --h1-transform: {{ settings.h1_case }};
+
+    --h2-font: var(--{{ settings.h2_font }}-font);
+    --h2-weight: var(--{{ settings.h2_font }}-weight);
+    --h2-style: var(--{{ settings.h2_font }}-style);
+    --h2-size: {{ settings.h2_size_m | divided_by: 16.0 | append: 'rem' }};
+    --h2-line: {{ settings.h2_line | divided_by: 100.00 }};
+    --h2-letter: {{ settings.h2_letter | divided_by: 10.0 | append: 'em' }};
+    --h2-transform: {{ settings.h2_case }};
+
+    --h3-font: var(--{{ settings.h3_font }}-font);
+    --h3-weight: var(--{{ settings.h3_font }}-weight);
+    --h3-style: var(--{{ settings.h3_font }}-style);
+    --h3-size: {{ settings.h3_size_m | divided_by: 16.0 | append: 'rem' }};
+    --h3-line: {{ settings.h3_line | divided_by: 100.00 }};
+    --h3-letter: {{ settings.h3_letter | divided_by: 10.0  | append: 'em' }};
+    --h3-transform: {{ settings.h3_case }};
+
+    --body-font: var(--{{ settings.body_font }}-font);
+    --body-weight: var(--{{ settings.body_font }}-weight);
+    --body-style: var(--{{ settings.body_font }}-style);
+    --body-size: {{ settings.body_size | divided_by: 16.0 | append: 'rem' }};
+    --body-line: {{ settings.body_line | divided_by: 100.0 }};
+    --body-letter: {{ settings.body_letter | divided_by: 10.0  | append: 'em' }};
+
+    --btn-font: var(--{{ settings.btn_font }}-font);
+    --btn-weight: var(--{{ settings.btn_font }}-weight);
+    --btn-style: var(--{{ settings.btn_font }}-style);
+    --btn-size: {{ settings.btn_size | divided_by: 16.0 | append: 'rem' }};
+    --btn-line: {{ settings.body_line | divided_by: 100.0 }};
+    --btn-letter: {{ settings.btn_letter | divided_by: 10.0 | append: 'em' }};
+    --btn-transform: {{ settings.btn_case }};
+
+    --accent-font: var(--{{ settings.accent_font }}-font);
+    --accent-weight: var(--{{ settings.accent_font }}-weight);
+    --accent-style: var(--{{ settings.accent_font }}-style);
+    --accent-size: {{ settings.accent_size | divided_by: 16.0 | append: 'rem' }};
+    --accent-line: 1;
+    --accent-letter: {{ settings.accent_letter | divided_by: 10.0 | append: 'em' }};
+    --accent-transform: {{ settings.accent_case }};
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --h1-size: {{ settings.h1_size_d | divided_by: 16.0 | append: 'rem' }};
+      --h2-size: {{ settings.h2_size_d | divided_by: 16.0 | append: 'rem' }};
+      --h3-size: {{ settings.h3_size_d | divided_by: 16.0 | append: 'rem' }};
+    }
+  }
+</style>

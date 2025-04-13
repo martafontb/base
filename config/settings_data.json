@@ -1,0 +1,70 @@
+{
+  "current": {
+    "font_primary": "archivo_n7",
+    "font_secondary": "archivo_n4",
+    "font_tertiary": "archivo_n5",
+    "h1_size_m": 32,
+    "h1_size_d": 34,
+    "h1_letter": -0.6,
+    "h1_case": "none",
+    "h2_size_m": 24,
+    "h2_size_d": 32,
+    "h2_letter": -0.7,
+    "h2_case": "none",
+    "h3_font": "type-3",
+    "btn_font": "type-3",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      }
+    },
+    "content_for_index": [],
+    "color_schemes": {
+      "main": {
+        "settings": {
+          "text": "#2a160d",
+          "background": "#FCFCF8",
+          "border": "#DADAD3",
+          "shadows": "#EEEEE9"
+        }
+      },
+      "primary_btn_default": {
+        "settings": {
+          "text": "#FCFCF8",
+          "background": "#2A160D",
+          "border": "#2A160D",
+          "shadows": ""
+        }
+      },
+      "primary_btn_hover": {
+        "settings": {
+          "text": "#FCFCF8",
+          "background": "#544037",
+          "border": "#2A160D",
+          "shadows": ""
+        }
+      },
+      "secondary_btn_default": {
+        "settings": {
+          "text": "#2A160D",
+          "background": "",
+          "border": "#2A160D",
+          "shadows": ""
+        }
+      },
+      "secondary_btn_hover": {
+        "settings": {
+          "text": "#2A160D",
+          "background": "#EEEEE9",
+          "border": "#2A160D",
+          "shadows": ""
+        }
+      }
+    }
+  }
+}

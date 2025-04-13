@@ -1,0 +1,748 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Vanilla",
+    "theme_version": "1.0.0",
+    "theme_author": "Lily Fielding @ Baggy",
+    "theme_documentation_url": "https:\/\/github.com\/baggy-studio\/vanilla-starter",
+    "theme_support_url": "https:\/\/github.com\/baggy-studio\/vanilla-starter"
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "32 x 32px .png recommended"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color_scheme_group",
+        "id": "color_schemes",
+        "definition": [
+          {
+            "type": "header",
+            "content": "Colors"
+          },
+          {
+            "type": "color",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "color",
+            "id": "background",
+            "label": "Background"
+          },
+          {
+            "type": "color",
+            "id": "border",
+            "label": "Border"
+          },
+          {
+            "type": "color",
+            "id": "shadow",
+            "label": "Shadow"
+          }
+        ],
+        "role": {
+          "text": "text",
+          "background": "background",
+          "links": "text",
+          "icons": "text",
+          "primary_button": "text",
+          "on_primary_button": "text",
+          "primary_button_border": "border",
+          "secondary_button": "text",
+          "on_secondary_button": "text",
+          "secondary_button_border": "border"
+        }
+      },
+      {
+        "type": "color_scheme",
+        "id": "primary_color_scheme",
+        "label": "Primary color scheme",
+        "default": "main"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Font Families"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_primary",
+        "label": "Primary Font",
+        "default": "instrument_sans_n5"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_secondary",
+        "label": "Secondary Font",
+        "default": "instrument_sans_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_tertiary",
+        "label": "Tertiary Font",
+        "default": "space_mono_n7"
+      },
+      {
+        "type": "header",
+        "content": "Primary Headings"
+      },
+      {
+        "type": "select",
+        "id": "h1_font",
+        "label": "Font family",
+        "options": [
+          {
+            "label": "Primary font",
+            "value": "type-1"
+          },
+          {
+            "label": "Secondary font",
+            "value": "type-2"
+          },
+          {
+            "label": "Tertiary font",
+            "value": "type-3"
+          }
+        ],
+        "default": "type-1"
+      },
+      {
+        "type": "range",
+        "id": "h1_size_m",
+        "label": "Mobile font size",
+        "min": 16,
+        "max": 80,
+        "step": 2,
+        "default": 40,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h1_size_d",
+        "label": "Desktop font size",
+        "min": 16,
+        "max": 128,
+        "step": 2,
+        "default": 56,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h1_line",
+        "label": "Line height",
+        "min": 80,
+        "max": 200,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "h1_letter",
+        "label": "Letter spacing",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "default": 0,
+        "unit": "em"
+      },
+      {
+        "type": "select",
+        "id": "h1_case",
+        "label": "Case",
+        "options": [
+          {
+            "label": "Sentence case",
+            "value": "none"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          },
+          {
+            "label": "Title case",
+            "value": "capitalize"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "header",
+        "content": "Secondary Headings"
+      },
+      {
+        "type": "select",
+        "id": "h2_font",
+        "label": "Font family",
+        "options": [
+          {
+            "label": "Primary font",
+            "value": "type-1"
+          },
+          {
+            "label": "Secondary font",
+            "value": "type-2"
+          },
+          {
+            "label": "Tertiary font",
+            "value": "type-3"
+          }
+        ],
+        "default": "type-1"
+      },
+      {
+        "type": "range",
+        "id": "h2_size_m",
+        "label": "Mobile font size",
+        "min": 16,
+        "max": 80,
+        "step": 2,
+        "default": 24,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h2_size_d",
+        "label": "Desktop font size",
+        "min": 16,
+        "max": 128,
+        "step": 2,
+        "default": 36,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h2_line",
+        "label": "Line height",
+        "min": 80,
+        "max": 200,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "h2_letter",
+        "label": "Letter spacing",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "default": 0,
+        "unit": "em"
+      },
+      {
+        "type": "select",
+        "id": "h2_case",
+        "label": "Case",
+        "options": [
+          {
+            "label": "Sentence case",
+            "value": "none"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          },
+          {
+            "label": "Title case",
+            "value": "capitalize"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "header",
+        "content": "Tertiary Headings"
+      },
+      {
+        "type": "select",
+        "id": "h3_font",
+        "label": "Font family",
+        "options": [
+          {
+            "label": "Primary font",
+            "value": "type-1"
+          },
+          {
+            "label": "Secondary font",
+            "value": "type-2"
+          },
+          {
+            "label": "Tertiary font",
+            "value": "type-3"
+          }
+        ],
+        "default": "type-2"
+      },
+      {
+        "type": "range",
+        "id": "h3_size_m",
+        "label": "Mobile font size",
+        "min": 16,
+        "max": 80,
+        "step": 2,
+        "default": 18,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h3_size_d",
+        "label": "Desktop font size",
+        "min": 16,
+        "max": 128,
+        "step": 2,
+        "default": 24,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h3_line",
+        "label": "Line height",
+        "min": 80,
+        "max": 200,
+        "step": 5,
+        "default": 120,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "h3_letter",
+        "label": "Letter spacing",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "default": 0.5,
+        "unit": "em"
+      },
+      {
+        "type": "select",
+        "id": "h3_case",
+        "label": "Case",
+        "options": [
+          {
+            "label": "Sentence case",
+            "value": "none"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          },
+          {
+            "label": "Title case",
+            "value": "capitalize"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          }
+        ],
+        "default": "uppercase"
+      },
+      {
+        "type": "header",
+        "content": "Body Text"
+      },
+      {
+        "type": "select",
+        "id": "body_font",
+        "label": "Font family",
+        "options": [
+          {
+            "label": "Primary font",
+            "value": "type-1"
+          },
+          {
+            "label": "Secondary font",
+            "value": "type-2"
+          },
+          {
+            "label": "Tertiary font",
+            "value": "type-3"
+          }
+        ],
+        "default": "type-2"
+      },
+      {
+        "type": "range",
+        "id": "body_size",
+        "label": "Font size",
+        "min": 12,
+        "max": 22,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "body_line",
+        "label": "Line height",
+        "min": 80,
+        "max": 200,
+        "step": 5,
+        "default": 120,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "body_letter",
+        "label": "Letter spacing",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "default": 0,
+        "unit": "em"
+      },
+      {
+        "type": "header",
+        "content": "Buttons"
+      },
+      {
+        "type": "select",
+        "id": "btn_font",
+        "label": "Font family",
+        "options": [
+          {
+            "label": "Primary font",
+            "value": "type-1"
+          },
+          {
+            "label": "Secondary font",
+            "value": "type-2"
+          },
+          {
+            "label": "Tertiary font",
+            "value": "type-3"
+          }
+        ],
+        "default": "type-1"
+      },
+      {
+        "type": "range",
+        "id": "btn_size",
+        "label": "Font size",
+        "min": 12,
+        "max": 22,
+        "step": 1,
+        "default": 12,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "btn_letter",
+        "label": "Letter spacing",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "default": 0.5,
+        "unit": "em"
+      },
+      {
+        "type": "select",
+        "id": "btn_case",
+        "label": "Case",
+        "options": [
+          {
+            "label": "Sentence case",
+            "value": "none"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          },
+          {
+            "label": "Title case",
+            "value": "capitalize"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          }
+        ],
+        "default": "uppercase"
+      },
+      {
+        "type": "header",
+        "content": "Labels & Tags"
+      },
+      {
+        "type": "select",
+        "id": "accent_font",
+        "label": "Font family",
+        "options": [
+          {
+            "label": "Primary font",
+            "value": "type-1"
+          },
+          {
+            "label": "Secondary font",
+            "value": "type-2"
+          },
+          {
+            "label": "Tertiary font",
+            "value": "type-3"
+          }
+        ],
+        "default": "type-3"
+      },
+      {
+        "type": "range",
+        "id": "accent_size",
+        "label": "Font size",
+        "min": 10,
+        "max": 16,
+        "step": 2,
+        "default": 12,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "accent_letter",
+        "label": "Letter spacing",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "default": 0,
+        "unit": "em"
+      },
+      {
+        "type": "select",
+        "id": "accent_case",
+        "label": "Case",
+        "options": [
+          {
+            "label": "Sentence case",
+            "value": "none"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          },
+          {
+            "label": "Title case",
+            "value": "capitalize"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          }
+        ],
+        "default": "uppercase"
+      }
+    ]
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Primary Buttons"
+      },
+      {
+        "type": "color_scheme",
+        "id": "btn_primary_colors_default",
+        "label": "Default color scheme"
+      },
+      {
+        "type": "color_scheme",
+        "id": "btn_primary_colors_hover",
+        "label": "Hover color scheme"
+      },
+      {
+        "type": "header",
+        "content": "Secondary Buttons"
+      },
+      {
+        "type": "color_scheme",
+        "id": "btn_secondary_colors_default",
+        "label": "Default color scheme"
+      },
+      {
+        "type": "color_scheme",
+        "id": "btn_secondary_colors_hover",
+        "label": "Hover color scheme"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type": "select",
+        "id": "btn_padding_h",
+        "label": "Horizontal padding",
+        "options": [
+          { "label": "Extra Small", "value": "var(--btn-padding-xs)" },
+          { "label": "Small", "value": "var(--btn-padding-sm)" },
+          { "label": "Medium", "value": "var(--btn-padding-md)" },
+          { "label": "Large", "value": "var(--btn-padding-lg)" },
+          { "label": "Extra Large", "value": "var(--btn-padding-xl)" }
+        ],
+        "default": "var(--btn-padding-md)"
+      },
+      {
+        "type": "select",
+        "id": "btn_padding_v",
+        "label": "Vertical padding",
+        "options": [
+          { "label": "Extra Small", "value": "var(--btn-padding-xs)" },
+          { "label": "Small", "value": "var(--btn-padding-sm)" },
+          { "label": "Medium", "value": "var(--btn-padding-md)" },
+          { "label": "Large", "value": "var(--btn-padding-lg)" },
+          { "label": "Extra Large", "value": "var(--btn-padding-xl)" }
+        ],
+        "default": "var(--btn-padding-md)"
+      },
+      {
+        "type": "header",
+        "content": "Borders"
+      },
+      {
+        "type": "range",
+        "id": "btn_border_weight",
+        "label": "Border weight",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "btn_border_style",
+        "label": "Border style",
+        "options": [
+          {
+            "label": "Solid",
+            "value": "solid"
+          },
+          {
+            "label": "Dashed",
+            "value": "dashed"
+          },
+          {
+            "label": "Dotted",
+            "value": "dotted"
+          },
+          {
+            "label": "Double",
+            "value": "double"
+          }
+        ],
+        "default": "solid"
+      },
+      {
+        "type": "select",
+        "id": "btn_radius_std",
+        "label": "Border radius – standard buttons",
+        "options": [
+          {
+            "label": "None",
+            "value": "var(--btn-radius-none)"
+          },
+          {
+            "label": "Small",
+            "value": "var(--btn-radius-sm)"
+          },
+          {
+            "label": "Medium",
+            "value": "var(--btn-radius-md)"
+          },
+          {
+            "label": "Full",
+            "value": "var(--btn-radius-full)"
+          }
+        ],
+        "default": "var(--btn-radius-sm)"
+      },
+      {
+        "type": "select",
+        "id": "btn_radius_icon",
+        "label": "Border radius – icon buttons",
+        "options": [
+          {
+            "label": "None",
+            "value": "var(--btn-radius-none)"
+          },
+          {
+            "label": "Small",
+            "value": "var(--btn-radius-sm)"
+          },
+          {
+            "label": "Medium",
+            "value": "var(--btn-radius-md)"
+          },
+          {
+            "label": "Full",
+            "value": "var(--btn-radius-full)"
+          }
+        ],
+        "default": "var(--btn-radius-full)"
+      },
+      {
+        "type": "header",
+        "content": "Shadows"
+      },
+      {
+        "type": "range",
+        "id": "btn_shadow_x",
+        "label": "Horizontal position",
+        "min": -1,
+        "max": 1,
+        "default": 0,
+        "step": 0.1,
+        "unit": "em"
+      },
+      {
+        "type": "range",
+        "id": "btn_shadow_y",
+        "label": "Vertical position",
+        "min": -1,
+        "max": 1,
+        "default": 0,
+        "step": 0.1,
+        "unit": "em"
+      },
+      {
+        "type": "range",
+        "id": "btn_shadow_blur",
+        "label": "Blur",
+        "min": 0,
+        "max": 10,
+        "default": 0,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "btn_shadow_spread",
+        "label": "Spread",
+        "min": 0,
+        "max": 10,
+        "default": 0,
+        "step": 1,
+        "unit": "px"
+      }
+    ]
+  }
+]

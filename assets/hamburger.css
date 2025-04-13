@@ -1,0 +1,106 @@
+:root {
+	--bar-color: currentColor;
+	--bar-radius: 0px;
+	--bar-height: 1.5px;
+	--inner-height: 8px;
+	--inner-width: 12px;
+	--outer-padding: 10px;
+	--bar-gap: calc(calc(var(--inner-height) - calc(var(--bar-height) * 3)) / 2);
+	--bar-margin: calc(var(--bar-gap) + var(--bar-height));
+	--outer-height: calc(var(--inner-height) + calc(calc(var(--outer-padding) * 2)));
+	--outer-width: calc(var(--inner-width) + calc(var(--outer-padding) * 2));
+}
+
+.hamburger {
+	padding: var(--outer-padding);
+	height: var(--outer-height);
+	width: var(--outer-width);
+	display: inline-flex;
+	cursor: pointer;
+	transition-property: opacity, filter;
+	transition-duration: 0.15s;
+	transition-timing-function: linear;
+	font: inherit;
+	color: inherit;
+	text-transform: none;
+	background-color: transparent;
+	border: 0;
+	margin: 0;
+	overflow: visible;
+	outline: none;
+	z-index: 10;
+}
+
+.hamburger.active .hamburger-inner,
+.hamburger.active .hamburger-inner::before,
+.hamburger.active .hamburger-inner::after {
+	background-color: var(--bar-color);
+}
+
+.hamburger-box {
+	width: var(--inner-width);
+	height: var(--inner-height);
+	display: inline-block;
+	position: relative;
+}
+
+.hamburger-inner {
+	display: block;
+	top: calc(50% + var(--bar-height));
+	margin-top: -2px;
+	transition-duration: 0.075s;
+	transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.hamburger.active .hamburger-inner {
+	transform: rotate(45deg);
+	transition-delay: 0.12s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+	width: var(--inner-width);
+	height: var(--bar-height);
+	background-color: var(--bar-color);
+	border-radius: var(--bar-radius);
+	position: absolute;
+	transition-property: transform;
+	transition-duration: 0.15s;
+	transition-timing-function: ease;
+}
+
+.hamburger-inner::before,
+.hamburger-inner::after {
+	content: "";
+	display: block;
+}
+
+.hamburger-inner::before {
+	top: calc(calc(var(--bar-margin) * -1) + calc(var(--bar-height) / 4));
+	transition: top 0.075s 0.12s ease, opacity 0.075s ease;
+}
+
+.hamburger.active .hamburger-inner::before {
+	top: 0;
+	opacity: 0;
+	transition: top 0.075s ease, opacity 0.075s 0.12s ease;
+}
+
+.hamburger-inner::after {
+	bottom: calc(calc(var(--bar-margin) * -1) + calc(var(--bar-height) / 3));
+	transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.hamburger.active .hamburger-inner::after {
+	bottom: 0;
+	transform: rotate(-90deg);
+	transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@media (min-width: 1024px) {
+	.hamburger {
+		display: none;
+	}
+}

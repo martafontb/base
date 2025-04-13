@@ -1,0 +1,55 @@
+accordion-content {
+  display: grid;
+  grid-template-rows: max-content 0fr;
+  transition: grid-template-rows var(--transition-duration) var(--transition-ease);
+  padding: 1.5rem 0;
+  border-bottom: 1px solid;
+}
+
+accordion-content.open {
+  grid-template-rows: max-content 1fr;
+}
+
+accordion-content > button {
+  padding-right: 1rem;
+}
+
+accordion-content > button::before,
+accordion-content > button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0.25em;
+  background: currentColor;
+  transition: transform var(--transition-duration) var(--transition-ease);
+}
+
+accordion-content > button::before {
+  height: 0.5em;
+  width: 1px;
+  transform: translateY(calc(-50% + 0.5px));
+}
+
+accordion-content > button::after {
+  width: 0.5em;
+  height: 1px;
+  transform: translateX(calc(-50% + 0.5px));
+}
+
+accordion-content.open > button::before {
+  transform: translateY(calc(-50% + 0.5px)) rotate(90deg);
+}
+
+accordion-content > div {
+  height: var(--closed-height);
+  overflow: hidden;
+  transition: height var(--transition-duration) var(--transition-ease);
+}
+
+accordion-content > div > * {
+  visibility: hidden;
+}
+
+accordion-content.visible > div > *  {
+  visibility: visible;
+}

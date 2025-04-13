@@ -1,0 +1,34 @@
+custom-select {
+  display: block;
+  height: var(--closed-height);
+  overflow: hidden;
+  transition: height var(--transition-duration) var(--transition-ease);
+}
+
+custom-select.open {
+  height: var(--open-height);
+}
+
+custom-select popup-modal {
+  display: block;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: fit-content;
+}
+
+custom-select.loaded popup-modal {
+  opacity: 100;
+  position: unset;
+}
+
+.custom-select--toggle,
+.custom-select--option label {
+  cursor: pointer;
+}
+
+.custom-select--options {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,30 @@
+{
+  "type": "color_scheme_group",
+  "id": "color_schemes",
+  "definition": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_picker",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "color_picker",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "color_picker",
+      "id": "border",
+      "label": "Border"
+    },
+    {
+      "type": "color",
+      "id": "shadows",
+      "label": "Shadows"
+    }
+  ]
+}
