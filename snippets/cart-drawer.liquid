@@ -1,0 +1,48 @@
+<cart-drawer open="false" aria-hidden="true" tabindex="-1">
+  <div class="cart-drawer">
+    <div class="cart-drawer__header">
+      <h2 class="h3">{{ 'cart.title' | t }}</h2>
+      <button type="button" class="cart-drawer__close" aria-label="{{ 'cart.close' | t }}">
+        {% render 'icon-close' %}
+      </button>
+    </div>
+    
+    <div class="cart-drawer__body">
+      {%- if cart.item_count > 0 -%}
+        <form action="{{ routes.cart_url }}" method="post" id="CartDrawerForm" class="cart-form">
+          <div class="cart-items" id="CartDrawerItems">
+            {%- for item in cart.items -%}
+              {% render 'cart-item', item: item, section_id: section.id %}
+            {%- endfor -%}
+          </div>
+          
+          <div class="cart-footer">
+            <div class="cart-subtotal">
+              <span>{{ 'cart.subtotal' | t }}</span>
+              <span id="CartDrawerSubtotal">{{ cart.total_price | money }}</span>
+            </div>
+            
+            <p class="cart-disclaimer">{{ 'cart.taxes_and_shipping_at_checkout' | t }}</p>
+            
+            <button type="submit" name="checkout" class="btn btn--primary cart-checkout">
+              {{ 'cart.checkout' | t }}
+            </button>
+            
+            <a href="{{ routes.cart_url }}" class="btn btn--secondary">
+              {{ 'cart.view_cart' | t }}
+            </a>
+          </div>
+        </form>
+      {%- else -%}
+        <div class="cart-empty">
+          <p>{{ 'cart.empty' | t }}</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">
+            {{ 'cart.continue_shopping' | t }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  
+  <div class="cart-drawer-overlay"></div>
+</cart-drawer>

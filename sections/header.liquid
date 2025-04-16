@@ -1,8 +1,217 @@
 {{ 'hamburger.css' | asset_url | stylesheet_tag }}
+{{ 'navigation.css' | asset_url | stylesheet_tag }}
 
-{%- schema -%}
-  {
-    "name": "Header",
-    "tag": "header"
-  }
-{%- endschema -%}
+<header class="header" data-section-id="{{ section.id }}">
+  <div class="container header__container">
+    <div class="header__left">
+      <button type="button" class="hamburger" aria-label="{{ 'general.navigation.menu' | t }}" aria-expanded="false" data-menu-toggle>
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
+      </button>
+      
+      <a href="/" class="header__logo">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 200 | image_tag: 
+            class: 'header__logo-image',
+            widths: '100, 150, 200, 250, 300',
+            alt: section.settings.logo.alt | default: shop.name
+          }}
+        {%- else -%}
+          <span class="h2">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <div class="header__center">
+      <nav class="nav-desktop" aria-label="{{ 'general.navigation.main_menu' | t }}">
+        {%- if section.settings.menu != blank -%}
+          <ul class="nav-desktop__menu">
+            {%- for link in section.settings.menu.links -%}
+              {%- assign has_dropdown = false -%}
+              {%- if link.links.size > 0 -%}
+                {%- assign has_dropdown = true -%}
+              {%- endif -%}
+              
+              <li class="nav-desktop__item{% if has_dropdown %} has-dropdown{% endif %}">
+                <a href="{{ link.url }}" class="nav-desktop__link{% if link.active %} active{% endif %}">
+                  {{ link.title }}
+                  {%- if has_dropdown -%}
+                    {% render 'icon-chevron-down' %}
+                  {%- endif -%}
+                </a>
+                
+                {%- if has_dropdown -%}
+                  <div class="nav-dropdown">
+                    <ul class="nav-dropdown__menu">
+                      {%- for childlink in link.links -%}
+                        <li class="nav-dropdown__item">
+                          <a href="{{ childlink.url }}" class="nav-dropdown__link{% if childlink.active %} active{% endif %}">
+                            {{ childlink.title }}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </nav>
+    </div>
+
+    <div class="header__right">
+      <a href="{{ routes.account_url }}" class="header__account">
+        {% render 'icon-account' %}
+        <span>{{ 'action.account' | t }}</span>
+      </a>
+      
+      <cart-toggle count="{{ cart.item_count }}" class="header__cart">
+        <button type="button" aria-label="{{ 'action.cart' | t }}" aria-expanded="false">
+          {% render 'icon-cart' %}
+          <span data-cart-count>({{ cart.item_count }})</span>
+        </button>
+      </cart-toggle>
+    </div>
+  </div>
+
+  <div class="nav-mobile" aria-hidden="true">
+    <div class="nav-mobile__container">
+      {%- if section.settings.menu != blank -%}
+        <nav class="nav-mobile__menu" aria-label="{{ 'general.navigation.mobile_menu' | t }}">
+          <ul>
+            {%- for link in section.settings.menu.links -%}
+              {%- assign has_dropdown = false -%}
+              {%- if link.links.size > 0 -%}
+                {%- assign has_dropdown = true -%}
+              {%- endif -%}
+              
+              <li class="nav-mobile__item{% if has_dropdown %} has-dropdown{% endif %}">
+                {%- if has_dropdown -%}
+                  {% capture accordion_id %}mobile-menu-{{ link.handle }}{% endcapture %}
+                  {% capture accordion_heading %}
+                    <span>{{ link.title }}</span>
+                  {% endcapture %}
+                  {% capture accordion_content %}
+                    <ul class="nav-mobile__submenu">
+                      <li class="nav-mobile__item">
+                        <a href="{{ link.url }}" class="nav-mobile__link{% if link.active %} active{% endif %}">
+                          {{ 'general.navigation.view_all' | t: title: link.title }}
+                        </a>
+                      </li>
+                      {%- for childlink in link.links -%}
+                        <li class="nav-mobile__item">
+                          <a href="{{ childlink.url }}" class="nav-mobile__link{% if childlink.active %} active{% endif %}">
+                            {{ childlink.title }}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {% endcapture %}
+                  
+                  {% render 'component_accordion',
+                    id: accordion_id,
+                    heading: accordion_heading,
+                    heading_class: 'nav-mobile__link accordion-trigger',
+                    content: accordion_content,
+                    open: link.active
+                  %}
+                {%- else -%}
+                  <a href="{{ link.url }}" class="nav-mobile__link{% if link.active %} active{% endif %}">
+                    {{ link.title }}
+                  </a>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+      
+      <div class="nav-mobile__footer">
+        <a href="{{ routes.account_url }}" class="nav-mobile__account">
+          {% render 'icon-account' %}
+          <span>{{ 'action.account' | t }}</span>
+        </a>
+        
+        {%- if section.settings.show_language_selector and shop.published_locales.size > 1 -%}
+          <div class="nav-mobile__localization">
+            {%- form 'localization', id: 'MobileLocalizationForm', class: 'localization-form' -%}
+              <div class="no-js-hidden">
+                <div class="localization-form__select">
+                  <h2 class="h3 visually-hidden" id="MobileLanguageLabel">
+                    {{ 'general.language.label' | t }}
+                  </h2>
+                  <select class="localization-selector" name="locale_code" aria-labelledby="MobileLanguageLabel">
+                    {%- for locale in shop.published_locales -%}
+                      <option 
+                        value="{{ locale.iso_code }}"
+                        {% if locale.iso_code == request.locale.iso_code %} selected{% endif %}
+                      >
+                        {{ locale.endonym_name | capitalize }}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+                <button class="button button--tertiary">{{ 'general.language.update' | t }}</button>
+              </div>
+            {%- endform -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</header>
+
+<cart-drawer open="false" aria-hidden="true" tabindex="-1">
+  <div class="cart-drawer">
+    <div class="cart-drawer__header">
+      <h2 class="h3">{{ 'cart.title' | t }}</h2>
+      <button type="button" class="cart-drawer__close" aria-label="{{ 'cart.close' | t }}">
+        {% render 'icon-close' %}
+      </button>
+    </div>
+    <div class="cart-drawer__body"></div>
+  </div>
+</cart-drawer>
+
+<div class="mobile-menu-overlay" aria-hidden="true"></div>
+
+<script src="{{ 'navigation.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "default": 100,
+      "unit": "px",
+      "label": "Logo width"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_language_selector",
+      "default": true,
+      "label": "Show language selector",
+      "info": "To add languages, go to your store settings."
+    }
+  ]
+}
+{% endschema %}

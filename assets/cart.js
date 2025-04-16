@@ -57,3 +57,15 @@ const formatMoney = (number, precision = 2, thousands = ',', decimal = '.') => {
 
   return `${currencySymbol}${dollars + cents}`;
 }
+
+// Add to cart.js to enable cart drawer auto-updates
+window.addEventListener('DOMContentLoaded', () => {
+  const originalFetchCart = window.fetchCart;
+  
+  if (originalFetchCart) {
+    // Override fetchCart to always run renderCart when called
+    window.fetchCart = (shouldOpen = true) => {
+      return originalFetchCart(shouldOpen);
+    };
+  }
+});

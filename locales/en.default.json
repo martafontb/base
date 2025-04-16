@@ -6,6 +6,70 @@
     "account": "Account",
     "cart": "Cart"
   },
+  "cart": {
+    "title": "Shopping Cart",
+    "close": "Close cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout",
+    "checkout": "Checkout",
+    "view_cart": "View cart",
+    "continue_shopping": "Continue shopping",
+    "quantity": "Quantity",
+    "remove_item": "Remove {{ title }} from cart"
+  },
+  "collections": {
+    "general": {
+      "title": "Collections",
+      "description": "Description",
+      "item_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      },
+      "no_products": "No products found",
+      "view_all": "View all"
+    },
+    "filtering": {
+      "filter": "Filter",
+      "title": "Filters",
+      "close": "Close filters",
+      "clear": "Clear",
+      "clear_all": "Clear all filters",
+      "apply": "Apply filters",
+      "from": "From",
+      "to": "To",
+      "no_products_with_filters": "Try adjusting your filters to see more products."
+    },
+    "sorting": {
+      "title": "Sort by",
+      "title-ascending": "Alphabetically, A-Z",
+      "title-descending": "Alphabetically, Z-A",
+      "price-ascending": "Price, low to high",
+      "price-descending": "Price, high to low",
+      "created-ascending": "Date, old to new",
+      "created-descending": "Date, new to old"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "adding_to_cart": "Adding...",
+      "sold_out": "Sold out",
+      "on_sale": "Sale",
+      "unavailable": "Unavailable",
+      "reviews": "reviews",
+      "quantity": "Quantity",
+      "increase_quantity": "Increase quantity",
+      "decrease_quantity": "Decrease quantity"
+    }
+  },
+  "general": {
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "current_page": "Page {{ current }} of {{ total }}"
+    }
+  },
   "404": {
     "title": "404 Page Not Found",
     "text": "The page you requested does not exist."

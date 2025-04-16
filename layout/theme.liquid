@@ -37,6 +37,10 @@
 
     {% section 'footer' %}
 
+    {% render 'cart-drawer' %}
+
+    {{ 'cart-drawer.css' | asset_url | stylesheet_tag }}
+    {{ 'cart-drawer.js' | asset_url | script_tag }}
     {{ 'lazyload.js' | asset_url | script_tag }}
     {{ 'popup-modal.js' | asset_url | script_tag }}
     {{ 'cookies.js' | asset_url | script_tag }}

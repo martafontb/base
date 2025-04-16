@@ -1,0 +1,60 @@
+<!-- snippets/add-to-cart-button.liquid -->
+{{ 'add-to-cart.css' | asset_url | stylesheet_tag }}
+<add-to-cart-form>
+  <form 
+    method="post" 
+    action="/cart/add" 
+    class="add-to-cart-form" 
+    data-product-form
+    {% if product.variants.size > 1 %}data-has-variants="true"{% endif %}
+  >
+    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+    
+    <div class="form-fields">
+      {% if show_quantity %}
+        <div class="quantity-selector">
+          <label for="Quantity-{{ section.id }}" class="quantity-label">{{ 'products.product.quantity' | t }}</label>
+          <div class="quantity-input-wrapper">
+            <button type="button" class="quantity-button minus" name="minus" aria-label="{{ 'products.product.decrease_quantity' | t }}">-</button>
+            <input
+              type="number"
+              id="Quantity-{{ section.id }}"
+              name="quantity"
+              value="1"
+              min="1"
+              aria-label="{{ 'products.product.quantity' | t }}"
+              class="quantity-input"
+            >
+            <button type="button" class="quantity-button plus" name="plus" aria-label="{{ 'products.product.increase_quantity' | t }}">+</button>
+          </div>
+        </div>
+      {% else %}
+        <input type="hidden" name="quantity" value="1">
+      {% endif %}
+      
+      <button 
+        type="submit" 
+        name="add" 
+        class="btn btn--primary add-to-cart-button"
+        {% unless product.available %} disabled{% endunless %}
+      >
+        <span class="add-to-cart-button__text">
+          {%- if product.available -%}
+            {{ 'products.product.add_to_cart' | t }}
+          {%- else -%}
+            {{ 'products.product.sold_out' | t }}
+          {%- endif -%}
+        </span>
+        <span class="add-to-cart-button__loading">
+          {{ 'products.product.adding_to_cart' | t }}
+          <span class="loading-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </span>
+        </span>
+      </button>
+    </div>
+  </form>
+</add-to-cart-form>
+{{ 'add-to-cart.js' | asset_url | script_tag }}

@@ -1,0 +1,99 @@
+{% comment %}
+  Renders a product card.
+
+  Accepts:
+  - product: {Object} Product Liquid object
+  - show_vendor: {Boolean} Show the product's vendor if available
+  - show_price: {Boolean} Show the product's price
+  - show_rating: {Boolean} Show the product's rating
+  - lazy_load: {Boolean} Only lazy load this card when scrolled into view
+{% endcomment %}
+
+<div class="product-card {% if product.available == false %}sold-out{% endif %} {% if product.compare_at_price > product.price %}on-sale{% endif %}">
+    <div class="product-card__media">
+      <a href="{{ product.url }}" class="product-card__link">
+        {%- if product.featured_media -%}
+          <div class="product-card__image">
+            {% render 'component_image',
+              image: product.featured_media,
+              width: 500,
+              widths: '375, 500, 750',
+              sizes: '(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw',
+              is_eager: lazy_load != true,
+              class: 'product-card__img'
+            %}
+          </div>
+          
+          {%- if product.media.size > 1 -%}
+            <div class="product-card__image product-card__image--hover">
+              {%- assign hover_image = product.media[1] -%}
+              {% render 'component_image',
+                image: hover_image,
+                width: 500,
+                widths: '375, 500, 750',
+                sizes: '(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw',
+                is_eager: false,
+                class: 'product-card__img'
+              %}
+            </div>
+          {%- endif -%}
+        {%- else -%}
+          <div class="product-card__image product-card__image--placeholder">
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </a>
+      
+      {%- if product.available == false -%}
+        <span class="product-badge product-badge--sold-out">
+          {{ 'products.product.sold_out' | t }}
+        </span>
+      {%- elsif product.compare_at_price > product.price -%}
+        <span class="product-badge product-badge--sale">
+          {{ 'products.product.on_sale' | t }}
+        </span>
+      {%- endif -%}
+      
+      {%- if product.available -%}
+        {% render 'add-to-cart-button',
+          product: product,
+          show_quantity: false
+        %}
+      {%- endif -%}
+    </div>
+    
+    <div class="product-card__content">
+      {%- if show_vendor and product.vendor -%}
+        <div class="product-card__vendor">
+          {{ product.vendor }}
+        </div>
+      {%- endif -%}
+      
+      <h3 class="product-card__title">
+        <a href="{{ product.url }}" class="product-card__title-link">
+          {{ product.title }}
+        </a>
+      </h3>
+      
+      {%- if show_price -%}
+        <div class="product-card__price">
+          {%- if product.compare_at_price > product.price -%}
+            <span class="product-card__price-regular">{{ product.compare_at_price | money }}</span>
+            <span class="product-card__price-sale">{{ product.price | money }}</span>
+          {%- else -%}
+            <span class="product-card__price-regular">{{ product.price | money }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      
+      {%- if show_rating and product.metafields.reviews.rating -%}
+        <div class="product-card__rating">
+          {%- assign rating_decimal = product.metafields.reviews.rating.value | round: 1 -%}
+          <span class="rating-stars" aria-hidden="true" data-rating="{{ rating_decimal }}">★★★★★</span>
+          <span class="rating-text">
+            {{ rating_decimal }} / 5.0 ({{ product.metafields.reviews.rating_count.value }} {{ 'products.product.reviews' | t }})
+          </span>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>

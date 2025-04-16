@@ -36,3 +36,22 @@ video.in-view {
     transform: scale(var(--scale, 1.05));
   }
 }
+
+/* Fix for lazy loaded images in product cards */
+.product-card__image img[loading="lazy"] {
+  opacity: 1; /* Override the opacity: 0 from animate.css */
+}
+
+.product-card__image img.lazy {
+  opacity: 0; /* Initial state for our custom lazy loading */
+}
+
+.product-card__image img.lazy.in-view {
+  opacity: 1; /* Visible state when in viewport */
+}
+
+/* Ensure hover images work correctly with lazy loading */
+.product-card:hover .product-card__image--hover img.lazy.in-view,
+.product-card:hover .product-card__image--hover img[loading="lazy"]:not(.lazy) {
+  opacity: 1;
+}
