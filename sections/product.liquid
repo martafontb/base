@@ -99,6 +99,14 @@
           <div class="product-variants">
             {% for option in product.options_with_values %}
               {% assign option_name = 'option' | append: forloop.index %}
+              {% assign selected_value = '' %}
+              
+              {% if product.selected_variant %}
+                {% assign selected_value = product.selected_variant[option_name] %}
+              {% else %}
+                {% assign selected_value = option.selected_value %}
+              {% endif %}
+              
               <div class="product-variants__option">
                 <label class="product-variants__label" for="Option-{{ section.id }}-{{ forloop.index }}">
                   {{ option.name }}
@@ -107,7 +115,13 @@
                 {% if section.settings.variant_style == 'dropdown' %}
                   <div class="product-variants__select">
                     {% assign option_values = '' %}
+                    {% assign selected_index = 0 %}
+                    
                     {% for value in option.values %}
+                      {% if value == selected_value %}
+                        {% assign selected_index = forloop.index0 %}
+                      {% endif %}
+                      
                       {% assign option_item = value | append: '|' | append: value %}
                       {% assign option_values = option_values | append: option_item %}
                       {% unless forloop.last %}
@@ -118,7 +132,8 @@
                     {% render 'component_select',
                       id: 'Option-' | append: section.id | append: '-' | append: forloop.index,
                       name: option_name,
-                      options: option_values | split: ','
+                      options: option_values | split: ',',
+                      selected_index: selected_index
                     %}
                   </div>
                 {% else %}
@@ -138,7 +153,7 @@
                       
                       <button
                         type="button"
-                        class="product-variants__button{% if option.selected_value == value %} active{% endif %}{% unless variant_available %} disabled{% endunless %}"
+                        class="product-variants__button{% if selected_value == value %} active{% endif %}{% unless variant_available %} disabled{% endunless %}"
                         data-option-value="{{ value | escape }}"
                         data-option-index="{{ forloop.parentloop.index0 }}"
                         {% unless variant_available %}disabled{% endunless %}
@@ -146,12 +161,7 @@
                         {{ value }}
                       </button>
                     {% endfor %}
-                  </div>
-                {% endif %}
-              </div>
-            {% endfor %}
-          </div>
-        {% endif %}
+                
 
         <div class="product-form__footer">
           <div class="product-form__quantity">
@@ -322,6 +332,9 @@
   </div>
 {% endif %}
 
+<script id="ProductJson-{{ product.id }}" type="application/json">
+  {{ product | json }}
+</script>
 <script src="{{ 'product.js' | asset_url }}" defer></script>
 {{ 'product.css' | asset_url | stylesheet_tag }}
 

@@ -27,12 +27,24 @@
     margin-bottom: 1rem;
     border-radius: var(--radius-md);
     background-color: var(--color-shadow);
+    cursor: pointer;
+    outline: none;
+    /* Prepare for navigation arrows */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .product-gallery__item {
     display: none;
     position: relative;
     width: 100%;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0.8; }
+    to { opacity: 1; }
   }
   
   .product-gallery__item.active {
@@ -64,6 +76,73 @@
     opacity: 0.5;
   }
   
+  /* Gallery Navigation Arrows */
+  .product-gallery__nav {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-gallery__nav--prev {
+    left: 16px;
+    transform: translateX(-5px);
+  }
+  
+  .product-gallery__nav--next {
+    right: 16px;
+    transform: translateX(5px);
+  }
+  
+  .product-gallery__main:hover .product-gallery__nav,
+  .product-gallery__main:focus .product-gallery__nav {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .product-gallery__nav:hover {
+    background-color: rgba(255, 255, 255, 0.95);
+  }
+  
+  /* Mobile tooltip to indicate swipe ability */
+  .product-gallery__main::after {
+    content: 'Swipe to browse images';
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 12px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    opacity: 0;
+    animation: fadeOut 3s ease-in-out forwards;
+    pointer-events: none;
+  }
+  
+  @keyframes fadeOut {
+    0%, 30% { opacity: 0.8; }
+    100% { opacity: 0; }
+  }
+  
+  @media (min-width: 768px) {
+    .product-gallery__main::after {
+      display: none;
+    }
+  }
+  
+  /* Thumbnails */
   .product-gallery__thumbnails {
     display: flex;
     flex-wrap: wrap;
@@ -80,12 +159,17 @@
     border: 2px solid transparent;
     border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: border-color var(--transition-duration) var(--transition-ease);
+    transition: border-color var(--transition-duration) var(--transition-ease), transform 0.2s ease;
     background-color: var(--color-shadow);
+  }
+  
+  .product-gallery__thumbnail:hover {
+    transform: translateY(-2px);
   }
   
   .product-gallery__thumbnail.active {
     border-color: var(--color-text);
+    transform: scale(1.05);
   }
   
   .product-gallery__thumbnail-image {
@@ -370,31 +454,4 @@
   
   .riso-info__button {
     display: inline-block;
-  }
-  
-  /* Risograph specific styles */
-  .product-gallery::after {
-    content: '';
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    width: 80px;
-    height: 80px;
-    background: #FF6AC2; /* Bright risograph pink */
-    opacity: 0.2;
-    border-radius: 50%;
-    z-index: -1;
-  }
-  
-  .related-products::before {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: -20px;
-    width: 120px;
-    height: 120px;
-    background: #0078BF; /* Risograph blue */
-    opacity: 0.15;
-    border-radius: 50%;
-    z-index: -1;
   }

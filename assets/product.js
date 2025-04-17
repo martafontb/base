@@ -5,11 +5,14 @@ class ProductGallery {
       this.thumbnails = this.container.querySelectorAll('.product-gallery__thumbnail');
       
       this.currentIndex = 0;
+      this.touchStartX = 0;
+      this.touchEndX = 0;
       
       this.init();
     }
     
     init() {
+      // Thumbnail click handling
       if (this.thumbnails.length > 0) {
         this.thumbnails.forEach((thumbnail, index) => {
           thumbnail.addEventListener('click', () => {
@@ -17,6 +20,107 @@ class ProductGallery {
           });
         });
       }
+      
+      // Gallery main area for swipe handling
+      const mainGallery = this.container.querySelector('.product-gallery__main');
+      if (mainGallery) {
+        // Desktop controls - keyboard
+        mainGallery.setAttribute('tabindex', '0');
+        mainGallery.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft') {
+            this.prevSlide();
+          } else if (e.key === 'ArrowRight') {
+            this.nextSlide();
+          }
+        });
+        
+        // Mobile swipe functionality
+        mainGallery.addEventListener('touchstart', (e) => {
+          this.touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        mainGallery.addEventListener('touchend', (e) => {
+          this.touchEndX = e.changedTouches[0].screenX;
+          this.handleSwipe();
+        }, false);
+        
+        // Click navigation for desktop
+        mainGallery.addEventListener('click', (e) => {
+          const rect = mainGallery.getBoundingClientRect();
+          const clickX = e.clientX - rect.left;
+          const isLeftSide = clickX < rect.width / 2;
+          
+          if (isLeftSide) {
+            this.prevSlide();
+          } else {
+            this.nextSlide();
+          }
+        });
+      }
+      
+      // Add arrow navigation if there are multiple slides
+      if (this.mainSlides.length > 1) {
+        this.addArrowNavigation();
+      }
+    }
+    
+    addArrowNavigation() {
+      const mainGallery = this.container.querySelector('.product-gallery__main');
+      
+      // Create navigation arrows
+      const prevButton = document.createElement('button');
+      prevButton.className = 'product-gallery__nav product-gallery__nav--prev';
+      prevButton.setAttribute('aria-label', 'Previous image');
+      prevButton.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      
+      const nextButton = document.createElement('button');
+      nextButton.className = 'product-gallery__nav product-gallery__nav--next';
+      nextButton.setAttribute('aria-label', 'Next image');
+      nextButton.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      
+      // Add event listeners
+      prevButton.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent main gallery click handler
+        this.prevSlide();
+      });
+      
+      nextButton.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent main gallery click handler
+        this.nextSlide();
+      });
+      
+      // Append to gallery
+      mainGallery.appendChild(prevButton);
+      mainGallery.appendChild(nextButton);
+    }
+    
+    handleSwipe() {
+      const swipeThreshold = 50;
+      const swipeDist = this.touchEndX - this.touchStartX;
+      
+      if (swipeDist < -swipeThreshold) {
+        // Swipe left - next slide
+        this.nextSlide();
+      } else if (swipeDist > swipeThreshold) {
+        // Swipe right - previous slide
+        this.prevSlide();
+      }
+    }
+    
+    nextSlide() {
+      let nextIndex = this.currentIndex + 1;
+      if (nextIndex >= this.mainSlides.length) {
+        nextIndex = 0; // Loop back to the first slide
+      }
+      this.setActiveSlide(nextIndex);
+    }
+    
+    prevSlide() {
+      let prevIndex = this.currentIndex - 1;
+      if (prevIndex < 0) {
+        prevIndex = this.mainSlides.length - 1; // Loop to the last slide
+      }
+      this.setActiveSlide(prevIndex);
     }
     
     setActiveSlide(index) {
@@ -94,11 +198,62 @@ class ProductGallery {
         });
       }
       
+      // Add event listeners to custom-select components for variant selection
+      const selects = this.form.querySelectorAll('custom-select');
+      if (selects.length > 0) {
+        selects.forEach(select => {
+          const options = select.querySelectorAll('[data-option]');
+          options.forEach(option => {
+            option.addEventListener('change', () => {
+              // Need small timeout to wait for custom-select to update
+              setTimeout(() => {
+                this.handleSelectChange();
+              }, 50);
+            });
+          });
+        });
+      }
+      
       // Listen for form submission to add to cart
       this.form.addEventListener('submit', this.handleSubmit.bind(this));
       
       // Initialize selected options for buttons
       this.updateOptionButtons();
+      
+      // Initialize product UI based on current variant
+      this.updateProductUI();
+    }
+    
+    handleSelectChange() {
+      // Get all selected options from selects
+      const selectedOptions = this.getSelectedOptions();
+      
+      // Find the variant with these options
+      const variant = this.getVariantFromOptions(selectedOptions);
+      if (!variant) return;
+      
+      // Update variant ID in form
+      this.form.querySelector('input[name="id"]').value = variant.id;
+      
+      // Update URL with variant ID
+      const url = new URL(window.location.href);
+      url.searchParams.set('variant', variant.id);
+      window.history.replaceState({}, '', url.toString());
+      
+      // Update current variant
+      this.currentVariant = variant;
+      
+      // Update UI
+      this.updateProductUI();
+      
+      // Dispatch custom event
+      const variantChangeEvent = new CustomEvent('variant:changed', {
+        detail: {
+          variant: this.currentVariant
+        },
+        bubbles: true
+      });
+      this.form.dispatchEvent(variantChangeEvent);
     }
     
     getProductJson() {
@@ -146,7 +301,17 @@ class ProductGallery {
           return;
         }
         
-        // Check for dropdown style variants
+        // Check for custom-select components
+        const customSelect = container.querySelector('custom-select');
+        if (customSelect) {
+          const selectedInput = customSelect.querySelector('input[type="radio"]:checked');
+          if (selectedInput) {
+            selectedOptions.push(selectedInput.value);
+            return;
+          }
+        }
+        
+        // Check for standard select elements
         const selectElement = container.querySelector('select');
         if (selectElement) {
           selectedOptions.push(selectElement.value);
@@ -161,6 +326,11 @@ class ProductGallery {
       const button = event.currentTarget;
       const optionIndex = parseInt(button.dataset.optionIndex);
       const optionValue = button.dataset.optionValue;
+      
+      // Early return if the button is disabled
+      if (button.disabled || button.classList.contains('disabled')) {
+        return;
+      }
       
       // Update active state on buttons for this option
       const optionButtons = this.form.querySelectorAll(`[data-option-buttons] [data-option-index="${optionIndex}"]`);
@@ -192,6 +362,15 @@ class ProductGallery {
       
       // Update UI
       this.updateProductUI();
+      
+      // Dispatch custom event
+      const variantChangeEvent = new CustomEvent('variant:changed', {
+        detail: {
+          variant: this.currentVariant
+        },
+        bubbles: true
+      });
+      this.form.dispatchEvent(variantChangeEvent);
     }
     
     updateProductUI() {
@@ -199,7 +378,7 @@ class ProductGallery {
       
       // Update price
       if (this.priceElement) {
-        this.priceElement.textContent = formatMoney(this.currentVariant.price);
+        this.priceElement.textContent = getFormattedMoney(this.currentVariant.price);
       }
       
       // Update add to cart button state
@@ -337,12 +516,13 @@ class ProductGallery {
     }
   }
   
-  // Helper for formatting money if window.formatMoney isn't available
-  function formatMoney(cents) {
-    if (window.formatMoney) {
+  // Use the existing formatMoney function from cart.js
+  const getFormattedMoney = (cents) => {
+    if (typeof window.formatMoney === 'function') {
       return window.formatMoney(cents);
     }
     
+    // Fallback if formatMoney is not available
     const formatString = window.theme?.moneyFormat || '${{amount}}';
     const value = (cents / 100).toFixed(2);
     return formatString.replace('{{amount}}', value);
@@ -350,10 +530,27 @@ class ProductGallery {
   
   // Initialize product forms on page load
   document.addEventListener('DOMContentLoaded', () => {
-    const productForm = document.querySelector('.product-form');
-    if (productForm) {
-      new ProductForm(productForm);
+    const productForms = document.querySelectorAll('.product-form');
+    if (productForms.length > 0) {
+      productForms.forEach(form => {
+        new ProductForm(form);
+      });
     }
   });
   
   // Support for section rendering in the theme editor
+  if (typeof Shopify !== 'undefined' && Shopify.designMode) {
+    document.addEventListener('shopify:section:load', (event) => {
+      // Check if the section contains a product form
+      const productForm = event.target.querySelector('.product-form');
+      if (productForm) {
+        new ProductForm(productForm);
+      }
+      
+      // Check if the section contains a product gallery
+      const galleryContainer = event.target.querySelector('.product-gallery');
+      if (galleryContainer) {
+        new ProductGallery(galleryContainer);
+      }
+    });
+  }
