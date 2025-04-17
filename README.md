@@ -162,8 +162,5 @@ Service inquiry forms use the custom form handling in the services page section.
 
 ## Credits
 
-Theme developed by Marta for Jumbo Press.
+Theme developed by Marta Font for Jumbo Press.
 
-## License
-
-[License information]
