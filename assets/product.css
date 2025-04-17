@@ -1,0 +1,400 @@
+/* Product Section Layout */
+.product-section {
+    padding: 2rem 0 4rem;
+  }
+  
+  .product-section__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  @media (min-width: 1024px) {
+    .product-section__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+  }
+  
+  /* Product Gallery */
+  .product-gallery {
+    position: relative;
+  }
+  
+  .product-gallery__main {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border-radius: var(--radius-md);
+    background-color: var(--color-shadow);
+  }
+  
+  .product-gallery__item {
+    display: none;
+    position: relative;
+    width: 100%;
+  }
+  
+  .product-gallery__item.active {
+    display: block;
+  }
+  
+  .product-gallery__image,
+  .product-gallery__video,
+  .product-gallery__external-video,
+  .product-gallery__model {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-md);
+  }
+  
+  .product-gallery__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 300px;
+    background-color: var(--color-shadow);
+    border-radius: var(--radius-md);
+  }
+  
+  .product-gallery__placeholder-image {
+    width: 100%;
+    max-width: 400px;
+    opacity: 0.5;
+  }
+  
+  .product-gallery__thumbnails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .product-gallery__thumbnail {
+    position: relative;
+    width: calc(25% - 0.5rem * 3 / 4);
+    height: 0;
+    padding-bottom: calc(25% - 0.5rem * 3 / 4);
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color var(--transition-duration) var(--transition-ease);
+    background-color: var(--color-shadow);
+  }
+  
+  .product-gallery__thumbnail.active {
+    border-color: var(--color-text);
+  }
+  
+  .product-gallery__thumbnail-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Product Details */
+  .product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .product-details__header {
+    margin-bottom: 1rem;
+  }
+  
+  .product-details__title {
+    margin-bottom: 1rem;
+  }
+  
+  .product-details__price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.25rem;
+  }
+  
+  .product-details__price.on-sale {
+    color: #EA4D45; /* Risograph red */
+  }
+  
+  .product-details__compare-price {
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+  
+  .product-details__description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  /* Product Form */
+  .product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .product-variants {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .product-variants__option {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .product-variants__label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-variants__select {
+    width: 100%;
+  }
+  
+  .product-variants__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .product-variants__button {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: transparent;
+    color: var(--color-text);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all var(--transition-duration) var(--transition-ease);
+  }
+  
+  .product-variants__button:hover {
+    border-color: var(--color-text);
+  }
+  
+  .product-variants__button.active {
+    border-color: var(--color-text);
+    background-color: var(--color-text);
+    color: var(--color-background);
+  }
+  
+  .product-variants__button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    text-decoration: line-through;
+  }
+  
+  .product-form__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .product-form__footer {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+  
+  .product-form__quantity {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 120px;
+  }
+  
+  .product-form__quantity input {
+    width: 100%;
+    height: 48px;
+    padding: 0 0.5rem;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .product-form__buttons {
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .product-form__add-button {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    height: 48px;
+  }
+  
+  /* Product Meta */
+  .product-details__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  
+  .product-details__vendor,
+  .product-details__shipping {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* Product Specifications */
+  .product-details__specifications {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  
+  .product-details__specifications-title {
+    margin-bottom: 1rem;
+  }
+  
+  .product-details__specifications-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .product-details__specifications-content {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .product-details__specification-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  /* Related Products */
+  .related-products {
+    padding: 4rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+  
+  .related-products__title {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .related-products__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .related-products__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .related-products__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  .related-products__item {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .related-products__link {
+    display: block;
+    text-decoration: none;
+  }
+  
+  .related-products__image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+    background-color: var(--color-shadow);
+  }
+  
+  .related-products__image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    transition: transform var(--transition-duration) var(--transition-ease);
+  }
+  
+  .related-products__link:hover .related-products__image {
+    transform: scale(1.05);
+  }
+  
+  .related-products__item-title {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: normal;
+  }
+  
+  .related-products__item-price {
+    display: block;
+    font-size: 0.875rem;
+  }
+  
+  /* Risograph Information */
+  .riso-info {
+    padding: 4rem 0;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+  }
+  
+  .riso-info__title {
+    margin-bottom: 1.5rem;
+  }
+  
+  .riso-info__content {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+  }
+  
+  .riso-info__button {
+    display: inline-block;
+  }
+  
+  /* Risograph specific styles */
+  .product-gallery::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 80px;
+    height: 80px;
+    background: #FF6AC2; /* Bright risograph pink */
+    opacity: 0.2;
+    border-radius: 50%;
+    z-index: -1;
+  }
+  
+  .related-products::before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    width: 120px;
+    height: 120px;
+    background: #0078BF; /* Risograph blue */
+    opacity: 0.15;
+    border-radius: 50%;
+    z-index: -1;
+  }

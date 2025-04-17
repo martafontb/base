@@ -1,0 +1,509 @@
+{%- assign product_form_id = "product-form-" | append: section.id -%}
+{%- assign product_gallery_id = "product-gallery-" | append: section.id -%}
+
+<div class="product-section container">
+  <div class="product-section__inner">
+    <div class="product-gallery" id="{{ product_gallery_id }}">
+      {% if product.media.size > 0 %}
+        <div class="product-gallery__main">
+          {% for media in product.media %}
+            <div class="product-gallery__item{% if forloop.first %} active{% endif %}" data-media-id="{{ media.id }}" data-media-type="{{ media.media_type }}">
+              {% case media.media_type %}
+                {% when 'image' %}
+                  {% render 'component_image',
+                    image: media,
+                    width: 1500,
+                    widths: '375, 550, 750, 1100, 1500',
+                    sizes: '(min-width: 1024px) 50vw, 100vw',
+                    class: 'product-gallery__image',
+                    is_eager: forloop.first
+                  %}
+                {% when 'video' %}
+                  {% render 'component_video',
+                    video: media,
+                    size: '1500x',
+                    autoplay: false,
+                    controls: true,
+                    class: 'product-gallery__video'
+                  %}
+                {% when 'external_video' %}
+                  <div class="product-gallery__external-video">
+                    {{ media | external_video_tag }}
+                  </div>
+                {% when 'model' %}
+                  <div class="product-gallery__model">
+                    {{ media | model_viewer_tag }}
+                  </div>
+              {% endcase %}
+            </div>
+          {% endfor %}
+        </div>
+        
+        {% if product.media.size > 1 %}
+          <div class="product-gallery__thumbnails">
+            {% for media in product.media %}
+              <button 
+                type="button"
+                class="product-gallery__thumbnail{% if forloop.first %} active{% endif %}"
+                data-media-id="{{ media.id }}"
+                data-thumbnail-index="{{ forloop.index0 }}"
+                aria-label="{{ 'products.product.gallery_thumbnail_alt' | t: index: forloop.index }}"
+              >
+                {% render 'component_image',
+                  image: media.preview_image,
+                  width: 200,
+                  widths: '100, 200',
+                  sizes: '100px',
+                  class: 'product-gallery__thumbnail-image'
+                %}
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="product-gallery__placeholder">
+          {{ 'product-1' | placeholder_svg_tag: 'product-gallery__placeholder-image' }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="product-details">
+      <div class="product-details__header">
+        <h1 class="product-details__title h1">
+          {{ product.title }}
+        </h1>
+        
+        <div class="product-details__price-wrapper">
+          <span class="product-details__price{% if product.compare_at_price > product.price %} on-sale{% endif %}" data-product-price>
+            {{ product.price | money }}
+          </span>
+          
+          {% if product.compare_at_price > product.price %}
+            <span class="product-details__compare-price">
+              {{ product.compare_at_price | money }}
+            </span>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if product.description != blank %}
+        <div class="product-details__description rte">
+          {{ product.description }}
+        </div>
+      {% endif %}
+
+      {% form 'product', product, id: product_form_id, class: 'product-form' %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        
+        {% if product.has_only_default_variant == false %}
+          <div class="product-variants">
+            {% for option in product.options_with_values %}
+              {% assign option_name = 'option' | append: forloop.index %}
+              <div class="product-variants__option">
+                <label class="product-variants__label" for="Option-{{ section.id }}-{{ forloop.index }}">
+                  {{ option.name }}
+                </label>
+
+                {% if section.settings.variant_style == 'dropdown' %}
+                  <div class="product-variants__select">
+                    {% assign option_values = '' %}
+                    {% for value in option.values %}
+                      {% assign option_item = value | append: '|' | append: value %}
+                      {% assign option_values = option_values | append: option_item %}
+                      {% unless forloop.last %}
+                        {% assign option_values = option_values | append: ',' %}
+                      {% endunless %}
+                    {% endfor %}
+
+                    {% render 'component_select',
+                      id: 'Option-' | append: section.id | append: '-' | append: forloop.index,
+                      name: option_name,
+                      options: option_values | split: ','
+                    %}
+                  </div>
+                {% else %}
+                  <div class="product-variants__buttons" data-option-buttons>
+                    {% for value in option.values %}
+                      {% liquid
+                        assign variant_available = true
+                        for variant in product.variants
+                          assign variant_option = 'option' | append: forloop.parentloop.index
+                          assign variant_value = variant[variant_option]
+                          if variant_value == value and variant.available == false
+                            assign variant_available = false
+                            break
+                          endif
+                        endfor
+                      %}
+                      
+                      <button
+                        type="button"
+                        class="product-variants__button{% if option.selected_value == value %} active{% endif %}{% unless variant_available %} disabled{% endunless %}"
+                        data-option-value="{{ value | escape }}"
+                        data-option-index="{{ forloop.parentloop.index0 }}"
+                        {% unless variant_available %}disabled{% endunless %}
+                      >
+                        {{ value }}
+                      </button>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="product-form__footer">
+          <div class="product-form__quantity">
+            <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+            <input 
+              type="number" 
+              name="quantity"
+              id="Quantity-{{ section.id }}"
+              value="1"
+              min="1"
+              aria-label="{{ 'products.product.quantity' | t }}"
+            >
+          </div>
+
+          <div class="product-form__buttons">
+            <button
+              type="submit"
+              name="add"
+              class="btn btn--primary product-form__add-button"
+              {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+              data-add-to-cart
+            >
+              <span data-add-to-cart-text>
+                {% if product.selected_or_first_available_variant.available %}
+                  {{ 'products.product.add_to_cart' | t }}
+                {% else %}
+                  {{ 'products.product.sold_out' | t }}
+                {% endif %}
+              </span>
+            </button>
+          </div>
+        </div>
+      {% endform %}
+
+      {% if section.settings.show_shipping_info or section.settings.show_vendor %}
+        <div class="product-details__meta">
+          {% if section.settings.show_vendor and product.vendor %}
+            <div class="product-details__vendor">
+              <span class="tag">{{ 'products.product.vendor' | t }}</span>
+              <span>{{ product.vendor }}</span>
+            </div>
+          {% endif %}
+          
+          {% if section.settings.show_shipping_info %}
+            <div class="product-details__shipping">
+              <span class="tag">{{ 'products.product.shipping' | t }}</span>
+              <span>{{ section.settings.shipping_text }}</span>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      
+      {% if section.settings.show_specifications %}
+        <div class="product-details__specifications">
+          <h2 class="product-details__specifications-title h3">
+            {{ 'products.product.specifications' | t }}
+          </h2>
+          
+          <div class="product-details__specifications-content">
+            {% for block in section.blocks %}
+              {% if block.type == 'specification' %}
+                <div class="product-details__specification-item">
+                  <span class="tag">{{ block.settings.title }}</span>
+                  <span>{{ block.settings.content }}</span>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if section.settings.show_related_products %}
+  <div class="related-products container">
+    <h2 class="related-products__title h2">
+      {{ section.settings.related_products_title | default: 'Related Products' }}
+    </h2>
+    
+    <div class="related-products__grid">
+      {% assign current_product = product %}
+      {% assign related_limit = section.settings.related_products_limit | default: 4 %}
+      
+      {% if section.settings.related_products_source == 'collection' and product.collections.first != blank %}
+        {% assign related_collection = product.collections.first %}
+        {% for related_product in related_collection.products limit: related_limit %}
+          {% if related_product.handle != current_product.handle %}
+            <div class="related-products__item">
+              <a href="{{ related_product.url }}" class="related-products__link">
+                <div class="related-products__image-wrapper">
+                  {% render 'component_image',
+                    image: related_product.featured_image,
+                    width: 600,
+                    widths: '300, 400, 500, 600',
+                    sizes: '(min-width: 1024px) 25vw, 50vw',
+                    class: 'related-products__image'
+                  %}
+                </div>
+                <h3 class="related-products__item-title">
+                  {{ related_product.title }}
+                </h3>
+                <span class="related-products__item-price">
+                  {{ related_product.price | money }}
+                </span>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% assign related_tags = '' %}
+        {% for tag in product.tags %}
+          {% assign related_tags = related_tags | append: tag | append: ' ' %}
+        {% endfor %}
+        
+        {% assign related_count = 0 %}
+        {% for product_item in collections.all.products %}
+          {% if product_item.handle != current_product.handle and related_count < related_limit %}
+            {% assign has_related_tag = false %}
+            {% for tag in product_item.tags %}
+              {% if related_tags contains tag %}
+                {% assign has_related_tag = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            
+            {% if has_related_tag %}
+              {% assign related_count = related_count | plus: 1 %}
+              <div class="related-products__item">
+                <a href="{{ product_item.url }}" class="related-products__link">
+                  <div class="related-products__image-wrapper">
+                    {% render 'component_image',
+                      image: product_item.featured_image,
+                      width: 600,
+                      widths: '300, 400, 500, 600',
+                      sizes: '(min-width: 1024px) 25vw, 50vw',
+                      class: 'related-products__image'
+                    %}
+                  </div>
+                  <h3 class="related-products__item-title">
+                    {{ product_item.title }}
+                  </h3>
+                  <span class="related-products__item-price">
+                    {{ product_item.price | money }}
+                  </span>
+                </a>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+{% if section.settings.show_riso_info %}
+  <div class="riso-info container">
+    <h2 class="riso-info__title h2">{{ section.settings.riso_info_title }}</h2>
+    <div class="riso-info__content">
+      {{ section.settings.riso_info_content }}
+    </div>
+    
+    {% if section.settings.riso_info_button_text != blank and section.settings.riso_info_button_url != blank %}
+      <a href="{{ section.settings.riso_info_button_url }}" class="btn btn--secondary riso-info__button">
+        {{ section.settings.riso_info_button_text }}
+      </a>
+    {% endif %}
+  </div>
+{% endif %}
+
+<script src="{{ 'product.js' | asset_url }}" defer></script>
+{{ 'product.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "section",
+  "class": "section section-product",
+  "settings": [
+    {
+      "type": "select",
+      "id": "variant_style",
+      "label": "Variant selection style",
+      "options": [
+        {
+          "value": "dropdown",
+          "label": "Dropdown"
+        },
+        {
+          "value": "buttons",
+          "label": "Buttons"
+        }
+      ],
+      "default": "buttons"
+    },
+    {
+      "type": "header",
+      "content": "Product details"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping_info",
+      "label": "Show shipping information",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Shipping text",
+      "default": "Free shipping on orders over $100"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_specifications",
+      "label": "Show specifications",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Related products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related_products",
+      "label": "Show related products",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_products_title",
+      "label": "Related products title",
+      "default": "You may also like"
+    },
+    {
+      "type": "select",
+      "id": "related_products_source",
+      "label": "Related products source",
+      "options": [
+        {
+          "value": "collection",
+          "label": "Same collection"
+        },
+        {
+          "value": "tags",
+          "label": "Similar tags"
+        }
+      ],
+      "default": "collection"
+    },
+    {
+      "type": "range",
+      "id": "related_products_limit",
+      "label": "Number of related products",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Risograph Information"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_riso_info",
+      "label": "Show risograph information",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "riso_info_title",
+      "label": "Risograph information title",
+      "default": "About Risograph Printing"
+    },
+    {
+      "type": "richtext",
+      "id": "riso_info_content",
+      "label": "Risograph information content",
+      "default": "<p>Risograph printing creates beautiful, vibrant prints with a unique aesthetic. Each color is printed separately in layers, creating slight imperfections and misalignments that give risograph prints their distinctive character.</p>"
+    },
+    {
+      "type": "text",
+      "id": "riso_info_button_text",
+      "label": "Risograph information button text",
+      "default": "Learn more about our process"
+    },
+    {
+      "type": "url",
+      "id": "riso_info_button_url",
+      "label": "Risograph information button URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "specification",
+      "name": "Specification",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Paper Type"
+        },
+        {
+          "type": "text",
+          "id": "content",
+          "label": "Content",
+          "default": "80lb Recycled"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product",
+      "blocks": [
+        {
+          "type": "specification",
+          "settings": {
+            "title": "Paper Type",
+            "content": "80lb Recycled"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "title": "Ink Colors",
+            "content": "Fluorescent Pink, Mint Green"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "title": "Print Process",
+            "content": "Risograph"
+          }
+        },
+        {
+          "type": "specification",
+          "settings": {
+            "title": "Production Time",
+            "content": "3-5 business days"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
