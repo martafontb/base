@@ -1,0 +1,221 @@
+<div class="services-contact">
+  <div class="container">
+    <div class="services-contact__inner">
+      <div class="services-contact__content">
+        <div class="services-contact__header">
+          <h2 class="services-contact__title h2">{{ section.settings.title }}</h2>
+          {% if section.settings.description != blank %}
+            <div class="services-contact__description">{{ section.settings.description }}</div>
+          {% endif %}
+        </div>
+        
+        {% if section.settings.show_phone or section.settings.show_email %}
+          <div class="services-contact__info">
+            {% if section.settings.show_phone and section.settings.phone_number != blank %}
+              <div class="services-contact__info-item">
+                <div class="services-contact__info-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 16.9201V19.9201C22.0011 20.1986 21.9441 20.4743 21.8326 20.7294C21.7211 20.9846 21.5572 21.2137 21.3521 21.4019C21.1471 21.5901 20.9052 21.7335 20.6424 21.8227C20.3795 21.9119 20.1012 21.9451 19.824 21.9201C16.7428 21.5857 13.787 20.5342 11.19 18.8501C8.77382 17.3148 6.72533 15.2663 5.18999 12.8501C3.49997 10.2413 2.44824 7.27109 2.11999 4.1801C2.095 3.90356 2.12787 3.62579 2.21649 3.36335C2.30512 3.1009 2.44757 2.85899 2.63476 2.65359C2.82196 2.4482 3.04981 2.28359 3.30379 2.17098C3.55778 2.05837 3.83234 2.00024 4.10999 2.0001H7.10999C7.5953 1.99532 8.06579 2.16718 8.43376 2.48363C8.80173 2.80008 9.04207 3.23954 9.10999 3.7201C9.23673 4.68016 9.47141 5.62282 9.80999 6.5301C9.94454 6.88802 9.97366 7.27701 9.8939 7.65098C9.81415 8.02494 9.62886 8.36821 9.35999 8.6401L8.08999 9.9101C9.51355 12.4136 11.5864 14.4865 14.09 15.9101L15.36 14.6401C15.6319 14.3712 15.9751 14.1859 16.3491 14.1062C16.7231 14.0264 17.1121 14.0556 17.47 14.1901C18.3773 14.5286 19.3199 14.7633 20.28 14.8901C20.7658 14.9586 21.2094 15.2033 21.5265 15.5776C21.8437 15.9519 22.0122 16.4297 22 16.9201Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="services-contact__info-text">
+                  <span class="services-contact__info-label">{{ 'general.contact.phone' | t }}</span>
+                  <a href="tel:{{ section.settings.phone_number | remove: ' ' | remove: '-' | remove: '(' | remove: ')' }}" class="services-contact__info-link">
+                    {{ section.settings.phone_number }}
+                  </a>
+                </div>
+              </div>
+            {% endif %}
+            
+            {% if section.settings.show_email and section.settings.email != blank %}
+              <div class="services-contact__info-item">
+                <div class="services-contact__info-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="services-contact__info-text">
+                  <span class="services-contact__info-label">{{ 'general.contact.email' | t }}</span>
+                  <a href="mailto:{{ section.settings.email }}" class="services-contact__info-link">
+                    {{ section.settings.email }}
+                  </a>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="services-contact__form-container">
+        {% form 'contact', class: 'services-contact__form' %}
+          {% if form.posted_successfully? %}
+            <div class="services-contact__success">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <p>{{ 'general.contact.success' | t }}</p>
+            </div>
+          {% else %}
+            {% if form.errors %}
+              <div class="services-contact__error">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 8V12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="12" cy="16" r="0.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p>{{ 'general.contact.error' | t }}</p>
+              </div>
+            {% endif %}
+          
+            <div class="services-contact__form-fields">
+              <div class="services-contact__form-field">
+                <label for="ContactFormName" class="services-contact__label">{{ 'general.contact.name' | t }}</label>
+                <input 
+                  type="text" 
+                  id="ContactFormName" 
+                  name="contact[name]" 
+                  class="services-contact__input"
+                  value="{{ form.name }}"
+                  required
+                >
+              </div>
+              
+              <div class="services-contact__form-field">
+                <label for="ContactFormEmail" class="services-contact__label">{{ 'general.contact.email' | t }}</label>
+                <input 
+                  type="email" 
+                  id="ContactFormEmail" 
+                  name="contact[email]" 
+                  class="services-contact__input"
+                  value="{{ form.email }}"
+                  required
+                >
+              </div>
+              
+              {% if section.settings.show_phone_field %}
+                <div class="services-contact__form-field">
+                  <label for="ContactFormPhone" class="services-contact__label">{{ 'general.contact.phone' | t }}</label>
+                  <input 
+                    type="tel" 
+                    id="ContactFormPhone" 
+                    name="contact[phone]" 
+                    class="services-contact__input"
+                    value="{{ form.phone }}"
+                  >
+                </div>
+              {% endif %}
+              
+              <div class="services-contact__form-field services-contact__form-field--full">
+                <label for="ContactFormSubject" class="services-contact__label">{{ 'general.contact.subject' | t }}</label>
+                <select id="ContactFormSubject" name="contact[subject]" class="services-contact__select">
+                  {% for option in section.settings.subject_options %}
+                    {% assign subject_value = option | strip %}
+                    <option value="{{ subject_value }}" {% if form.subject == subject_value %}selected{% endif %}>
+                      {{ subject_value }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+              
+              <div class="services-contact__form-field services-contact__form-field--full">
+                <label for="ContactFormMessage" class="services-contact__label">{{ 'general.contact.message' | t }}</label>
+                <textarea 
+                  id="ContactFormMessage" 
+                  name="contact[body]" 
+                  class="services-contact__textarea"
+                  rows="5"
+                  required
+                >{{ form.body }}</textarea>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn--primary services-contact__submit">
+              {{ section.settings.button_text }}
+            </button>
+          {% endif %}
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ 'services-contact.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "Services Contact",
+  "tag": "section",
+  "class": "section section-services-contact",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Ready to start your risograph printing project? Fill out the form below and we'll get back to you with a quote within 24 hours.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Contact Information"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "Show phone number",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone number",
+      "default": "(123) 456-7890"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_email",
+      "label": "Show email",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email address",
+      "default": "hello@risoprintshop.com"
+    },
+    {
+      "type": "header",
+      "content": "Form Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone_field",
+      "label": "Show phone field",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "subject_options",
+      "label": "Subject options (one per line)",
+      "default": "General Inquiry\nQuote Request\nCustom Project\nBulk Order\nPaper Options\nOther"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Submit button text",
+      "default": "Submit Inquiry"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Services Contact"
+    }
+  ]
+}
+{% endschema %}

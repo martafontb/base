@@ -1,0 +1,153 @@
+.services-hero {
+    padding: 4rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .services-hero__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .services-hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 600px;
+  }
+  
+  .services-hero__title {
+    margin: 0;
+    color: var(--color-text);
+    position: relative;
+  }
+  
+  .services-hero__title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 4rem;
+    height: 0.25rem;
+    background-color: #FF6AC2; /* Risograph pink */
+    border-radius: 0.125rem;
+  }
+  
+  .services-hero__description {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  
+  .services-hero__button {
+    align-self: flex-start;
+    margin-top: 1rem;
+  }
+  
+  .services-hero__image-container {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .services-hero__image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 3/2;
+    border-radius: var(--radius-md);
+    transform: scale(1.02); /* Slight scale to avoid white edges during animation */
+    transition: transform 0.6s ease-out;
+  }
+  
+  .services-hero:hover .services-hero__image {
+    transform: scale(1.05);
+  }
+  
+  .services-hero__ink-splatters {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .services-hero__ink-splatter {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+    filter: blur(8px);
+  }
+  
+  .services-hero__ink-splatter--1 {
+    top: -5%;
+    right: -5%;
+    width: 30%;
+    height: 30%;
+    background-color: #FF6AC2; /* Risograph pink */
+    animation: float 12s ease-in-out infinite;
+  }
+  
+  .services-hero__ink-splatter--2 {
+    bottom: -10%;
+    left: 10%;
+    width: 25%;
+    height: 25%;
+    background-color: #0078BF; /* Risograph blue */
+    animation: float 14s ease-in-out 1s infinite reverse;
+  }
+  
+  .services-hero__ink-splatter--3 {
+    top: 40%;
+    left: -10%;
+    width: 20%;
+    height: 20%;
+    background-color: #FFC812; /* Risograph yellow */
+    animation: float 16s ease-in-out 2s infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(5%, 5%);
+    }
+  }
+  
+  /* Responsive styles */
+  @media (min-width: 768px) {
+    .services-hero {
+      padding: 5rem 0;
+    }
+    
+    .services-hero__description {
+      font-size: 1.25rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .services-hero {
+      padding: 6rem 0;
+    }
+    
+    .services-hero__inner {
+      flex-direction: row;
+      align-items: center;
+      gap: 4rem;
+    }
+    
+    .services-hero__content,
+    .services-hero__image-container {
+      width: 50%;
+      flex: 1;
+    }
+    
+    .services-hero__image {
+      height: 100%;
+      aspect-ratio: 4/3;
+    }
+  }

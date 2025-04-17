@@ -1,0 +1,204 @@
+<div class="services-colors">
+  <div class="container">
+    <div class="services-colors__header">
+      <h2 class="services-colors__title h2">{{ section.settings.title }}</h2>
+      {% if section.settings.description != blank %}
+        <div class="services-colors__description">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+    
+    <div class="services-colors__grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'color' %}
+          <div class="services-colors__item" {{ block.shopify_attributes }}>
+            <div class="services-colors__swatch" style="--color: {{ block.settings.color_hex }}">
+              <div class="services-colors__swatch-inner"></div>
+            </div>
+            <div class="services-colors__info">
+              <h3 class="services-colors__color-name">{{ block.settings.color_name }}</h3>
+              <div class="services-colors__color-code">{{ block.settings.color_code }}</div>
+              {% if block.settings.color_description != blank %}
+                <div class="services-colors__color-description">{{ block.settings.color_description }}</div>
+              {% endif %}
+            </div>
+            {% if block.settings.image != blank %}
+              <div class="services-colors__example">
+                {% render 'component_image', 
+                  image: block.settings.image,
+                  width: 400,
+                  widths: '200, 300, 400',
+                  sizes: '(min-width: 768px) 25vw, 50vw',
+                  class: 'services-colors__example-image'
+                %}
+                <div class="services-colors__example-overlay" style="--color: {{ block.settings.color_hex }}"></div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.note != blank %}
+      <div class="services-colors__note">
+        {{ section.settings.note }}
+      </div>
+    {% endif %}
+    
+    {% if section.settings.button_text != blank and section.settings.button_url != blank %}
+      <div class="services-colors__cta">
+        <a href="{{ section.settings.button_url }}" class="btn btn--primary services-colors__button">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{{ 'services-colors.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "Services Colors",
+  "tag": "section",
+  "class": "section section-services-colors",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Our Risograph Colors"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Our risograph printer uses soy-based inks in vibrant, unique colors. Each color has its own character and can be layered to create beautiful combinations. Here are the colors we currently offer:</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note",
+      "default": "<p>Please note that risograph colors can vary slightly between prints and may not precisely match digital previews. This is part of the unique charm of risograph printing!</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "See Color Samples"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "color",
+      "name": "Ink Color",
+      "settings": [
+        {
+          "type": "text",
+          "id": "color_name",
+          "label": "Color name",
+          "default": "Fluorescent Pink"
+        },
+        {
+          "type": "text",
+          "id": "color_code",
+          "label": "Color code",
+          "default": "Code: FP"
+        },
+        {
+          "type": "color",
+          "id": "color_hex",
+          "label": "Color (approximate)",
+          "default": "#FF6AC2"
+        },
+        {
+          "type": "richtext",
+          "id": "color_description",
+          "label": "Color description",
+          "default": "<p>A vibrant, electric pink that adds energy to any design. Great for highlights and eye-catching elements.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Example image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Services Colors",
+      "blocks": [
+        {
+          "type": "color",
+          "settings": {
+            "color_name": "Fluorescent Pink",
+            "color_code": "Code: FP",
+            "color_hex": "#FF6AC2"
+          }
+        },
+        {
+          "type": "color",
+          "settings": {
+            "color_name": "Blue",
+            "color_code": "Code: BL",
+            "color_hex": "#0078BF"
+          }
+        },
+        {
+          "type": "color",
+          "settings": {
+            "color_name": "Yellow",
+            "color_code": "Code: YE",
+            "color_hex": "#FFC812"
+          }
+        },
+        {
+          "type": "color",
+          "settings": {
+            "color_name": "Green",
+            "color_code": "Code: GR",
+            "color_hex": "#16A566"
+          }
+        },
+        {
+          "type": "color",
+          "settings": {
+            "color_name": "Red",
+            "color_code": "Code: RE",
+            "color_hex": "#FF4545"
+          }
+        },
+        {
+          "type": "color",
+          "settings": {
+            "color_name": "Purple",
+            "color_code": "Code: PU",
+            "color_hex": "#9D5DB9"
+          }
+        },
+        {
+          "type": "color",
+          "settings": {
+            "color_name": "Teal",
+            "color_code": "Code: TE",
+            "color_hex": "#00A3A6"
+          }
+        },
+        {
+          "type": "color",
+          "settings": {
+            "color_name": "Black",
+            "color_code": "Code: BK",
+            "color_hex": "#2A2A2A"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

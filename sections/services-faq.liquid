@@ -1,0 +1,148 @@
+<div class="services-faq">
+  <div class="container">
+    <div class="services-faq__header">
+      <h2 class="services-faq__title h2">{{ section.settings.title }}</h2>
+      {% if section.settings.description != blank %}
+        <div class="services-faq__description">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+    
+    <div class="services-faq__content">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' %}
+          <div class="services-faq__item" {{ block.shopify_attributes }}>
+            {% render 'component_accordion', 
+              id: 'faq-' | append: block.id,
+              heading: block.settings.question,
+              heading_class: 'services-faq__question',
+              content: block.settings.answer,
+              open: block.settings.open_by_default
+            %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.contact_text != blank %}
+      <div class="services-faq__contact">
+        <p>{{ section.settings.contact_text }}</p>
+        {% if section.settings.contact_button_text != blank and section.settings.contact_button_url != blank %}
+          <a href="{{ section.settings.contact_button_url }}" class="btn btn--secondary services-faq__contact-button">
+            {{ section.settings.contact_button_text }}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{{ 'services-faq.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "Services FAQ",
+  "tag": "section",
+  "class": "section section-services-faq",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Have questions about risograph printing? Find answers to common questions below, or contact us if you need more information.</p>"
+    },
+    {
+      "type": "text",
+      "id": "contact_text",
+      "label": "Contact text",
+      "default": "Still have questions? We're here to help."
+    },
+    {
+      "type": "text",
+      "id": "contact_button_text",
+      "label": "Contact button text",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "contact_button_url",
+      "label": "Contact button link",
+      "default": "/pages/contact"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is risograph printing?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Risograph printing is a unique printing method that uses a stencil-based process similar to screen printing, but with the efficiency of a digital photocopier. It produces vibrant, textured prints with slightly misaligned layers that give a distinctive handmade look.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Open by default",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Services FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is risograph printing?",
+            "answer": "<p>Risograph printing is a unique printing method that uses a stencil-based process similar to screen printing, but with the efficiency of a digital photocopier. It produces vibrant, textured prints with slightly misaligned layers that give a distinctive handmade look.</p>",
+            "open_by_default": true
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What materials can you print on?",
+            "answer": "<p>We primarily print on paper, with weights ranging from 80lb to 110lb. We offer both recycled and specialty papers. Due to the nature of risograph printing, we cannot print on glossy papers, plastic, or other non-absorbent materials.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How many colors can you print at once?",
+            "answer": "<p>Each color is printed separately, one at a time. We currently offer 8 colors (see our Colors section). While there's no strict limit on how many colors you can use, we typically recommend 1-3 colors for best results and cost-effectiveness.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What file formats do you accept?",
+            "answer": "<p>We prefer vector files in PDF format with colors separated into layers. We also accept high-resolution (300dpi) TIFF, JPG, or PNG files, though these may require additional preparation. For best results, please contact us before preparing your files.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your turnaround time?",
+            "answer": "<p>Standard turnaround time is 5-7 business days from approval of your final proof. Rush orders may be available for an additional fee, depending on our current production schedule.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,209 @@
+.services-intro {
+    padding: 5rem 0;
+    background-color: var(--color-background);
+    position: relative;
+  }
+  
+  /* Create a subtle dot pattern background */
+  .services-intro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  
+  .services-intro__header {
+    text-align: center;
+    margin-bottom: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .services-intro__title {
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .services-intro__title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4rem;
+    height: 0.25rem;
+    background-color: #0078BF; /* Risograph blue */
+    border-radius: 0.125rem;
+  }
+  
+  .services-intro__subtitle {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .services-intro__process {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  .services-intro__step {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .services-intro__step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .services-intro__step-number {
+    position: absolute;
+    top: -1.5rem;
+    left: -1.5rem;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0078BF; /* Risograph blue */
+    color: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  
+  .services-intro__step:nth-child(2n) .services-intro__step-number {
+    background-color: #FF6AC2; /* Risograph pink */
+  }
+  
+  .services-intro__step:nth-child(3n) .services-intro__step-number {
+    background-color: #FFC812; /* Risograph yellow */
+  }
+  
+  .services-intro__step:nth-child(4n) .services-intro__step-number {
+    background-color: #16A566; /* Risograph green */
+  }
+  
+  .services-intro__step-content {
+    flex: 1;
+  }
+  
+  .services-intro__step-title {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+  
+  .services-intro__step-description {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .services-intro__step-image-container {
+    width: 100%;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  
+  .services-intro__step-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    border-radius: var(--radius-sm);
+    transition: transform 0.5s ease;
+  }
+  
+  .services-intro__step:hover .services-intro__step-image {
+    transform: scale(1.05);
+  }
+  
+  .services-intro__conclusion {
+    text-align: center;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    padding: 1.5rem;
+    background-color: rgba(0, 120, 191, 0.05); /* Light Risograph blue background */
+    border-radius: var(--radius-md);
+  }
+  
+  .services-intro__cta {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .services-intro__button {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+  
+  /* Responsive styles */
+  @media (min-width: 768px) {
+    .services-intro__step {
+      flex-direction: row;
+      align-items: center;
+    }
+    
+    .services-intro__step-content {
+      width: 60%;
+      padding-right: 2rem;
+    }
+    
+    .services-intro__step-image-container {
+      width: 40%;
+    }
+    
+    .services-intro__step:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    
+    .services-intro__step:nth-child(even) .services-intro__step-content {
+      padding-right: 0;
+      padding-left: 2rem;
+    }
+    
+    .services-intro__step:nth-child(even) .services-intro__step-number {
+      left: auto;
+      right: -1.5rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .services-intro {
+      padding: 6rem 0;
+    }
+    
+    .services-intro__subtitle,
+    .services-intro__conclusion {
+      font-size: 1.25rem;
+    }
+    
+    .services-intro__step-title {
+      font-size: 1.5rem;
+    }
+    
+    .services-intro__step-description {
+      font-size: 1.125rem;
+    }
+  }

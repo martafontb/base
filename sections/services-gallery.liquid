@@ -1,0 +1,235 @@
+<div class="services-gallery">
+  <div class="container">
+    <div class="services-gallery__header">
+      <h2 class="services-gallery__title h2">{{ section.settings.title }}</h2>
+      {% if section.settings.description != blank %}
+        <div class="services-gallery__description">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+    
+    <div class="services-gallery__grid" data-gallery-grid>
+      {% for block in section.blocks %}
+        {% if block.type == 'gallery_item' %}
+          <div class="services-gallery__item{% if block.settings.featured %} services-gallery__item--featured{% endif %}" {{ block.shopify_attributes }}>
+            <div class="services-gallery__item-inner">
+              {% if block.settings.image != blank %}
+                <div class="services-gallery__image-container">
+                  {% render 'component_image', 
+                    image: block.settings.image,
+                    width: 800,
+                    widths: '360, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2160, 2376, 2592, 2808, 3024',
+                    sizes: '(min-width: 1280px) 33.333vw, (min-width: 768px) 50vw, 100vw',
+                    class: 'services-gallery__image'
+                  %}
+                  
+                  {% if block.settings.overlay_color != blank %}
+                    <div class="services-gallery__overlay" style="--overlay-color: {{ block.settings.overlay_color }}"></div>
+                  {% endif %}
+                  
+                  <div class="services-gallery__hover">
+                    <div class="services-gallery__hover-content">
+                      <h3 class="services-gallery__item-title">{{ block.settings.title }}</h3>
+                      {% if block.settings.subtitle != blank %}
+                        <div class="services-gallery__item-subtitle">{{ block.settings.subtitle }}</div>
+                      {% endif %}
+                    </div>
+                    
+                    {% if block.settings.url != blank %}
+                      <a href="{{ block.settings.url }}" class="services-gallery__item-link" aria-label="{{ block.settings.title }}">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M18 13V19C18 19.5304 17.7893 20.0391 17.4142 20.4142C17.0391 20.7893 16.5304 21 16 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V8C3 7.46957 3.21071 6.96086 3.58579 6.58579C3.96086 6.21071 4.46957 6 5 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M15 3H21V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </a>
+                    {% endif %}
+                    
+                    {% if section.settings.enable_lightbox %}
+                      <button 
+                        type="button" 
+                        class="services-gallery__lightbox-trigger" 
+                        data-gallery-open 
+                        data-image="{{ block.settings.image | image_url: width: 1800 }}" 
+                        data-title="{{ block.settings.title }}" 
+                        data-subtitle="{{ block.settings.subtitle }}" 
+                        aria-label="Open {{ block.settings.title }} in lightbox"
+                      >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M15 3H21V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M9 21H3V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M21 3L14 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M3 21L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </button>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+              
+              {% if section.settings.show_titles %}
+                <div class="services-gallery__info">
+                  <h3 class="services-gallery__item-title">{{ block.settings.title }}</h3>
+                  {% if block.settings.subtitle != blank %}
+                    <div class="services-gallery__item-subtitle">{{ block.settings.subtitle }}</div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.enable_lightbox %}
+      <div class="services-gallery__lightbox" data-gallery-lightbox aria-hidden="true">
+        <div class="services-gallery__lightbox-overlay" data-gallery-close></div>
+        <div class="services-gallery__lightbox-container">
+          <button type="button" class="services-gallery__lightbox-close" data-gallery-close aria-label="Close lightbox">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          
+          <div class="services-gallery__lightbox-content">
+            <div class="services-gallery__lightbox-image-container">
+              <img src="" class="services-gallery__lightbox-image" alt="" data-gallery-image>
+            </div>
+            
+            <div class="services-gallery__lightbox-info">
+              <h3 class="services-gallery__lightbox-title" data-gallery-title></h3>
+              <div class="services-gallery__lightbox-subtitle" data-gallery-subtitle></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    
+    {% if section.settings.button_text != blank and section.settings.button_url != blank %}
+      <div class="services-gallery__cta">
+        <a href="{{ section.settings.button_url }}" class="btn btn--secondary services-gallery__button">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{{ 'services-gallery.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'services-gallery.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Services Gallery",
+  "tag": "section",
+  "class": "section section-services-gallery",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Our Work"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Browse through a selection of our risograph printing projects. From art prints to zines, business cards to wedding invitations, we love bringing unique designs to life.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_titles",
+      "label": "Show titles below images",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_lightbox",
+      "label": "Enable lightbox",
+      "default": true,
+      "info": "Allow visitors to view larger images in a popup"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View More Projects"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gallery_item",
+      "name": "Gallery Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Project Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Project type"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay color",
+          "info": "Optional overlay to match project's risograph color"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link",
+          "info": "Optional link to project details"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Featured (larger size)",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Services Gallery",
+      "blocks": [
+        {
+          "type": "gallery_item"
+        },
+        {
+          "type": "gallery_item"
+        },
+        {
+          "type": "gallery_item"
+        },
+        {
+          "type": "gallery_item"
+        },
+        {
+          "type": "gallery_item",
+          "settings": {
+            "featured": true
+          }
+        },
+        {
+          "type": "gallery_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,196 @@
+.services-colors {
+    padding: 5rem 0;
+    background-color: var(--color-background);
+    position: relative;
+  }
+  
+  .services-colors::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  
+  .services-colors__header {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .services-colors__title {
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .services-colors__title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4rem;
+    height: 0.25rem;
+    background-color: #FF6AC2; /* Risograph pink */
+    border-radius: 0.125rem;
+  }
+  
+  .services-colors__description {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .services-colors__grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .services-colors__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .services-colors__item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .services-colors__swatch {
+    position: relative;
+    height: 8rem;
+    background-color: var(--color);
+    overflow: hidden;
+  }
+  
+  .services-colors__swatch-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px);
+  }
+  
+  .services-colors__info {
+    padding: 1.5rem;
+    flex: 1;
+  }
+  
+  .services-colors__color-name {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .services-colors__color-code {
+    display: inline-block;
+    margin-bottom: 1rem;
+    padding: 0.25rem 0.75rem;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-family: var(--accent-font);
+  }
+  
+  .services-colors__color-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  .services-colors__example {
+    position: relative;
+    height: 10rem;
+    overflow: hidden;
+  }
+  
+  .services-colors__example-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .services-colors__example-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color);
+    mix-blend-mode: multiply;
+    opacity: 0.7;
+  }
+  
+  .services-colors__note {
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    padding: 1.5rem;
+    background-color: rgba(255, 106, 194, 0.05); /* Light Risograph pink background */
+    border-radius: var(--radius-md);
+  }
+  
+  .services-colors__cta {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .services-colors__button {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+  
+  /* Responsive styles */
+  @media (min-width: 640px) {
+    .services-colors__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .services-colors__description,
+    .services-colors__note {
+      font-size: 1.125rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .services-colors {
+      padding: 6rem 0;
+    }
+    
+    .services-colors__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .services-colors__color-name {
+      font-size: 1.5rem;
+    }
+    
+    .services-colors__color-description {
+      font-size: 1.125rem;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .services-colors__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }

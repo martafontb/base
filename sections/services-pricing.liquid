@@ -1,0 +1,244 @@
+<div class="services-pricing">
+  <div class="container">
+    <div class="services-pricing__header">
+      <h2 class="services-pricing__title h2">{{ section.settings.title }}</h2>
+      {% if section.settings.description != blank %}
+        <div class="services-pricing__description">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+    
+    <div class="services-pricing__packages">
+      {% for block in section.blocks %}
+        {% if block.type == 'package' %}
+          <div class="services-pricing__package{% if block.settings.featured %} featured{% endif %}" {{ block.shopify_attributes }}>
+            {% if block.settings.featured %}
+              <div class="services-pricing__package-badge">
+                {{ block.settings.badge_text | default: 'Popular' }}
+              </div>
+            {% endif %}
+            
+            <div class="services-pricing__package-header">
+              <h3 class="services-pricing__package-title">{{ block.settings.title }}</h3>
+              <div class="services-pricing__package-subtitle">{{ block.settings.subtitle }}</div>
+            </div>
+            
+            <div class="services-pricing__package-price">
+              <span class="services-pricing__package-amount">{{ block.settings.price }}</span>
+              <span class="services-pricing__package-unit">{{ block.settings.price_unit }}</span>
+            </div>
+            
+            {% if block.settings.description != blank %}
+              <div class="services-pricing__package-description">
+                {{ block.settings.description }}
+              </div>
+            {% endif %}
+            
+            <ul class="services-pricing__package-features">
+              {% assign features = block.settings.features | split: ',' %}
+              {% for feature in features %}
+                <li class="services-pricing__package-feature">
+                  <svg class="services-pricing__feature-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.3334 4L6.00002 11.3333L2.66669 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>{{ feature | strip }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+            
+            {% if block.settings.button_text != blank and block.settings.button_url != blank %}
+              <div class="services-pricing__package-cta">
+                <a href="{{ block.settings.button_url }}" class="btn {% if block.settings.featured %}btn--primary{% else %}btn--secondary{% endif %} services-pricing__package-button">
+                  {{ block.settings.button_text }}
+                </a>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.additional_info != blank %}
+      <div class="services-pricing__additional-info">
+        {{ section.settings.additional_info }}
+      </div>
+    {% endif %}
+    
+    {% if section.settings.custom_quote_heading != blank %}
+      <div class="services-pricing__custom-quote">
+        <h3 class="services-pricing__custom-quote-heading h3">{{ section.settings.custom_quote_heading }}</h3>
+        
+        {% if section.settings.custom_quote_description != blank %}
+          <div class="services-pricing__custom-quote-description">
+            {{ section.settings.custom_quote_description }}
+          </div>
+        {% endif %}
+        
+        {% if section.settings.custom_quote_button_text != blank and section.settings.custom_quote_button_url != blank %}
+          <a href="{{ section.settings.custom_quote_button_url }}" class="btn btn--primary services-pricing__custom-quote-button">
+            {{ section.settings.custom_quote_button_text }}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{{ 'services-pricing.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "Services Pricing",
+  "tag": "section",
+  "class": "section section-services-pricing",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Our Printing Packages"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>We offer a range of printing options to suit your project needs and budget. All prices include standard 80lb paper, but custom papers are available upon request.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "additional_info",
+      "label": "Additional information",
+      "default": "<p>All prices include standard 80lb recycled paper. For custom paper options, specialty stocks, or other special requests, please contact us for a custom quote.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Custom Quote Section"
+    },
+    {
+      "type": "text",
+      "id": "custom_quote_heading",
+      "label": "Custom quote heading",
+      "default": "Need a Custom Quote?"
+    },
+    {
+      "type": "richtext",
+      "id": "custom_quote_description",
+      "label": "Custom quote description",
+      "default": "<p>Working on a larger project or need something specific? Contact us for a customized quote tailored to your exact needs.</p>"
+    },
+    {
+      "type": "text",
+      "id": "custom_quote_button_text",
+      "label": "Custom quote button text",
+      "default": "Request Custom Quote"
+    },
+    {
+      "type": "url",
+      "id": "custom_quote_button_url",
+      "label": "Custom quote button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "package",
+      "name": "Price Package",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Package title",
+          "default": "Basic Package"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Package subtitle",
+          "default": "Perfect for small runs"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "$75"
+        },
+        {
+          "type": "text",
+          "id": "price_unit",
+          "label": "Price unit",
+          "default": "starting at"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Package description",
+          "default": "<p>Our entry-level risograph printing option, perfect for simple designs and small quantities.</p>"
+        },
+        {
+          "type": "textarea",
+          "id": "features",
+          "label": "Features (comma-separated)",
+          "default": "Up to 50 prints, 1-2 colors, Standard 80lb paper, Digital file preparation, 5x7 or 8.5x11 sizes",
+          "info": "Enter features separated by commas"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Get Started"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button link"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Featured package",
+          "default": false,
+          "info": "Highlights this package as recommended"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge text (for featured package)",
+          "default": "Popular"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Services Pricing",
+      "blocks": [
+        {
+          "type": "package",
+          "settings": {
+            "title": "Basic Package",
+            "subtitle": "Perfect for small runs",
+            "price": "$75",
+            "featured": false
+          }
+        },
+        {
+          "type": "package",
+          "settings": {
+            "title": "Standard Package",
+            "subtitle": "Our most popular option",
+            "price": "$125",
+            "featured": true
+          }
+        },
+        {
+          "type": "package",
+          "settings": {
+            "title": "Premium Package",
+            "subtitle": "For larger projects",
+            "price": "$250",
+            "featured": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

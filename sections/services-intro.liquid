@@ -1,0 +1,150 @@
+<div class="services-intro">
+  <div class="container">
+    <div class="services-intro__header">
+      <h2 class="services-intro__title h2">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <div class="services-intro__subtitle">{{ section.settings.subtitle }}</div>
+      {% endif %}
+    </div>
+    
+    <div class="services-intro__process">
+      {% for block in section.blocks %}
+        {% if block.type == 'step' %}
+          <div class="services-intro__step" {{ block.shopify_attributes }}>
+            <div class="services-intro__step-number">{{ forloop.index }}</div>
+            <div class="services-intro__step-content">
+              <h3 class="services-intro__step-title h3">{{ block.settings.title }}</h3>
+              <div class="services-intro__step-description">{{ block.settings.description }}</div>
+            </div>
+            {% if block.settings.image != blank %}
+              <div class="services-intro__step-image-container">
+                {% render 'component_image', 
+                  image: block.settings.image,
+                  width: 400,
+                  widths: '200, 300, 400, 500',
+                  sizes: '(min-width: 768px) 33vw, 100vw',
+                  class: 'services-intro__step-image'
+                %}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.conclusion != blank %}
+      <div class="services-intro__conclusion">
+        {{ section.settings.conclusion }}
+      </div>
+    {% endif %}
+    
+    {% if section.settings.button_text != blank and section.settings.button_url != blank %}
+      <div class="services-intro__cta">
+        <a href="{{ section.settings.button_url }}" class="btn btn--secondary services-intro__button">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{{ 'services-intro.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "Services Intro",
+  "tag": "section",
+  "class": "section section-services-intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "What We Do"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>Risograph printing is a unique process that combines the vibrant colors of screen printing with the efficiency of digital printing. Here's how we bring your designs to life:</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "conclusion",
+      "label": "Conclusion",
+      "default": "<p>The result is a beautiful, tactile print with vibrant colors and a unique aesthetic that can't be achieved with traditional digital printing.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Learn more about our process"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Process Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step title",
+          "default": "Step Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Step description",
+          "default": "<p>Description of this step in the risograph printing process.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Step image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Services Intro",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Digital Preparation",
+            "description": "<p>We prepare your design files for risograph printing, separating colors and optimizing for the best results.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Color Separation",
+            "description": "<p>Each color is printed separately in layers, creating the vibrant, overlapping colors that risograph is known for.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Printing Process",
+            "description": "<p>Our risograph printer creates a master stencil for each color, and then pushes ink through the stencil onto the paper.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Quality Control",
+            "description": "<p>We carefully check each print for quality and alignment, ensuring your final product meets our high standards.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

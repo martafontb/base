@@ -1,0 +1,83 @@
+<div class="services-hero">
+  <div class="container">
+    <div class="services-hero__inner">
+      <div class="services-hero__content">
+        <h1 class="services-hero__title h1">{{ section.settings.title }}</h1>
+        <div class="services-hero__description">{{ section.settings.description }}</div>
+        
+        {% if section.settings.button_text != blank and section.settings.button_url != blank %}
+          <a href="{{ section.settings.button_url }}" class="btn btn--primary services-hero__button">
+            {{ section.settings.button_text }}
+          </a>
+        {% endif %}
+      </div>
+      
+      <div class="services-hero__image-container">
+        {% if section.settings.image != blank %}
+          {% render 'component_image', 
+            image: section.settings.image,
+            width: 800,
+            widths: '400, 600, 800, 1000, 1200',
+            sizes: '(min-width: 1024px) 50vw, 100vw',
+            class: 'services-hero__image',
+            is_eager: true
+          %}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'services-hero__image placeholder' }}
+        {% endif %}
+        
+        <div class="services-hero__ink-splatters" aria-hidden="true">
+          <div class="services-hero__ink-splatter services-hero__ink-splatter--1"></div>
+          <div class="services-hero__ink-splatter services-hero__ink-splatter--2"></div>
+          <div class="services-hero__ink-splatter services-hero__ink-splatter--3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ 'services-hero.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "Services Hero",
+  "tag": "section",
+  "class": "section section-services-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Risograph Printing Services"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Discover the unique beauty of risograph printing for your next project. Our eco-friendly printing service delivers vibrant colors, texture, and character that digital printing simply can't match.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Get a Quote"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Services Hero",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}

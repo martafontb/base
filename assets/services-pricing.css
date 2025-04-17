@@ -1,0 +1,262 @@
+.services-pricing {
+    padding: 5rem 0;
+    background-color: var(--color-background);
+    position: relative;
+  }
+  
+  /* Create a subtle halftone pattern background */
+  .services-pricing::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
+    background-size: 16px 16px;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+  
+  .services-pricing__header {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .services-pricing__title {
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .services-pricing__title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4rem;
+    height: 0.25rem;
+    background-color: #FFC812; /* Risograph yellow */
+    border-radius: 0.125rem;
+  }
+  
+  .services-pricing__description {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .services-pricing__packages {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .services-pricing__package {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border);
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .services-pricing__package:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  }
+  
+  .services-pricing__package.featured {
+    background-color: rgba(255, 200, 18, 0.05); /* Light Risograph yellow */
+    border: 2px solid #FFC812; /* Risograph yellow */
+    transform: scale(1.05);
+    z-index: 1;
+  }
+  
+  .services-pricing__package.featured:hover {
+    transform: scale(1.05) translateY(-5px);
+  }
+  
+  .services-pricing__package-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #FFC812; /* Risograph yellow */
+    color: var(--color-text);
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .services-pricing__package-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .services-pricing__package-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .services-pricing__package-subtitle {
+    font-size: 1rem;
+    opacity: 0.7;
+  }
+  
+  .services-pricing__package-price {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .services-pricing__package-amount {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0078BF; /* Risograph blue */
+  }
+  
+  .services-pricing__package.featured .services-pricing__package-amount {
+    color: #FFC812; /* Risograph yellow */
+  }
+  
+  .services-pricing__package-unit {
+    display: block;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    opacity: 0.7;
+  }
+  
+  .services-pricing__package-description {
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  
+  .services-pricing__package-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    flex: 1;
+  }
+  
+  .services-pricing__package-feature {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+  }
+  
+  .services-pricing__feature-icon {
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+    margin-top: 0.25rem;
+    color: #0078BF; /* Risograph blue */
+  }
+  
+  .services-pricing__package.featured .services-pricing__feature-icon {
+    color: #FFC812; /* Risograph yellow */
+  }
+  
+  .services-pricing__package-feature span {
+    line-height: 1.5;
+  }
+  
+  .services-pricing__package-cta {
+    text-align: center;
+    margin-top: auto;
+  }
+  
+  .services-pricing__package-button {
+    width: 100%;
+  }
+  
+  .services-pricing__additional-info {
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 1.5rem;
+    background-color: rgba(0, 120, 191, 0.05); /* Light Risograph blue */
+    border-radius: var(--radius-md);
+  }
+  
+  .services-pricing__custom-quote {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2.5rem;
+    background-color: white;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .services-pricing__custom-quote-description {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  
+  .services-pricing__custom-quote-button {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  /* Responsive styles */
+  @media (min-width: 768px) {
+    .services-pricing__packages {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .services-pricing__package.featured {
+      grid-column: span 2;
+      max-width: 90%;
+      margin: 0 auto;
+    }
+    
+    .services-pricing__description,
+    .services-pricing__additional-info {
+      font-size: 1.125rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .services-pricing {
+      padding: 6rem 0;
+    }
+    
+    .services-pricing__packages {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .services-pricing__package.featured {
+      grid-column: auto;
+    }
+    
+    .services-pricing__package-title {
+      font-size: 1.75rem;
+    }
+    
+    .services-pricing__package-description {
+      font-size: 1.125rem;
+    }
+  }
+  
+  heading {
+    margin-bottom: 1rem;
+  }
+  

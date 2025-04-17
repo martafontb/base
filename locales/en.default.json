@@ -83,6 +83,15 @@
       "one_result": "1 result found",
       "results_with_count": "{{ count }} results found"
     },
+    "contact": {
+      "phone": "Phone",
+      "email": "Email",
+      "name": "Name",
+      "subject": "Subject",
+      "message": "Message",
+      "success": "Thank you for your message! We'll get back to you soon.",
+      "error": "Oops! There was a problem submitting your form. Please check your information and try again."
+    },
     "pagination": {
       "previous": "Previous",
       "next": "Next",
