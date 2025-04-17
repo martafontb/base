@@ -1,0 +1,315 @@
+/* Search Modal */
+search-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1100;
+    opacity: 0;
+    transition: opacity var(--transition-duration) var(--transition-ease);
+  }
+  
+  search-modal.open {
+    display: block;
+    opacity: 1;
+  }
+  
+  .search-modal__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+  }
+  
+  .search-modal__container {
+    position: relative;
+    width: 100%;
+    max-width: 680px;
+    max-height: 90vh;
+    margin: 5vh auto;
+    background-color: var(--color-background);
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transform: translateY(-30px);
+    opacity: 0;
+    transition: transform var(--transition-duration) var(--transition-ease),
+                opacity var(--transition-duration) var(--transition-ease);
+  }
+  
+  search-modal.open .search-modal__container {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .search-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  .search-modal__title {
+    margin: 0;
+  }
+  
+  .search-modal__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    margin: -0.5rem;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: color var(--transition-duration) var(--transition-ease);
+  }
+  
+  .search-modal__close:hover {
+    color: #FF6AC2; /* Risograph pink for hover state */
+  }
+  
+  .search-modal__content {
+    padding: 1.5rem;
+    overflow-y: auto;
+    max-height: calc(90vh - 70px);
+  }
+  
+  .search-modal__form {
+    margin-bottom: 1.5rem;
+  }
+  
+  .search-modal__input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-modal__input {
+    width: 100%;
+    padding: 0.875rem 3rem 0.875rem 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+    transition: border-color var(--transition-duration) var(--transition-ease);
+  }
+  
+  .search-modal__input:focus {
+    outline: none;
+  }
+  
+  .search-modal__submit {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-text);
+  }
+
+  input[type="search" i]:enabled:read-write:-webkit-any(:focus, :hover)::-webkit-search-cancel-button{
+    -webkit-appearance: none;
+    display: none;
+  }
+  
+  .search-modal__clear {
+    position: absolute;
+    right: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-text);
+    opacity: 0.7;
+    transition: opacity var(--transition-duration) var(--transition-ease);
+  }
+  
+  .search-modal__clear:hover {
+    opacity: 1;
+  }
+  
+  .search-modal__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .search-modal__filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .search-modal__filter input[type="radio"] {
+    accent-color: #FF6AC2; /* Risograph pink for radio buttons */
+  }
+  
+  .search-modal__filter label {
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+  
+  .search-modal__results {
+    position: relative;
+    min-height: 200px;
+  }
+  
+  .search-modal__loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .search-modal__loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--color-border);
+    border-top-color: #FF6AC2; /* Risograph pink for spinner */
+    border-radius: 50%;
+    animation: search-spinner 1s linear infinite;
+  }
+  
+  @keyframes search-spinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .search-modal__results-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  @media (min-width: 480px) {
+    .search-modal__results-inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .search-modal__result {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem;
+    text-decoration: none;
+    color: var(--color-text);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-duration) var(--transition-ease);
+  }
+  
+  .search-modal__result:hover {
+    background-color: var(--color-shadow);
+  }
+  
+  .search-modal__result-image-container {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background-color: var(--color-shadow);
+  }
+  
+  .search-modal__result-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .search-modal__result-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  
+  .search-modal__result-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .search-modal__result-type {
+    font-size: 0.75rem;
+    color: var(--color-text);
+    opacity: 0.6;
+    margin-bottom: 0.25rem;
+  }
+  
+  .search-modal__result-price {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #FF6AC2; /* Risograph pink for prices */
+  }
+  
+  .search-modal__empty {
+    display: none;
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--color-text);
+    opacity: 0.8;
+  }
+  
+  .search-modal__empty p {
+    margin: 0;
+  }
+  
+  .search-modal__view-all {
+    display: none;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  
+  /* Search toggle in header */
+  .search-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: color var(--transition-duration) var(--transition-ease);
+    position: relative;
+  }
+  
+  .search-toggle:hover {
+    color: #FF6AC2; /* Risograph pink */
+  }
+  
+  .search-toggle__icon {
+    display: flex;
+  }

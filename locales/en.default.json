@@ -67,6 +67,22 @@
     }
   },
   "general": {
+    "search": {
+      "search": "Search",
+      "placeholder": "Search for products...",
+      "submit": "Search",
+      "results_for": "Results for",
+      "no_results": "No results found. Try a different search term.",
+      "view_all": "View all results",
+      "close": "Close search",
+      "clear": "Clear search",
+      "all": "All",
+      "products": "Products",
+      "articles": "Articles",
+      "pages": "Pages",
+      "one_result": "1 result found",
+      "results_with_count": "{{ count }} results found"
+    },
     "pagination": {
       "previous": "Previous",
       "next": "Next",

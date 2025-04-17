@@ -184,7 +184,6 @@ class CartDrawer {
                 alt="${(item.featured_image && item.featured_image.alt) || item.title}"
                 width="80"
                 height="80"
-                loading="lazy"
               >
             </a>
           </div>

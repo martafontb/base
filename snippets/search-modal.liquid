@@ -1,0 +1,101 @@
+<search-modal id="SearchModal" open="false">
+  <div class="search-modal">
+    <div class="search-modal__overlay"></div>
+    <div class="search-modal__container">
+      <div class="search-modal__header">
+        <h2 class="search-modal__title h3">{{ 'general.search.search' | t }}</h2>
+        <button 
+          type="button" 
+          class="search-modal__close" 
+          aria-label="{{ 'general.search.close' | t }}"
+          data-close-search
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="search-modal__content">
+        <form action="{{ routes.search_url }}" method="get" role="search" class="search-modal__form">
+          <div class="search-modal__input-wrapper">
+            <input 
+              type="search" 
+              name="q" 
+              id="SearchModalInput" 
+              class="search-modal__input"
+              value="{{ search.terms | escape }}" 
+              placeholder="{{ 'general.search.placeholder' | t }}"
+              aria-label="{{ 'general.search.placeholder' | t }}"
+              autocomplete="off"
+              autofocus
+            >
+            <button type="submit" class="search-modal__submit" aria-label="{{ 'general.search.submit' | t }}">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.5 17.5L12.5 12.5M14.1667 8.33333C14.1667 11.555 11.555 14.1667 8.33333 14.1667C5.11167 14.1667 2.5 11.555 2.5 8.33333C2.5 5.11167 5.11167 2.5 8.33333 2.5C11.555 2.5 14.1667 5.11167 14.1667 8.33333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button type="button" class="search-modal__clear" data-search-clear aria-label="{{ 'general.search.clear' | t }}">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          
+          {% if settings.search_enable_filters %}
+            <div class="search-modal__filters">
+              <div class="search-modal__filter">
+                <input type="radio" id="search-filter-all" name="type" value="product,article,page" checked>
+                <label for="search-filter-all">{{ 'general.search.all' | t }}</label>
+              </div>
+              <div class="search-modal__filter">
+                <input type="radio" id="search-filter-products" name="type" value="product">
+                <label for="search-filter-products">{{ 'general.search.products' | t }}</label>
+              </div>
+              <div class="search-modal__filter">
+                <input type="radio" id="search-filter-articles" name="type" value="article">
+                <label for="search-filter-articles">{{ 'general.search.articles' | t }}</label>
+              </div>
+              <div class="search-modal__filter">
+                <input type="radio" id="search-filter-pages" name="type" value="page">
+                <label for="search-filter-pages">{{ 'general.search.pages' | t }}</label>
+              </div>
+            </div>
+          {% else %}
+            <input type="hidden" name="type" value="product">
+          {% endif %}
+        </form>
+        
+        <div class="search-modal__results" data-search-results>
+          <div class="search-modal__loading" data-search-loading>
+            <div class="search-modal__loading-spinner"></div>
+          </div>
+          <div class="search-modal__results-inner" data-search-results-inner></div>
+          <template data-search-result-template>
+            <a href="[[url]]" class="search-modal__result">
+              <div class="search-modal__result-image-container">
+                <img src="[[image]]" alt="[[title]]" class="search-modal__result-image">
+              </div>
+              <div class="search-modal__result-content">
+                <div class="search-modal__result-title">[[title]]</div>
+                <div class="search-modal__result-type">[[type]]</div>
+                <div class="search-modal__result-price">[[price]]</div>
+              </div>
+            </a>
+          </template>
+          <div class="search-modal__empty" data-search-empty>
+            <p>{{ 'general.search.no_results' | t }}</p>
+          </div>
+          <div class="search-modal__view-all" data-search-view-all>
+            <a href="{{ routes.search_url }}?q=[[query]]&type=[[type]]" class="btn btn--secondary">
+              {{ 'general.search.view_all' | t }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</search-modal>
+
+{{ 'search-modal.css' | asset_url | stylesheet_tag }}
+{{ 'search-modal.js' | asset_url | script_tag }}

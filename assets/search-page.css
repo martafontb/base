@@ -1,0 +1,304 @@
+/* Search Page Styles */
+.search-page {
+    padding: 3rem 0;
+  }
+  
+  .search-page__header {
+    margin-bottom: 3rem;
+  }
+  
+  .search-page__title {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .search-page__form-container {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  
+  .search-page__form {
+    width: 100%;
+  }
+  
+  .search-page__input-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  
+  .search-page__input {
+    width: 100%;
+    padding: 1rem 3rem 1rem 1.5rem;
+    font-size: 1.125rem;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+    transition: border-color var(--transition-duration) var(--transition-ease);
+  }
+  
+  .search-page__input:focus {
+    outline: none;
+    border-color: #0078BF; /* Risograph blue */
+    box-shadow: 0 0 0 3px rgba(0, 120, 191, 0.1);
+  }
+  
+  .search-page__submit {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    margin: -0.5rem;
+    cursor: pointer;
+    color: var(--color-text);
+  }
+  
+  .search-page__filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  .search-page__filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .search-page__filter input[type="radio"] {
+    accent-color: #FF6AC2; /* Risograph pink */
+  }
+  
+  .search-page__filter label {
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+  
+  .search-page__results {
+    position: relative;
+  }
+  
+  .search-page__results-header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .search-page__results-title {
+    margin-bottom: 0.5rem;
+  }
+  
+  .search-page__results-count {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+  
+  .search-page__no-results {
+    text-align: center;
+    margin: 3rem 0;
+  }
+  
+  .search-page__results-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+  }
+  
+  @media (min-width: 540px) {
+    .search-page__results-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .search-page__results-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .search-page__results-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  .search-page__result {
+    position: relative;
+    height: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: transform var(--transition-duration) var(--transition-ease),
+                box-shadow var(--transition-duration) var(--transition-ease);
+  }
+  
+  .search-page__result:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-page__result-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  
+  .search-page__result-image-container {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    background-color: var(--color-shadow);
+  }
+  
+  .search-page__result-image-container--page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F0EDE9; /* Soft paper color for pages */
+  }
+  
+  .search-page__result-page-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-text);
+    opacity: 0.6;
+  }
+  
+  .search-page__result-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-duration) var(--transition-ease);
+  }
+  
+  .search-page__result:hover .search-page__result-image {
+    transform: scale(1.05);
+  }
+  
+  .search-page__result-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1.25rem;
+  }
+  
+  .search-page__result-title {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  .search-page__result-price {
+    font-weight: 500;
+    color: #FF6AC2; /* Risograph pink */
+    margin-bottom: 0.5rem;
+  }
+  
+  .search-page__result-price-from {
+    opacity: 0.8;
+    margin-right: 0.25rem;
+  }
+  
+  .search-page__result-vendor {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+  }
+  
+  .search-page__result-date {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+  }
+  
+  .search-page__result-excerpt {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .search-page__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+    gap: 1rem;
+  }
+  
+  .search-page__pagination-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-duration) var(--transition-ease);
+  }
+  
+  .search-page__pagination-link:hover {
+    background-color: var(--color-shadow);
+  }
+  
+  .search-page__pagination-info {
+    font-size: 0.875rem;
+  }
+  
+  /* Style filter by result type */
+  .search-page__results-grid[data-filter="product"] .search-page__result:not([data-result-type="product"]),
+  .search-page__results-grid[data-filter="article"] .search-page__result:not([data-result-type="article"]),
+  .search-page__results-grid[data-filter="page"] .search-page__result:not([data-result-type="page"]) {
+    display: none;
+  }
+  
+
+  .search-page__filter label:after {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-left: 4px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  
+  .search-page__filter:nth-child(1) label:after {
+    background-color: #FF6AC2; /* Risograph pink */
+  }
+  
+  .search-page__filter:nth-child(2) label:after {
+    background-color: #0078BF; /* Risograph blue */
+  }
+  
+  .search-page__filter:nth-child(3) label:after {
+    background-color: #FFC812; /* Risograph yellow */
+  }
+  
+  .search-page__filter:nth-child(4) label:after {
+    background-color: #16A566; /* Risograph green */
+  }
+  
+  .search-page__filter input:checked + label:after {
+    opacity: 1;
+  }

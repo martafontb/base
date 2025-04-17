@@ -1,0 +1,261 @@
+{%- if search.performed -%}
+    {%- assign results_count = search.results_count -%}
+    {%- assign resource_type = search.types | first -%}
+  {%- else -%}
+    {%- assign results_count = 0 -%}
+    {%- assign resource_type = '' -%}
+  {%- endif -%}
+  
+  <div class="search-page container">
+    <div class="search-page__header">
+      <h1 class="search-page__title h1">
+        {{ 'general.search.search' | t }}
+      </h1>
+      
+      <div class="search-page__form-container">
+        <form action="{{ routes.search_url }}" method="get" class="search-page__form" role="search">
+          <div class="search-page__input-wrapper">
+            <input 
+              type="search"
+              name="q"
+              value="{{ search.terms | escape }}"
+              placeholder="{{ 'general.search.placeholder' | t }}"
+              class="search-page__input"
+              aria-label="{{ 'general.search.placeholder' | t }}"
+              {% if search.performed %}autofocus{% endif %}
+            >
+            <button type="submit" class="search-page__submit" aria-label="{{ 'general.search.submit' | t }}">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.5 17.5L12.5 12.5M14.1667 8.33333C14.1667 11.555 11.555 14.1667 8.33333 14.1667C5.11167 14.1667 2.5 11.555 2.5 8.33333C2.5 5.11167 5.11167 2.5 8.33333 2.5C11.555 2.5 14.1667 5.11167 14.1667 8.33333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          
+          <div class="search-page__filters">
+            <div class="search-page__filter">
+              <input 
+                type="radio" 
+                name="type" 
+                value="product,article,page" 
+                id="filter-all"
+                {% if resource_type == '' or resource_type == 'product,article,page' %}checked{% endif %}
+              >
+              <label for="filter-all">{{ 'general.search.all' | t }}</label>
+            </div>
+            
+            <div class="search-page__filter">
+              <input 
+                type="radio" 
+                name="type" 
+                value="product" 
+                id="filter-products"
+                {% if resource_type == 'product' %}checked{% endif %}
+              >
+              <label for="filter-products">{{ 'general.search.products' | t }}</label>
+            </div>
+            
+            <div class="search-page__filter">
+              <input 
+                type="radio" 
+                name="type" 
+                value="article" 
+                id="filter-articles"
+                {% if resource_type == 'article' %}checked{% endif %}
+              >
+              <label for="filter-articles">{{ 'general.search.articles' | t }}</label>
+            </div>
+            
+            <div class="search-page__filter">
+              <input 
+                type="radio" 
+                name="type" 
+                value="page" 
+                id="filter-pages"
+                {% if resource_type == 'page' %}checked{% endif %}
+              >
+              <label for="filter-pages">{{ 'general.search.pages' | t }}</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="search-page__results">
+      {%- if search.performed -%}
+        <div class="search-page__results-header">
+          {%- if results_count > 0 -%}
+            <h2 class="search-page__results-title h2">
+              {{ 'general.search.results_for' | t }}: "{{ search.terms | escape }}"
+            </h2>
+            <p class="search-page__results-count">
+              {%- if results_count == 1 -%}
+                {{ 'general.search.one_result' | t }}
+              {%- else -%}
+                {{ 'general.search.results_with_count' | t: count: results_count }}
+              {%- endif -%}
+            </p>
+          {%- else -%}
+            <h2 class="search-page__no-results h2">
+              {{ 'general.search.no_results' | t }}
+            </h2>
+          {%- endif -%}
+        </div>
+        
+        {%- if results_count > 0 -%}
+          <div class="search-page__results-grid">
+            {%- for item in search.results -%}
+              <div class="search-page__result" data-result-type="{{ item.object_type }}">
+                {%- case item.object_type -%}
+                  {%- when 'product' -%}
+                    <a href="{{ item.url }}" class="search-page__result-link">
+                      <div class="search-page__result-image-container">
+                        {%- if item.featured_image -%}
+                          {% render 'component_image',
+                            image: item.featured_image,
+                            width: 600,
+                            widths: '300, 400, 500, 600',
+                            sizes: '(min-width: 768px) 33vw, 50vw',
+                            class: 'search-page__result-image'
+                          %}
+                        {%- else -%}
+                          {{ 'product-1' | placeholder_svg_tag: 'search-page__result-image placeholder' }}
+                        {%- endif -%}
+                      </div>
+                      
+                      <div class="search-page__result-content">
+                        <h3 class="search-page__result-title">{{ item.title }}</h3>
+                        
+                        <div class="search-page__result-price">
+                          {%- if item.price_varies -%}
+                            <span class="search-page__result-price-from">{{ 'products.product.from' | t }}</span>
+                            {{ item.price_min | money }}
+                          {%- else -%}
+                            {{ item.price | money }}
+                          {%- endif -%}
+                        </div>
+                        
+                        {%- if section.settings.show_vendor and item.vendor -%}
+                          <div class="search-page__result-vendor">{{ item.vendor }}</div>
+                        {%- endif -%}
+                      </div>
+                    </a>
+                  
+                  {%- when 'article' -%}
+                    <a href="{{ item.url }}" class="search-page__result-link">
+                      <div class="search-page__result-image-container">
+                        {%- if item.image -%}
+                          {% render 'component_image',
+                            image: item.image,
+                            width: 600,
+                            widths: '300, 400, 500, 600',
+                            sizes: '(min-width: 768px) 33vw, 50vw',
+                            class: 'search-page__result-image'
+                          %}
+                        {%- else -%}
+                          {{ 'image' | placeholder_svg_tag: 'search-page__result-image placeholder' }}
+                        {%- endif -%}
+                      </div>
+                      
+                      <div class="search-page__result-content">
+                        <h3 class="search-page__result-title">{{ item.title }}</h3>
+                        
+                        <div class="search-page__result-date">
+                          {{ item.published_at | date: format: 'medium' }}
+                        </div>
+                        
+                        {%- if item.excerpt != blank -%}
+                          <div class="search-page__result-excerpt">
+                            {{ item.excerpt | strip_html | truncatewords: 15 }}
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    </a>
+                  
+                  {%- when 'page' -%}
+                    <a href="{{ item.url }}" class="search-page__result-link">
+                      <div class="search-page__result-image-container search-page__result-image-container--page">
+                        <div class="search-page__result-page-icon">
+                          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M23.3333 3.33331H10C8.15905 3.33331 6.66666 4.8257 6.66666 6.66665V33.3333C6.66666 35.1743 8.15905 36.6666 10 36.6666H30C31.8409 36.6666 33.3333 35.1743 33.3333 33.3333V13.3333L23.3333 3.33331Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23.3333 3.33331V13.3333H33.3333" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M26.6667 21.6667H13.3334" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M26.6667 28.3333H13.3334" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16.6667 15H13.3334" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </div>
+                      </div>
+                      
+                      <div class="search-page__result-content">
+                        <h3 class="search-page__result-title">{{ item.title }}</h3>
+                        
+                        {%- if item.content != blank -%}
+                          <div class="search-page__result-excerpt">
+                            {{ item.content | strip_html | truncatewords: 15 }}
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    </a>
+                {%- endcase -%}
+              </div>
+            {%- endfor -%}
+          </div>
+          
+          {%- if paginate.pages > 1 -%}
+            <div class="search-page__pagination">
+              {%- if paginate.previous -%}
+                <a href="{{ paginate.previous.url }}" class="search-page__pagination-link search-page__pagination-prev">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {{ 'general.pagination.previous' | t }}
+                </a>
+              {%- endif -%}
+              
+              <span class="search-page__pagination-info">
+                {{ 'general.pagination.current_page' | t: current: paginate.current_page, total: paginate.pages }}
+              </span>
+              
+              {%- if paginate.next -%}
+                <a href="{{ paginate.next.url }}" class="search-page__pagination-link search-page__pagination-next">
+                  {{ 'general.pagination.next' | t }}
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+  
+  {{ 'search-page.css' | asset_url | stylesheet_tag }}
+  
+  {% schema %}
+  {
+    "name": "Search Page",
+    "tag": "section",
+    "class": "section section-search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show product vendor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_price",
+        "label": "Show product price",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_excerpt",
+        "label": "Show content excerpt",
+        "default": true
+      }
+    ]
+  }
+  {% endschema %}
