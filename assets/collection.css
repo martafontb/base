@@ -245,7 +245,7 @@
     gap: 0.5rem;
     padding: 0.5rem 0.75rem;
     background-color: var(--color-border);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-lg);
     font-size: 0.875rem;
     transition: background-color var(--transition-duration) var(--transition-ease);
   }

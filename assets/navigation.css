@@ -39,7 +39,7 @@
   .header__logo-image {
     display: block;
     height: auto;
-    max-height: calc(var(--header-height-mobile) - 20px);
+    max-height: calc(var(--header-height-mobile) - 30px);
     width: auto;
   }
   
@@ -296,7 +296,7 @@
     }
     
     .header__logo-image {
-      max-height: calc(var(--header-height-desktop) - 30px);
+      max-height: calc(var(--header-height-desktop) - 20px);
     }
     
     .nav-desktop {

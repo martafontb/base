@@ -50,9 +50,9 @@
     <div class="header__center">
       <a href="/" class="header__logo">
       {%- if section.settings.logo != blank -%}
-        {{ section.settings.logo | image_url: width: 200 | image_tag: 
+        {{ section.settings.logo | image_url: width: 210 | image_tag: 
           class: 'header__logo-image',
-          widths: '100, 150, 200, 250, 300',
+          widths: '100, 150, 210, 250, 300',
           alt: section.settings.logo.alt | default: shop.name
         }}
       {%- else -%}

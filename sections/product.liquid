@@ -205,14 +205,14 @@
         <div class="product-details__meta">
           {% if section.settings.show_vendor and product.vendor %}
             <div class="product-details__vendor">
-              <span class="tag">{{ 'products.product.vendor' | t }}</span>
+              <span class="risograph-cta">{{ 'products.product.vendor' | t }}</span>
               <span>{{ product.vendor }}</span>
             </div>
           {% endif %}
           
           {% if section.settings.show_shipping_info %}
             <div class="product-details__shipping">
-              <span class="tag">{{ 'products.product.shipping' | t }}</span>
+              <span class="risograph-cta">{{ 'products.product.shipping' | t }}</span>
               <span>{{ section.settings.shipping_text }}</span>
             </div>
           {% endif %}
@@ -229,7 +229,7 @@
             {% for block in section.blocks %}
               {% if block.type == 'specification' %}
                 <div class="product-details__specification-item">
-                  <span class="tag">{{ block.settings.title }}</span>
+                  <span class="risograph-cta">{{ block.settings.title }}</span>
                   <span>{{ block.settings.content }}</span>
                 </div>
               {% endif %}

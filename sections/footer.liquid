@@ -1,9 +1,273 @@
+<footer class="footer" style="
+  --footer-main-bg: {{ section.settings.footer_main_bg }};
+  --footer-bottom-bg: {{ section.settings.footer_bottom_bg }};
+  --footer-text-color: {{ section.settings.footer_text_color }};
+">
+  <div class="footer__main">
+    <div class="container footer__container">
+      <div class="footer__columns">
+        {% if section.settings.menu_1 != blank %}
+          <div class="footer__column">
+            <h2 class="footer__heading">{{ section.settings.heading_1 }}</h2>
+            <ul class="footer__menu">
+              {% for link in section.settings.menu_1.links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
 
+        {% if section.settings.menu_2 != blank %}
+          <div class="footer__column">
+            <h2 class="footer__heading">{{ section.settings.heading_2 }}</h2>
+            <ul class="footer__menu">
+              {% for link in section.settings.menu_2.links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
 
+        {% if section.settings.menu_3 != blank %}
+          <div class="footer__column">
+            <h2 class="footer__heading">{{ section.settings.heading_3 }}</h2>
+            <ul class="footer__menu">
+              {% for link in section.settings.menu_3.links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
 
-{%- schema -%}
-  {
-    "name": "Footer",
-    "tag": "footer"
-  }
-{%- endschema -%}
+        {% if section.settings.menu_4 != blank %}
+          <div class="footer__column">
+            <h2 class="footer__heading">{{ section.settings.heading_4 }}</h2>
+            <ul class="footer__menu">
+              {% for link in section.settings.menu_4.links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container">
+      <div class="footer__branding">
+        <div class="footer__logo-wrapper">
+          {% if section.settings.logo != blank %}
+            <div class="footer__logo-image">
+              {{ section.settings.logo | image_url: width: 300 | image_tag: 
+                loading: 'lazy',
+                width: section.settings.logo.width,
+                height: section.settings.logo.height,
+                alt: section.settings.brand_text
+              }}
+            </div>
+          {% else %}
+            <h1 class="footer__logo">{{ section.settings.brand_text }}</h1>
+          {% endif %}
+        </div>
+
+        
+        <div class="footer__social-info">
+          {% if section.settings.social_handle_1 != blank %}
+            <span class="footer__social">
+              {% if section.settings.social_url_1 != blank %}
+                <a href="{{ section.settings.social_url_1 }}" target="_blank" rel="noopener" class="footer__social-link">
+                  {{ section.settings.social_handle_1 }}
+                </a>
+              {% else %}
+                {{ section.settings.social_handle_1 }}
+              {% endif %}
+              <span class="footer__social-dot footer__social-dot--orange"></span>
+            </span>
+          {% endif %}
+          
+          {% if section.settings.social_handle_2 != blank %}
+            <span class="footer__social">
+              {% if section.settings.social_url_2 != blank %}
+                <a href="{{ section.settings.social_url_2 }}" target="_blank" rel="noopener" class="footer__social-link">
+                  {{ section.settings.social_handle_2 }}
+                </a>
+              {% else %}
+                {{ section.settings.social_handle_2 }}
+              {% endif %}
+              <span class="footer__social-dot footer__social-dot--blue"></span>
+            </span>
+          {% endif %}
+          
+          {% if section.settings.location_text != blank %}
+            <span class="footer__location">
+              {{ section.settings.location_text }}
+              <span class="footer__social-dot footer__social-dot--beige"></span>
+            </span>
+          {% endif %}
+          
+          {% if section.settings.copyright_text != blank %}
+            <span class="footer__copyright">{{ section.settings.copyright_text }}</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{{ 'footer.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Footer Layout"
+    },
+    {
+      "type": "color",
+      "id": "footer_main_bg",
+      "label": "Main Footer Background",
+      "default": "#0E2D1D"
+    },
+    {
+      "type": "color",
+      "id": "footer_bottom_bg",
+      "label": "Bottom Footer Background",
+      "default": "#1F583B"
+    },
+    {
+      "type": "color",
+      "id": "footer_text_color",
+      "label": "Footer Text Color",
+      "default": "#F6F9F4"
+    },
+    {
+      "type": "header",
+      "content": "Column 1"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading",
+      "default": "About"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Column 2"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading",
+      "default": "Shop"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Column 3"
+    },
+    {
+      "type": "text",
+      "id": "heading_3",
+      "label": "Heading",
+      "default": "Print"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_3",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Column 4"
+    },
+    {
+      "type": "text",
+      "id": "heading_4",
+      "label": "Heading",
+      "default": "Contact"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_4",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Bottom Footer"
+    },
+    {
+      "type": "header",
+      "content": "Branding"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo (SVG recommended)",
+      "info": "Upload an SVG or image for your logo"
+    },
+    {
+      "type": "text",
+      "id": "brand_text",
+      "label": "Brand Name (if no logo)",
+      "default": "Jumbo Press"
+    },
+    {
+      "type": "header",
+      "content": "Social Media"
+    },
+    {
+      "type": "text",
+      "id": "social_handle_1",
+      "label": "Social Handle 1",
+      "default": "@jumbopress"
+    },
+    {
+      "type": "url",
+      "id": "social_url_1",
+      "label": "Social Link 1",
+      "info": "Link for the first social handle"
+    },
+    {
+      "type": "text",
+      "id": "social_handle_2",
+      "label": "Social Handle 2",
+      "default": "@jumbopressjr"
+    },
+    {
+      "type": "url",
+      "id": "social_url_2",
+      "label": "Social Link 2",
+      "info": "Link for the second social handle"
+    },
+    {
+      "type": "header",
+      "content": "Location and Copyright"
+    },
+    {
+      "type": "text",
+      "id": "location_text",
+      "label": "Location Text",
+      "default": "Based in Barcelona"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "All rights reserved (2025)"
+    }
+  ]
+}
+{% endschema %}
