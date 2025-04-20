@@ -32,6 +32,7 @@
       "header": {
         "type": "header",
         "settings": {
+          "logo": "shopify:\/\/shop_images\/Jumbo_Press_1.svg",
           "logo_width": 100,
           "menu": "main-menu",
           "show_language_selector": true
@@ -39,7 +40,27 @@
       },
       "footer": {
         "type": "footer",
-        "settings": {}
+        "settings": {
+          "footer_main_bg": "#0e2d1d",
+          "footer_bottom_bg": "#1f583b",
+          "footer_text_color": "#f6f9f4",
+          "heading_1": "About",
+          "menu_1": "",
+          "heading_2": "Shop",
+          "menu_2": "collections",
+          "heading_3": "Print",
+          "menu_3": "",
+          "heading_4": "Contact",
+          "menu_4": "footer",
+          "logo": "shopify:\/\/shop_images\/Jumbo_Press.svg",
+          "brand_text": "Jumbo Press",
+          "social_handle_1": "@jumbopress",
+          "social_url_1": "https:\/\/www.instagram.com\/jumbopress\/",
+          "social_handle_2": "@jumbopressjr",
+          "social_url_2": "https:\/\/www.instagram.com\/jumbopressjr\/",
+          "location_text": "Based in Barcelona",
+          "copyright_text": "All rights reserved (2025)"
+        }
       }
     },
     "content_for_index": [],
