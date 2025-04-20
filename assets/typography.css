@@ -47,3 +47,42 @@ label,
   letter-spacing: var(--accent-letter);
   text-transform: var(--accent-transform);
 }
+
+  /* Brand-specific classes */
+  .logo-text {
+    font-family: 'Ronzino-MediumOblique', sans-serif;
+    font-size: var(--logo-font-size);
+    line-height: 100%;
+    letter-spacing: -0.04em;
+  }
+  
+  .risograph-heading {
+    font-family: 'Ronzino Regular', sans-serif;
+    font-size: var(--heading-1-desktop-size);
+    line-height: 100%;
+  }
+  
+  .risograph-subheading {
+    font-family: 'Ronzino Regular', sans-serif;
+    font-size: var(--heading-2-desktop-size);
+    line-height: 105%;
+  }
+  
+  .risograph-body {
+    font-family: 'Ronzino Regular', sans-serif;
+    font-size: var(--body-desktop-size);
+    line-height: 120%;
+  }
+  
+  .risograph-description {
+    font-family: 'Ronzino Regular', sans-serif;
+    font-size: var(--description-desktop-size);
+    line-height: 120%;
+  }
+  
+  .risograph-cta {
+    font-family: 'Ronzino-MediumOblique', sans-serif;
+    font-size: var(--cta-desktop-size);
+    font-weight: 500;
+    line-height: 120%;
+  }
