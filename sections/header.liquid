@@ -10,20 +10,6 @@
         </span>
       </button>
       
-      <a href="/" class="header__logo">
-        {%- if section.settings.logo != blank -%}
-          {{ section.settings.logo | image_url: width: 200 | image_tag: 
-            class: 'header__logo-image',
-            widths: '100, 150, 200, 250, 300',
-            alt: section.settings.logo.alt | default: shop.name
-          }}
-        {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
-        {%- endif -%}
-      </a>
-    </div>
-
-    <div class="header__center">
       <nav class="nav-desktop" aria-label="{{ 'general.navigation.main_menu' | t }}">
         {%- if section.settings.menu != blank -%}
           <ul class="nav-desktop__menu">
@@ -59,6 +45,20 @@
           </ul>
         {%- endif -%}
       </nav>
+    </div>
+
+    <div class="header__center">
+      <a href="/" class="header__logo">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 200 | image_tag: 
+          class: 'header__logo-image',
+          widths: '100, 150, 200, 250, 300',
+          alt: section.settings.logo.alt | default: shop.name
+        }}
+      {%- else -%}
+        <span class="h2">{{ shop.name }}</span>
+      {%- endif -%}
+      </a>
     </div>
 
     <div class="header__right">

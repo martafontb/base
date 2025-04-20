@@ -10,9 +10,12 @@
 {%- assign btn_shadow = settings.btn_shadow_x | append: 'px ' | append: settings.btn_shadow_y | append: 'px ' | append: settings.btn_shadow_blur | append: 'px ' | append: settings.btn_shadow_spread | append: 'px ' -%}
 
 <style>
+  /* Comment out the default font faces since we're using custom ones */
+  /* 
   {{ settings.font_primary | font_face }}
   {{ settings.font_secondary | font_face }}
   {{ settings.font_tertiary | font_face }}
+  */
 
   :root {
     --color-text: {{ main_color_scheme.text }};
@@ -43,17 +46,18 @@
     --btn-radius-std: {{ settings.btn_radius_std }};
     --btn-radius-icon: {{ settings.btn_radius_icon }};
 
-    --type-1-font: {{ settings.font_primary.family }}, {{ settings.font_primary.fallback_families }};
-    --type-1-weight: {{ settings.font_primary.weight }};
-    --type-1-style: {{ settings.font_primary.style }};
+    /* Override with Ronzino fonts */
+    --type-1-font: 'Ronzino Bold Oblique', Arial, sans-serif;
+    --type-1-weight: 700;
+    --type-1-style: italic;
     
-    --type-2-font: {{ settings.font_secondary.family }}, {{ settings.font_secondary.fallback_families }};
-    --type-2-weight: {{ settings.font_secondary.weight }};
-    --type-2-style: {{ settings.font_secondary.style }};
+    --type-2-font: 'Ronzino Regular', Arial, sans-serif;
+    --type-2-weight: 400;
+    --type-2-style: normal;
 
-    --type-3-font: {{ settings.font_tertiary.family }}, {{ settings.font_tertiary.fallback_families }};
-    --type-3-weight: {{ settings.font_tertiary.weight }};
-    --type-3-style: {{ settings.font_tertiary.style }};
+    --type-3-font: 'Ronzino Medium Oblique', Arial, sans-serif;
+    --type-3-weight: 500;
+    --type-3-style: italic;
 
     --h1-font: var(--{{ settings.h1_font }}-font);
     --h1-weight: var(--{{ settings.h1_font }}-weight);
@@ -101,6 +105,14 @@
     --accent-line: 1;
     --accent-letter: {{ settings.accent_letter | divided_by: 10.0 | append: 'em' }};
     --accent-transform: {{ settings.accent_case }};
+    
+    /* Brand guideline specific sizes */
+    --logo-font-size: 2.25rem; /* 36px */
+    --heading-1-desktop-size: 2.25rem; /* 36px */
+    --heading-2-desktop-size: 1.375rem; /* 22px */
+    --body-desktop-size: 1.625rem; /* 26px */
+    --description-desktop-size: 0.8125rem; /* 13px */
+    --cta-desktop-size: 0.8125rem; /* 13px */
   }
 
   @media (min-width: 1024px) {
@@ -109,5 +121,42 @@
       --h2-size: {{ settings.h2_size_d | divided_by: 16.0 | append: 'rem' }};
       --h3-size: {{ settings.h3_size_d | divided_by: 16.0 | append: 'rem' }};
     }
+  }
+  
+  /* Brand-specific classes */
+  .logo-text {
+    font-family: 'Ronzino Bold Oblique', sans-serif;
+    font-size: var(--logo-font-size);
+    line-height: 100%;
+  }
+  
+  .risograph-heading {
+    font-family: 'Ronzino Regular', sans-serif;
+    font-size: var(--heading-1-desktop-size);
+    line-height: 100%;
+  }
+  
+  .risograph-subheading {
+    font-family: 'Ronzino Regular', sans-serif;
+    font-size: var(--heading-2-desktop-size);
+    line-height: 105%;
+  }
+  
+  .risograph-body {
+    font-family: 'Ronzino Regular', sans-serif;
+    font-size: var(--body-desktop-size);
+    line-height: 120%;
+  }
+  
+  .risograph-description {
+    font-family: 'Ronzino Regular', sans-serif;
+    font-size: var(--description-desktop-size);
+    line-height: 120%;
+  }
+  
+  .risograph-cta {
+    font-family: 'Ronzino Medium Oblique', sans-serif;
+    font-size: var(--cta-desktop-size);
+    line-height: 120%;
   }
 </style>

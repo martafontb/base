@@ -58,7 +58,7 @@
   }
   
   /* Desktop Navigation */
-  .header__center {
+  .nav-desktop {
     display: none;
   }
   
@@ -299,7 +299,7 @@
       max-height: calc(var(--header-height-desktop) - 30px);
     }
     
-    .header__center {
+    .nav-desktop {
       display: block;
     }
     
