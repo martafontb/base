@@ -1,153 +1,153 @@
 {
-    "sections": {
-      "hero": {
-        "type": "services-hero",
-        "settings": {
-          "title": "Risograph Printing Services",
-          "description": "<p>Discover the unique beauty of risograph printing for your next project. Our eco-friendly printing service delivers vibrant colors, texture, and character that digital printing simply can't match.</p>",
-          "button_text": "Get a Quote",
-          "button_url": "#"
-        }
-      },
-      "intro": {
-        "type": "services-intro",
-        "blocks": {
-          "step-1": {
-            "type": "step",
-            "settings": {
-              "title": "Digital Preparation",
-              "description": "<p>We prepare your design files for risograph printing, separating colors and optimizing for the best results.</p>"
-            }
-          },
-          "step-2": {
-            "type": "step",
-            "settings": {
-              "title": "Color Separation",
-              "description": "<p>Each color is printed separately in layers, creating the vibrant, overlapping colors that risograph is known for.</p>"
-            }
-          },
-          "step-3": {
-            "type": "step",
-            "settings": {
-              "title": "Printing Process",
-              "description": "<p>Our risograph printer creates a master stencil for each color, and then pushes ink through the stencil onto the paper.</p>"
-            }
-          },
-          "step-4": {
-            "type": "step",
-            "settings": {
-              "title": "Quality Control",
-              "description": "<p>We carefully check each print for quality and alignment, ensuring your final product meets our high standards.</p>"
-            }
-          }
-        },
-        "block_order": [
-          "step-1",
-          "step-2",
-          "step-3",
-          "step-4"
-        ],
-        "settings": {
-          "title": "What We Do",
-          "subtitle": "<p>Risograph printing is a unique process that combines the vibrant colors of screen printing with the efficiency of digital printing. Here's how we bring your designs to life:</p>",
-          "conclusion": "<p>The result is a beautiful, tactile print with vibrant colors and a unique aesthetic that can't be achieved with traditional digital printing.</p>",
-          "button_text": "Learn more about our process",
-          "button_url": "#"
-        }
-      },
-      "colors": {
-        "type": "services-colors",
-        "blocks": {
-          "color-1": {
-            "type": "color",
-            "settings": {
-              "color_name": "Fluorescent Pink",
-              "color_code": "Code: FP",
-              "color_hex": "#FF6AC2",
-              "color_description": "<p>A vibrant, electric pink that adds energy to any design. Great for highlights and eye-catching elements.</p>"
-            }
-          },
-          "color-2": {
-            "type": "color",
-            "settings": {
-              "color_name": "Blue",
-              "color_code": "Code: BL",
-              "color_hex": "#0078BF",
-              "color_description": "<p>A deep, bright blue that works well for both large areas and fine details. Creates a calm, professional feel.</p>"
-            }
-          },
-          "color-3": {
-            "type": "color",
-            "settings": {
-              "color_name": "Yellow",
-              "color_code": "Code: YE",
-              "color_hex": "#FFC812",
-              "color_description": "<p>A warm, sunny yellow that brings brightness to any design. Perfect for creating emphasis and warmth.</p>"
-            }
-          },
-          "color-4": {
-            "type": "color",
-            "settings": {
-              "color_name": "Green",
-              "color_code": "Code: GR",
-              "color_hex": "#16A566",
-              "color_description": "<p>A fresh mint green that adds a natural, organic feel to your prints. Works well with both dark and light colors.</p>"
-            }
-          }
-        },
-        "block_order": [
-          "color-1",
-          "color-2",
-          "color-3",
-          "color-4"
-        ],
-        "settings": {
-          "title": "Our Risograph Colors",
-          "description": "<p>Our risograph printer uses soy-based inks in vibrant, unique colors. Each color has its own character and can be layered to create beautiful combinations. Here are the colors we currently offer:</p>",
-          "note": "<p>Please note that risograph colors can vary slightly between prints and may not precisely match digital previews. This is part of the unique charm of risograph printing!</p>",
-          "button_text": "See Color Samples",
-          "button_url": "#"
-        }
-      },
-      "pricing": {
-        "type": "services-pricing",
-        "settings": {
-          "title": "Our Printing Packages",
-          "description": "<p>We offer a range of printing options to suit your project needs and budget. All prices include standard 80lb paper, but custom papers are available upon request.</p>"
-        }
-      },
-      "gallery": {
-        "type": "services-gallery",
-        "settings": {
-          "title": "Our Work",
-          "description": "<p>Browse through a selection of our risograph printing projects. From art prints to zines, business cards to wedding invitations, we love bringing unique designs to life.</p>"
-        }
-      },
-      "faq": {
-        "type": "services-faq",
-        "settings": {
-          "title": "Frequently Asked Questions",
-          "description": "<p>Have questions about risograph printing? Find answers to common questions below, or contact us if you need more information.</p>"
-        }
-      },
-      "contact": {
-        "type": "services-contact",
-        "settings": {
-          "title": "Get in Touch",
-          "description": "<p>Ready to start your risograph printing project? Fill out the form below and we'll get back to you with a quote within 24 hours.</p>",
-          "button_text": "Submit Inquiry",
-          "show_phone": true,
-          "show_email": true
-        }
+  "sections": {
+    "hero": {
+      "type": "services-hero",
+      "settings": {
+        "title": "Risograph Printing Services",
+        "description": "<p>Discover the unique beauty of risograph printing for your next project. Our eco-friendly printing service delivers vibrant colors, texture, and character that digital printing simply can't match.<\/p>",
+        "button_text": "Get a Quote",
+        "button_url": "#"
       }
     },
-    "order": [
-      "hero",
-      "intro",
-      "colors",
-      "pricing",
-      "gallery",
-      "faq",
-      "contact"
-    ]
-  }
+    "intro": {
+      "type": "services-intro",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "title": "Digital Preparation",
+            "description": "<p>We prepare your design files for risograph printing, separating colors and optimizing for the best results.<\/p>"
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "title": "Color Separation",
+            "description": "<p>Each color is printed separately in layers, creating the vibrant, overlapping colors that risograph is known for.<\/p>"
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "title": "Printing Process",
+            "description": "<p>Our risograph printer creates a master stencil for each color, and then pushes ink through the stencil onto the paper.<\/p>"
+          }
+        },
+        "step-4": {
+          "type": "step",
+          "settings": {
+            "title": "Quality Control",
+            "description": "<p>We carefully check each print for quality and alignment, ensuring your final product meets our high standards.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3",
+        "step-4"
+      ],
+      "settings": {
+        "title": "What We Do",
+        "subtitle": "<p>Risograph printing is a unique process that combines the vibrant colors of screen printing with the efficiency of digital printing. Here's how we bring your designs to life:<\/p>",
+        "conclusion": "<p>The result is a beautiful, tactile print with vibrant colors and a unique aesthetic that can't be achieved with traditional digital printing.<\/p>",
+        "button_text": "Learn more about our process",
+        "button_url": "#"
+      }
+    },
+    "colors": {
+      "type": "services-colors",
+      "blocks": {
+        "color-1": {
+          "type": "color",
+          "settings": {
+            "color_name": "Fluorescent Pink",
+            "color_code": "Code: FP",
+            "color_hex": "#FF6AC2",
+            "color_description": "<p>A vibrant, electric pink that adds energy to any design. Great for highlights and eye-catching elements.<\/p>"
+          }
+        },
+        "color-2": {
+          "type": "color",
+          "settings": {
+            "color_name": "Blue",
+            "color_code": "Code: BL",
+            "color_hex": "#0078BF",
+            "color_description": "<p>A deep, bright blue that works well for both large areas and fine details. Creates a calm, professional feel.<\/p>"
+          }
+        },
+        "color-3": {
+          "type": "color",
+          "settings": {
+            "color_name": "Yellow",
+            "color_code": "Code: YE",
+            "color_hex": "#FFC812",
+            "color_description": "<p>A warm, sunny yellow that brings brightness to any design. Perfect for creating emphasis and warmth.<\/p>"
+          }
+        },
+        "color-4": {
+          "type": "color",
+          "settings": {
+            "color_name": "Green",
+            "color_code": "Code: GR",
+            "color_hex": "#16A566",
+            "color_description": "<p>A fresh mint green that adds a natural, organic feel to your prints. Works well with both dark and light colors.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "color-1",
+        "color-2",
+        "color-3",
+        "color-4"
+      ],
+      "settings": {
+        "title": "Our Risograph Colors",
+        "description": "<p>Our risograph printer uses soy-based inks in vibrant, unique colors. Each color has its own character and can be layered to create beautiful combinations. Here are the colors we currently offer:<\/p>",
+        "note": "<p>Please note that risograph colors can vary slightly between prints and may not precisely match digital previews. This is part of the unique charm of risograph printing!<\/p>",
+        "button_text": "See Color Samples",
+        "button_url": "#"
+      }
+    },
+    "pricing": {
+      "type": "services-pricing",
+      "settings": {
+        "title": "Our Printing Packages",
+        "description": "<p>We offer a range of printing options to suit your project needs and budget. All prices include standard 80lb paper, but custom papers are available upon request.<\/p>"
+      }
+    },
+    "gallery": {
+      "type": "services-gallery",
+      "settings": {
+        "title": "Our Work",
+        "description": "<p>Browse through a selection of our risograph printing projects. From art prints to zines, business cards to wedding invitations, we love bringing unique designs to life.<\/p>"
+      }
+    },
+    "faq": {
+      "type": "services-faq",
+      "settings": {
+        "title": "Frequently Asked Questions",
+        "description": "<p>Have questions about risograph printing? Find answers to common questions below, or contact us if you need more information.<\/p>"
+      }
+    },
+    "contact": {
+      "type": "services-contact",
+      "settings": {
+        "title": "Get in Touch",
+        "description": "<p>Ready to start your risograph printing project? Fill out the form below and we'll get back to you with a quote within 24 hours.<\/p>",
+        "button_text": "Submit Inquiry",
+        "show_phone": true,
+        "show_email": true
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "intro",
+    "colors",
+    "pricing",
+    "gallery",
+    "faq",
+    "contact"
+  ]
+}

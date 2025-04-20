@@ -344,15 +344,11 @@
     transition: transform var(--transition-duration) var(--transition-ease);
   }
   
-  .product-card:hover {
-    transform: translateY(-4px);
-  }
   
   .product-card__media {
     position: relative;
     margin-bottom: 1rem;
     overflow: hidden;
-    border-radius: var(--radius-sm);
   }
   
   .product-card__link {
@@ -519,7 +515,6 @@
   
   .product-card:hover add-to-cart-form {
     opacity: 1;
-    transform: translateY(0);
   }
   
   .product-card .add-to-cart-button {

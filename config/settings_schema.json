@@ -592,11 +592,26 @@
         "id": "btn_padding_h",
         "label": "Horizontal padding",
         "options": [
-          { "label": "Extra Small", "value": "var(--btn-padding-xs)" },
-          { "label": "Small", "value": "var(--btn-padding-sm)" },
-          { "label": "Medium", "value": "var(--btn-padding-md)" },
-          { "label": "Large", "value": "var(--btn-padding-lg)" },
-          { "label": "Extra Large", "value": "var(--btn-padding-xl)" }
+          {
+            "label": "Extra Small",
+            "value": "var(--btn-padding-xs)"
+          },
+          {
+            "label": "Small",
+            "value": "var(--btn-padding-sm)"
+          },
+          {
+            "label": "Medium",
+            "value": "var(--btn-padding-md)"
+          },
+          {
+            "label": "Large",
+            "value": "var(--btn-padding-lg)"
+          },
+          {
+            "label": "Extra Large",
+            "value": "var(--btn-padding-xl)"
+          }
         ],
         "default": "var(--btn-padding-md)"
       },
@@ -605,11 +620,26 @@
         "id": "btn_padding_v",
         "label": "Vertical padding",
         "options": [
-          { "label": "Extra Small", "value": "var(--btn-padding-xs)" },
-          { "label": "Small", "value": "var(--btn-padding-sm)" },
-          { "label": "Medium", "value": "var(--btn-padding-md)" },
-          { "label": "Large", "value": "var(--btn-padding-lg)" },
-          { "label": "Extra Large", "value": "var(--btn-padding-xl)" }
+          {
+            "label": "Extra Small",
+            "value": "var(--btn-padding-xs)"
+          },
+          {
+            "label": "Small",
+            "value": "var(--btn-padding-sm)"
+          },
+          {
+            "label": "Medium",
+            "value": "var(--btn-padding-md)"
+          },
+          {
+            "label": "Large",
+            "value": "var(--btn-padding-lg)"
+          },
+          {
+            "label": "Extra Large",
+            "value": "var(--btn-padding-xl)"
+          }
         ],
         "default": "var(--btn-padding-md)"
       },

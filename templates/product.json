@@ -1,7 +1,23 @@
 {
   "sections": {
     "main": {
-      "type": "product"
+      "type": "product",
+      "settings": {
+        "variant_style": "buttons",
+        "show_vendor": false,
+        "show_shipping_info": true,
+        "shipping_text": "Free shipping on orders over $100",
+        "show_specifications": false,
+        "show_related_products": true,
+        "related_products_title": "You may also like",
+        "related_products_source": "collection",
+        "related_products_limit": 4,
+        "show_riso_info": true,
+        "riso_info_title": "About Risograph Printing",
+        "riso_info_content": "<p>Risograph printing creates beautiful, vibrant prints with a unique aesthetic. Each color is printed separately in layers, creating slight imperfections and misalignments that give risograph prints their distinctive character.<\/p>",
+        "riso_info_button_text": "Learn more about our process",
+        "riso_info_button_url": ""
+      }
     }
   },
   "order": [
