@@ -4,7 +4,8 @@
   {% render 'component_quantity-selector', 
     id: 'Quantity-' | append: section.id,
     min: 1,
-    value: 1
+    value: 1,
+    cart_item: cart_item (optional, for cart drawer)
   %}
 {% endcomment %}
 
@@ -12,7 +13,10 @@
 {%- assign min_value = min | default: 1 -%}
 {%- assign initial_value = value | default: 1 -%}
 
-<quantity-selector class="product-form__quantity">
+<quantity-selector 
+  class="product-form__quantity"
+  {% if cart_item %}data-item-key="{{ cart_item.key }}"{% endif %}
+>
   <label for="{{ input_id }}" class="quantity-selector--label">
     {{ 'products.product.quantity' | t }}
   </label>
@@ -33,6 +37,7 @@
       value="{{ initial_value }}"
       min="{{ min_value }}"
       aria-label="{{ 'products.product.quantity' | t }}"
+      {% if cart_item %}data-index="{{ forloop.index }}"{% endif %}
     >
     <button 
       type="button" 
@@ -43,7 +48,13 @@
       &plus;
     </button>
   </div>
+  <div class="quantity-selector--loader" aria-hidden="true">
+    <div class="loading-spinner"></div>
+  </div>
 </quantity-selector>
 
-{{ 'quantity-selector.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'quantity-selector.js' | asset_url }}" defer></script>
+{% unless quantity_selector_loaded %}
+  {{ 'quantity-selector.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'quantity-selector.js' | asset_url }}" defer></script>
+  {% assign quantity_selector_loaded = true %}
+{% endunless %}

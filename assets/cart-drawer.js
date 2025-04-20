@@ -11,30 +11,49 @@ class CartDrawer {
 
   init() {
     if (!this.cartDrawer) return;
-
+  
     // Close button event
     this.cartClose?.addEventListener("click", () => {
       this.cartDrawer.setAttribute("open", "false");
     });
-
-    // Initialize quantity change listeners
+  
+    // Make sure to load the quantity selector components
+    if (!document.querySelector('script[src*="quantity-selector.js"]')) {
+      const script = document.createElement('script');
+      script.src = window.theme?.asset_url 
+        ? window.theme.asset_url.replace('cart-drawer.js', 'quantity-selector.js')
+        : '/assets/quantity-selector.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+  
+    if (!document.querySelector('link[href*="quantity-selector.css"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = window.theme?.asset_url
+        ? window.theme.asset_url.replace('cart-drawer.js', 'quantity-selector.css')
+        : '/assets/quantity-selector.css';
+      document.head.appendChild(link);
+    }
+  
+    // Initialize quantity change listeners (we'll use the custom component events now)
     this.initQuantityInputs();
-
+  
     // Initialize remove buttons
     this.initRemoveButtons();
-
+  
     // Setup the cart render function
     window.renderCart = this.renderCart.bind(this);
-
+  
     // Initialize custom elements if not already defined
     this.initCustomElements();
   }
 
   initQuantityInputs() {
-    const quantityInputs = document.querySelectorAll(".cart-item__qty-input");
-    quantityInputs.forEach((input) => {
-      input.addEventListener("change", this.handleQuantityChange.bind(this));
-    });
+    // const quantityInputs = document.querySelectorAll(".cart-item__qty-input");
+    // quantityInputs.forEach((input) => {
+    //   input.addEventListener("change", this.handleQuantityChange.bind(this));
+    // });
   }
 
   initRemoveButtons() {
@@ -141,7 +160,7 @@ class CartDrawer {
     const originalPrice = formatMoney(item.original_line_price);
     const finalPrice = formatMoney(item.final_line_price);
     const hasDiscount = item.original_line_price !== item.final_line_price;
-
+  
     // Build options HTML - only show if different to default title
     let optionsHTML = "";
     if (item.options_with_values && item.options_with_values.length > 0) {
@@ -159,7 +178,7 @@ class CartDrawer {
         )
         .join("");
     }
-
+  
     // Build properties HTML
     if (item.properties) {
       const properties = [];
@@ -187,7 +206,43 @@ class CartDrawer {
         optionsHTML += properties.join("");
       }
     }
-
+  
+    // Generate the quantity selector HTML
+    const quantitySelectorHTML = `
+    <quantity-selector data-item-key="${item.key}" class="cart-item__quantity">
+      <div class="quantity-selector--controls">
+        <button 
+          type="button" 
+          class="quantity-selector--button quantity-selector--decrease" 
+          aria-label="Decrease quantity"
+          data-decrease
+        >
+          &minus;
+        </button>
+        <input
+          type="number"
+          id="Quantity-${item.key}"
+          name="updates[${item.key}]"
+          class="quantity-selector--input"
+          value="${item.quantity}"
+          min="1"
+          aria-label="Quantity"
+        >
+        <button 
+          type="button" 
+          class="quantity-selector--button quantity-selector--increase" 
+          aria-label="Increase quantity"
+          data-increase
+        >
+          &plus;
+        </button>
+      </div>
+      <div class="quantity-selector--loader" aria-hidden="true">
+        <div class="loading-spinner"></div>
+      </div>
+    </quantity-selector>
+  `;
+  
     // Put it all together
     return `
         <div class="cart-item" data-id="${item.key}">
@@ -216,21 +271,7 @@ class CartDrawer {
             }
             
             <div class="cart-item__price-wrapper">
-              <div class="cart-item__quantity">
-                <label for="Quantity-${
-                  item.key
-                }" class="visually-hidden">Quantity</label>
-                <input
-                  type="number"
-                  id="Quantity-${item.key}"
-                  name="updates[${item.key}]"
-                  value="${item.quantity}"
-                  min="0"
-                  aria-label="Quantity"
-                  class="cart-item__qty-input"
-                  data-id="${item.key}"
-                >
-              </div>
+              ${quantitySelectorHTML}
               
               <div class="cart-item__price risograph-cta">
                 ${

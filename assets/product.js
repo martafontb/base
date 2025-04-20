@@ -471,20 +471,31 @@ class ProductGallery {
       
       // Add to cart using the existing cart.js utility
       if (window.addToCart) {
-        window.addToCart(data)
-          .then(response => {
-            // Success callback
-            console.log('Added to cart:', response);
-          })
-          .catch(error => {
-            // Error callback
-            console.error('Error adding to cart:', error);
-          })
-          .finally(() => {
-            // Reset button state
+        const result = window.addToCart(data);
+        
+        // Check if addToCart returns a Promise
+        if (result && typeof result.then === 'function') {
+          result
+            .then(response => {
+              // Success callback
+              console.log('Added to cart:', response);
+            })
+            .catch(error => {
+              // Error callback
+              console.error('Error adding to cart:', error);
+            })
+            .finally(() => {
+              // Reset button state
+              this.addToCartButton.disabled = false;
+              this.addToCartText.textContent = originalText;
+            });
+        } else {
+          // If it doesn't return a Promise, wait a bit and reset the button
+          setTimeout(() => {
             this.addToCartButton.disabled = false;
             this.addToCartText.textContent = originalText;
-          });
+          }, 1000);
+        }
       } else {
         // Fallback if cart.js is not loaded
         fetch('/cart/add.js', {
