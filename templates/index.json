@@ -14,15 +14,12 @@
           "settings": {
             "image": "shopify:\/\/shop_images\/theme_cover_image.jpg",
             "type": "background",
-            "size": "cover",
-            "aspect": "var(--aspect-landscape)",
-            "radius": "var(--radius-none)"
+            "size": "cover"
           }
         },
         "group_i9bgM7": {
           "type": "group",
           "settings": {
-            "padding": "var(--padding-sm)",
             "direction_mobile": "column",
             "gap_mobile": 16,
             "alignment_mobile": "start",
@@ -36,7 +33,6 @@
             "group_gc9Fzk": {
               "type": "group",
               "settings": {
-                "padding": "var(--padding-none)",
                 "direction_mobile": "column",
                 "gap_mobile": 0,
                 "alignment_mobile": "start",
@@ -81,10 +77,9 @@
       ],
       "settings": {
         "width": "contained",
-        "padding": "var(--padding-sm)",
-        "radius": "var(--radius-md)",
         "direction_mobile": "column",
-        "direction_desktop": "row"
+        "direction_desktop": "row",
+        "radius": "var(--radius-md)"
       }
     },
     "dynamic_section_2": {
@@ -94,15 +89,12 @@
           "type": "image",
           "settings": {
             "type": "inline",
-            "size": "cover",
-            "aspect": "var(--aspect-auto)",
-            "radius": "var(--radius-none)"
+            "size": "cover"
           }
         },
         "group_TbTQjF": {
           "type": "group",
           "settings": {
-            "padding": "var(--padding-none)",
             "direction_mobile": "column",
             "gap_mobile": 16,
             "alignment_mobile": "start",
@@ -120,10 +112,9 @@
       ],
       "settings": {
         "width": "contained",
-        "padding": "var(--padding-none)",
-        "radius": "var(--radius-none)",
         "direction_mobile": "column",
-        "direction_desktop": "row"
+        "direction_desktop": "row",
+        "radius": "var(--radius-none)"
       }
     }
   },

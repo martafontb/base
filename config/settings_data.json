@@ -1,22 +1,41 @@
 {
   "current": {
+    "favicon": "shopify:\/\/shop_images\/Bird_Pit_Jumbo_2024_IG.jpg",
+    "primary_color_scheme": "scheme-0efad36e-6bbd-4fb1-a47e-a11fe6e60a92",
     "font_primary": "archivo_n7",
     "font_secondary": "archivo_n4",
     "font_tertiary": "archivo_n5",
     "h1_size_m": 32,
     "h1_size_d": 34,
-    "h1_letter": -0.6,
+    "h1_letter": -0.4,
     "h1_case": "none",
     "h2_size_m": 24,
     "h2_size_d": 32,
-    "h2_letter": -0.7,
+    "h2_letter": -0.2,
     "h2_case": "none",
     "h3_font": "type-3",
+    "h3_letter": -0.2,
+    "body_size": 16,
     "btn_font": "type-3",
+    "btn_size": 13,
+    "btn_letter": 0,
+    "btn_case": "capitalize",
+    "accent_size": 14,
+    "accent_case": "capitalize",
+    "btn_primary_colors_default": "scheme-0efad36e-6bbd-4fb1-a47e-a11fe6e60a92",
+    "btn_primary_colors_hover": "scheme-0efad36e-6bbd-4fb1-a47e-a11fe6e60a92",
+    "btn_secondary_colors_default": "scheme-0efad36e-6bbd-4fb1-a47e-a11fe6e60a92",
+    "btn_secondary_colors_hover": "scheme-0efad36e-6bbd-4fb1-a47e-a11fe6e60a92",
+    "btn_border_style": "dashed",
+    "btn_radius_std": "var(--btn-radius-full)",
     "sections": {
       "header": {
         "type": "header",
-        "settings": {}
+        "settings": {
+          "logo_width": 100,
+          "menu": "main-menu",
+          "show_language_selector": true
+        }
       },
       "footer": {
         "type": "footer",
@@ -28,41 +47,49 @@
       "main": {
         "settings": {
           "text": "#2a160d",
-          "background": "#FCFCF8",
-          "border": "#DADAD3",
-          "shadows": "#EEEEE9"
+          "background": "#fcfcf8",
+          "border": "#dadad3",
+          "shadow": ""
         }
       },
       "primary_btn_default": {
         "settings": {
-          "text": "#FCFCF8",
-          "background": "#2A160D",
-          "border": "#2A160D",
-          "shadows": ""
+          "text": "#fcfcf8",
+          "background": "#2a160d",
+          "border": "#2a160d",
+          "shadow": ""
         }
       },
       "primary_btn_hover": {
         "settings": {
-          "text": "#FCFCF8",
+          "text": "#fcfcf8",
           "background": "#544037",
-          "border": "#2A160D",
-          "shadows": ""
+          "border": "#2a160d",
+          "shadow": ""
         }
       },
       "secondary_btn_default": {
         "settings": {
-          "text": "#2A160D",
+          "text": "#2a160d",
           "background": "",
-          "border": "#2A160D",
-          "shadows": ""
+          "border": "#2a160d",
+          "shadow": ""
         }
       },
       "secondary_btn_hover": {
         "settings": {
-          "text": "#2A160D",
-          "background": "#EEEEE9",
-          "border": "#2A160D",
-          "shadows": ""
+          "text": "#2a160d",
+          "background": "#eeeee9",
+          "border": "#2a160d",
+          "shadow": ""
+        }
+      },
+      "scheme-0efad36e-6bbd-4fb1-a47e-a11fe6e60a92": {
+        "settings": {
+          "text": "#09120d",
+          "background": "#f6f9f4",
+          "border": "#dadad3",
+          "shadow": ""
         }
       }
     }
