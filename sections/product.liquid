@@ -69,12 +69,12 @@
 
     <div class="product-details">
       <div class="product-details__header">
-        <h1 class="product-details__title h1">
+        <h1 class="product-details__title risograph-heading">
           {{ product.title }}
         </h1>
         
         <div class="product-details__price-wrapper">
-          <span class="product-details__price{% if product.compare_at_price > product.price %} on-sale{% endif %}" data-product-price>
+          <span class="product-details__price{% if product.compare_at_price > product.price %} on-sale{% endif %} risograph-subheading" data-product-price>
             {{ product.price | money }}
           </span>
           
@@ -169,17 +169,11 @@
         {% endif %}
 
         <div class="product-form__footer">
-          <div class="product-form__quantity">
-            <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
-            <input 
-              type="number" 
-              name="quantity"
-              id="Quantity-{{ section.id }}"
-              value="1"
-              min="1"
-              aria-label="{{ 'products.product.quantity' | t }}"
-            >
-          </div>
+          {% render 'component_quantity-selector', 
+          id: 'Quantity-' | append: section.id,
+          min: 1,
+          value: cart_item.quantity | default: 1 
+        %}
 
           <div class="product-form__buttons">
             <button
@@ -243,7 +237,7 @@
 
 {% if section.settings.show_related_products %}
   <div class="related-products container">
-    <h2 class="related-products__title h2">
+    <h2 class="related-products__title risograph-heading">
       {{ section.settings.related_products_title | default: 'Related Products' }}
     </h2>
     
@@ -266,12 +260,14 @@
                     class: 'related-products__image'
                   %}
                 </div>
+                <div class="related-products__info">
                 <h3 class="related-products__item-title">
                   {{ related_product.title }}
                 </h3>
                 <span class="related-products__item-price">
                   {{ related_product.price | money }}
                 </span>
+                </div>
               </a>
             </div>
           {% endif %}
@@ -306,12 +302,14 @@
                       class: 'related-products__image'
                     %}
                   </div>
+                  <div class="related-products__info">
                   <h3 class="related-products__item-title">
                     {{ product_item.title }}
                   </h3>
                   <span class="related-products__item-price">
                     {{ product_item.price | money }}
                   </span>
+                  </div>
                 </a>
               </div>
             {% endif %}
@@ -324,7 +322,7 @@
 
 {% if section.settings.show_riso_info %}
   <div class="riso-info container">
-    <h2 class="riso-info__title h2">{{ section.settings.riso_info_title }}</h2>
+    <h2 class="riso-info__title risograph-heading">{{ section.settings.riso_info_title }}</h2>
     <div class="riso-info__content">
       {{ section.settings.riso_info_content }}
     </div>

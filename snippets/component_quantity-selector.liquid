@@ -1,0 +1,49 @@
+{% comment %}
+  Quantity Selector Component
+  Usage:
+  {% render 'component_quantity-selector', 
+    id: 'Quantity-' | append: section.id,
+    min: 1,
+    value: 1
+  %}
+{% endcomment %}
+
+{%- assign input_id = id | default: 'Quantity' -%}
+{%- assign min_value = min | default: 1 -%}
+{%- assign initial_value = value | default: 1 -%}
+
+<quantity-selector class="product-form__quantity">
+  <label for="{{ input_id }}" class="quantity-selector--label">
+    {{ 'products.product.quantity' | t }}
+  </label>
+  <div class="quantity-selector--controls">
+    <button 
+      type="button" 
+      class="quantity-selector--button quantity-selector--decrease" 
+      aria-label="{{ 'products.product.decrease_quantity' | t }}"
+      data-decrease
+    >
+      &minus;
+    </button>
+    <input
+      type="number"
+      name="quantity"
+      id="{{ input_id }}"
+      class="quantity-selector--input"
+      value="{{ initial_value }}"
+      min="{{ min_value }}"
+      aria-label="{{ 'products.product.quantity' | t }}"
+    >
+    <button 
+      type="button" 
+      class="quantity-selector--button quantity-selector--increase" 
+      aria-label="{{ 'products.product.increase_quantity' | t }}"
+      data-increase
+    >
+      &plus;
+    </button>
+  </div>
+</quantity-selector>
+
+{{ 'quantity-selector.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'quantity-selector.js' | asset_url }}" defer></script>

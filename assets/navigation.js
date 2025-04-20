@@ -156,7 +156,7 @@ class HeaderNavigation {
                 `).join('')}
               </div>
             ` : ''}
-            <div class="cart-item__price-wrapper">
+            <div class="cart-item__price-wrapper risograph-cta">
               <div class="cart-item__quantity">
                 <label for="quantity-${item.key}" class="visually-hidden">Quantity</label>
                 <input

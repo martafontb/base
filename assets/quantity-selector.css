@@ -1,0 +1,84 @@
+/* assets/quantity-selector.css */
+quantity-selector {
+    display: flex;
+    align-items: start;
+  }
+  
+  .quantity-selector--label {
+    font-family: var(--accent-font);
+    font-weight: var(--accent-weight);
+    font-style: var(--accent-style);
+    font-size: var(--accent-size);
+    letter-spacing: var(--accent-letter);
+    text-transform: var(--accent-transform);
+    margin-right: 1rem;
+  }
+  
+  .quantity-selector--controls {
+    display: flex;
+    align-items: center;
+    /* border-top: var(--border-md, 1px) solid var(--color-border);
+    border-bottom: var(--border-md, 1px) solid var(--color-border); */
+  }
+  
+  .quantity-selector--button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+    border-radius: var(--btn-radius-icon, var(--radius-full));
+    border: var(--border-md, 1px) solid var(--color-border);
+    cursor: pointer;
+    transition: background-color var(--transition-duration) var(--transition-ease);
+  }
+  
+  .quantity-selector--decrease {
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+  
+  .quantity-selector--increase {
+
+  }
+  
+  .quantity-selector--input {
+    width: 3rem;
+    font-size: 0.8rem;
+    text-align: center;
+    background-color: transparent;
+    padding: 0.5rem 0;
+    -moz-appearance: textfield; /* Firefox */
+  }
+  
+  .quantity-selector--input::-webkit-outer-spin-button,
+  .quantity-selector--input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  @media (hover: hover) {
+    .quantity-selector--decrease:hover {
+        background-color: var(--color-text);
+        color: var(--color-background);
+    }
+  
+    .quantity-selector--increase:hover {
+        background-color: var(--color-text);
+        color: var(--color-background);
+    }
+  }
+  
+  @media (max-width: 767px) {
+    quantity-selector {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .quantity-selector--label {
+      margin-bottom: 0.5rem;
+      margin-right: 0;
+    }
+  }

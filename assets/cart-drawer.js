@@ -232,7 +232,7 @@ class CartDrawer {
                 >
               </div>
               
-              <div class="cart-item__price">
+              <div class="cart-item__price risograph-cta">
                 ${
                   hasDiscount
                     ? `

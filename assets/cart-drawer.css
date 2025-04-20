@@ -179,9 +179,6 @@ cart-drawer {
     width: 60px;
   }
   
-  .cart-item__price {
-    font-weight: bold;
-  }
   
   .cart-item__price-regular {
     text-decoration: line-through;

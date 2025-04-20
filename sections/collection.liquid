@@ -3,7 +3,7 @@
 <section class="collection" data-section-id="{{ section.id }}">
   <div class="container">
     <div class="collection__header">
-      <h1 class="collection__title h1">{{ collection.title }}</h1>
+      <h1 class="collection__title risograph-heading">{{ collection.title }}</h1>
       
       {% if collection.description != blank %}
         <div class="collection__description">
@@ -83,7 +83,7 @@
     <div class="collection__main">
       <div id="CollectionFilters" class="collection__filters" aria-hidden="true">
         <div class="collection__filters-header">
-          <h2 class="h3">{{ 'collections.filtering.title' | t }}</h2>
+          <h2 class="risograph-subheading">{{ 'collections.filtering.title' | t }}</h2>
           <button type="button" class="collection__filter-close" aria-label="{{ 'collections.filtering.close' | t }}">
             {% render 'icon-close' %}
           </button>
