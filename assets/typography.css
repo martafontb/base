@@ -53,7 +53,6 @@ label,
     font-family: 'Ronzino-MediumOblique', sans-serif;
     font-size: var(--logo-font-size);
     line-height: 100%;
-    letter-spacing: -0.04em;
   }
   
   .risograph-heading {
