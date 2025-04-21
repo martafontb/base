@@ -1,5 +1,6 @@
 {{ 'hamburger.css' | asset_url | stylesheet_tag }}
 {{ 'navigation.css' | asset_url | stylesheet_tag }}
+{% comment %} {{ 'scroll-header.css' | asset_url | stylesheet_tag }} {% endcomment %}
 
 <header class="header" data-section-id="{{ section.id }}">
   <div class="container header__container">
@@ -169,7 +170,7 @@
   </div>
 </header>
 
-<cart-drawer open="false" aria-hidden="true" tabindex="-1">
+{% comment %} <cart-drawer open="false" aria-hidden="true" tabindex="-1">
   <div class="cart-drawer">
     <div class="cart-drawer__header">
       <h2 class="h3">{{ 'cart.title' | t }}</h2>
@@ -179,11 +180,12 @@
     </div>
     <div class="cart-drawer__body"></div>
   </div>
-</cart-drawer>
+</cart-drawer> {% endcomment %}
 
 <div class="mobile-menu-overlay" aria-hidden="true"></div>
 
 <script src="{{ 'navigation.js' | asset_url }}" defer></script>
+{% comment %} <script src="{{ 'scroll-header.js' | asset_url }}" defer></script> {% endcomment %}
 
 {% schema %}
 {

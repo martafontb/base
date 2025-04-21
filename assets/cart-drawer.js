@@ -166,19 +166,20 @@ class CartDrawer {
     if (item.options_with_values && item.options_with_values.length > 0) {
       optionsHTML += item.options_with_values
         .filter(
-          (option) => option.value.toLowerCase() !== item.title.toLowerCase()
+          (option) => 
+            option.value.toLowerCase() !== item.title.toLowerCase() && 
+            !(option.name === "Title" && option.value === "Default Title")
         )
         .map(
           (option) => `
-      <p class="cart-item__option">
-        <span>${option.name}:</span>
-        <span>${option.value}</span>
-      </p>
-    `
+          <p class="cart-item__option">
+            <span>${option.name}:</span>
+            <span>${option.value}</span>
+          </p>
+        `
         )
         .join("");
     }
-  
     // Build properties HTML
     if (item.properties) {
       const properties = [];
