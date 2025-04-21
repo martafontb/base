@@ -306,6 +306,14 @@ search-modal {
     transition: color var(--transition-duration) var(--transition-ease);
     position: relative;
   }
+@media (min-width: 768px) {
+    .search-toggle {
+      display: block;
+    }
+  }
+  .search-toggle__text {
+    display: none;
+  }
   
   .search-toggle:hover {
     color: #FF6AC2; /* Risograph pink */

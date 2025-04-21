@@ -1,0 +1,345 @@
+{%- assign config = section.settings -%}
+
+<div class="color-showcase" id="color-showcase-{{ section.id }}" style="
+  --section-padding: {{ config.section_padding }}px;
+  --row-spacing: {{ config.row_spacing }}px;
+  --circle-size: {{ config.circle_size }}px;
+  --bg-color: {{ config.background_color }};
+  --text-color: {{ config.text_color }};
+  --heading-color: {{ config.heading_color }};
+  ">
+  
+  {%- if config.heading != blank -%}
+    <div class="color-showcase__header">
+      <h2 class="color-showcase__heading">{{ config.heading }}</h2>
+      {%- if config.description != blank -%}
+        <div class="color-showcase__description">{{ config.description }}</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+  
+  <div class="color-showcase__container">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'color_row' -%}
+        {%- assign color_row = block.settings -%}
+        <div class="color-row" {{ block.shopify_attributes }}>
+          <div class="color-row__info">
+            <h3 class="color-row__name">{{ color_row.color_name }}</h3>
+            <div class="color-row__hex">{{ color_row.primary_hex_code }}</div>
+          </div>
+          
+          <div class="color-row__swatches">
+            {%- assign tint_count = config.tint_count | default: 10 | plus: 0 -%}
+            {%- assign opacity_step = 0.9 | divided_by: tint_count | plus: 0.0 -%}
+            
+            {%- for i in (1..tint_count) -%}
+              {%- assign tint_index = i | minus: 1 -%}
+              {%- assign opacity_value = tint_index | times: opacity_step -%}
+              
+              {%- if color_row.tint_direction == 'light_to_dark' -%}
+                {%- assign opacity_value = 0.9 | minus: opacity_value -%}
+              {%- endif -%}
+              
+              <div class="color-swatch__wrapper">
+                <button 
+                  type="button" 
+                  class="color-swatch" 
+                  data-color="{{ color_row.primary_hex_code }}"
+                  data-color-name="{{ color_row.color_name }}"
+                  data-opacity="{{ opacity_value | times: 100 | round }}%"
+                  data-rgb="{{ color_row.rgb_values }}"
+                  data-pantone="{{ color_row.pantone_code }}"
+                  data-cmyk="{{ color_row.cmyk_values }}"
+                  data-swatch-id="{{ block.id }}-{{ forloop.index }}"
+                  aria-expanded="false"
+                  aria-controls="dropdown-{{ block.id }}-{{ forloop.index }}"
+                  style="
+                    --primary-color: {{ color_row.primary_hex_code }};
+                    --opacity-value: {{ 1 | minus: opacity_value }};
+                    {%- if color_row.custom_tints -%}
+                      background-color: {{ color_row.custom_tint_hex_codes | split: ',' | at_index: forloop.index0 | strip }};
+                      opacity: 1;
+                    {%- endif -%}
+                  "
+                  aria-label="{{ color_row.color_name }} at {{ opacity_value | times: 100 | round }}% opacity"
+                ></button>
+                
+                <div id="dropdown-{{ block.id }}-{{ forloop.index }}" class="color-dropdown" aria-hidden="true">
+                  <div class="color-dropdown__content">
+                    <div class="color-dropdown__swatch">
+                      <div class="color-dropdown__color"></div>
+                    </div>
+                    
+                    <div class="color-dropdown__info">
+                      <h4 class="color-dropdown__title"></h4>
+                      <p class="color-dropdown__opacity"></p>
+                      
+                      <div class="color-dropdown__specs">
+                        <div class="color-spec">
+                          <span class="color-spec__label">HEX</span>
+                          <div class="color-spec__value color-spec__hex"></div>
+                          <button type="button" class="color-spec__copy" data-copy="hex" aria-label="Copy hex code">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4.5 4.5V2.5C4.5 1.94772 4.94772 1.5 5.5 1.5H13.5C14.0523 1.5 14.5 1.94772 14.5 2.5V10.5C14.5 11.0523 14.0523 11.5 13.5 11.5H11.5" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="1.5" y="4.5" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/>
+</svg>
+                          </button>
+                        </div>
+                        
+                        <div class="color-spec">
+                          <span class="color-spec__label">RGB</span>
+                          <div class="color-spec__value color-spec__rgb"></div>
+                          <button type="button" class="color-spec__copy" data-copy="rgb" aria-label="Copy RGB values">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4.5 4.5V2.5C4.5 1.94772 4.94772 1.5 5.5 1.5H13.5C14.0523 1.5 14.5 1.94772 14.5 2.5V10.5C14.5 11.0523 14.0523 11.5 13.5 11.5H11.5" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="1.5" y="4.5" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/>
+</svg>
+                          </button>
+                        </div>
+                        
+                        <div class="color-spec">
+                          <span class="color-spec__label">PANTONE</span>
+                          <div class="color-spec__value color-spec__pantone"></div>
+                          <button type="button" class="color-spec__copy" data-copy="pantone" aria-label="Copy Pantone code">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M4.5 4.5V2.5C4.5 1.94772 4.94772 1.5 5.5 1.5H13.5C14.0523 1.5 14.5 1.94772 14.5 2.5V10.5C14.5 11.0523 14.0523 11.5 13.5 11.5H11.5" stroke="currentColor" stroke-width="1.5"/>
+                              <rect x="1.5" y="4.5" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                          </button>
+                        </div>
+                        
+                        <div class="color-spec">
+                          <span class="color-spec__label">CMYK</span>
+                          <div class="color-spec__value color-spec__cmyk"></div>
+                          <button type="button" class="color-spec__copy" data-copy="cmyk" aria-label="Copy CMYK values">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.5 4.5V2.5C4.5 1.94772 4.94772 1.5 5.5 1.5H13.5C14.0523 1.5 14.5 1.94772 14.5 2.5V10.5C14.5 11.0523 14.0523 11.5 13.5 11.5H11.5" stroke="currentColor" stroke-width="1.5"/>
+                            <rect x="1.5" y="4.5" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                          </svg>
+                          </button>
+                        </div>
+                      </div>
+                      
+                      <div class="color-dropdown__copy-message" aria-live="polite"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{{ 'color-showcase.css' | asset_url | stylesheet_tag }}
+{{ 'color-showcase.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Color Showcase",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Risograph Color Palette"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Explore our range of vibrant risograph ink colors for your printing needs</p>"
+    },
+    {
+      "type": "header",
+      "content": "Display Settings"
+    },
+    {
+      "type": "range",
+      "id": "tint_count",
+      "min": 5,
+      "max": 15,
+      "step": 1,
+      "default": 10,
+      "label": "Number of shades per color"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "default": 60,
+      "label": "Section padding",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "row_spacing",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 30,
+      "label": "Space between color rows",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "circle_size",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "default": 40,
+      "label": "Color circle size",
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Color Row",
+      "type": "color_row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "color_name",
+          "label": "Color name",
+          "default": "Jumbo Red"
+        },
+        {
+          "type": "color",
+          "id": "primary_hex_code",
+          "label": "Primary color (HEX)",
+          "default": "#F93B00"
+        },
+        {
+          "type": "text",
+          "id": "rgb_values",
+          "label": "RGB values",
+          "default": "249/59/0",
+          "info": "Format as R/G/B with values from 0-255"
+        },
+        {
+          "type": "text",
+          "id": "pantone_code",
+          "label": "Pantone code",
+          "default": "172 U"
+        },
+        {
+          "type": "text",
+          "id": "cmyk_values",
+          "label": "CMYK values",
+          "default": "0/80/100/0",
+          "info": "Format as C/M/Y/K with percentages from 0-100"
+        },
+        {
+          "type": "select",
+          "id": "tint_direction",
+          "label": "Opacity direction",
+          "options": [
+            {
+              "value": "dark_to_light",
+              "label": "Full color to transparent"
+            },
+            {
+              "value": "light_to_dark",
+              "label": "Transparent to full color"
+            }
+          ],
+          "default": "dark_to_light"
+        },
+        {
+          "type": "checkbox",
+          "id": "custom_tints",
+          "label": "Use custom color variations",
+          "default": false,
+          "info": "Override automatic opacity calculation with custom colors"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_tint_hex_codes",
+          "label": "Custom color HEX codes",
+          "default": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF",
+          "info": "Enter up to 10 HEX codes, separated by commas (from darkest to lightest)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Color Showcase",
+      "blocks": [
+        {
+          "type": "color_row",
+          "settings": {
+            "color_name": "Jumbo Red",
+            "primary_hex_code": "#F93B00",
+            "rgb_values": "249/59/0",
+            "pantone_code": "172 U", 
+            "cmyk_values": "0/80/100/0"
+          }
+        },
+        {
+          "type": "color_row",
+          "settings": {
+            "color_name": "Jumbo Yellow",
+            "primary_hex_code": "#FFE800",
+            "rgb_values": "255/232/0",
+            "pantone_code": "Yellow U",
+            "cmyk_values": "0/2/100/0"
+          }
+        },
+        {
+          "type": "color_row",
+          "settings": {
+            "color_name": "Jumbo Green",
+            "primary_hex_code": "#01A458",
+            "rgb_values": "1/164/88",
+            "pantone_code": "348 U",
+            "cmyk_values": "93/0/100/0"
+          }
+        },
+        {
+          "type": "color_row",
+          "settings": {
+            "color_name": "Jumbo Blue",
+            "primary_hex_code": "#0078BF",
+            "rgb_values": "0/120/191",
+            "pantone_code": "Process Blue U",
+            "cmyk_values": "100/20/0/0"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

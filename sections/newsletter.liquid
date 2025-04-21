@@ -1,0 +1,254 @@
+<!-- sections/newsletter.liquid -->
+{%- assign config = section.settings -%}
+
+<div class="newsletter" id="newsletter-{{ section.id }}" style="
+  --bg-color: {{ config.background_color }};
+  --heading-color: {{ config.heading_color }};
+  --text-color: {{ config.text_color }};
+  --input-bg: {{ config.input_background }};
+  --input-border: {{ config.input_border_color }};
+  --button-bg: {{ config.button_background }};
+  --button-text: {{ config.button_text_color }};
+  --border-radius: {{ config.border_radius }}px;
+  --container-width: {{ config.max_width }}px;
+  --padding: {{ config.padding }}px;
+  ">
+  <div class="newsletter__container" style="text-align: {{ config.alignment }};">
+    <div class="newsletter__content">
+      {%- if config.heading != blank -%}
+        <h2 class="newsletter__heading">{{ config.heading }}</h2>
+      {%- endif -%}
+      {%- if config.description != blank -%}
+        <div class="newsletter__description">{{ config.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="newsletter__form-wrapper">
+      {% form 'customer' %}
+        {%- if form.posted_successfully? -%}
+          <div class="newsletter__success">
+            <p>{{ config.success_message }}</p>
+          </div>
+        {%- endif -%}
+
+        {%- if form.errors -%}
+          <div class="newsletter__error">
+            <p>{{ config.error_message }}</p>
+          </div>
+        {%- endif -%}
+
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        
+        <div class="newsletter__field-wrapper">
+          <input
+            type="email"
+            name="contact[email]"
+            id="Email-{{ section.id }}"
+            class="newsletter__field"
+            value="{{ form.email }}"
+            placeholder="{{ config.placeholder }}"
+            aria-required="true"
+            autocorrect="off"
+            autocapitalize="off"
+            required
+            data-error-message="{{ config.error_message }}"
+            {% if form.errors %}
+              aria-invalid="true"
+              aria-describedby="Form-error-{{ section.id }}"
+            {% endif %}
+            >
+          <label class="visually-hidden" for="Email-{{ section.id }}">{{ 'newsletter.label' | t }}</label>
+          
+          <button type="submit" class="newsletter__button" name="commit">
+            {{ config.button_text }}
+          </button>
+        </div>
+
+        {%- if config.show_gdpr -%}
+          <div class="newsletter__gdpr">
+            <input type="checkbox" id="gdpr-{{ section.id }}" name="contact[accepts_marketing]" required>
+            <label for="gdpr-{{ section.id }}">{{ config.gdpr_text }}</label>
+          </div>
+        {%- endif -%}
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+{{ 'newsletter.css' | asset_url | stylesheet_tag }}
+{{ 'newsletter.js' | asset_url | script_tag }}
+
+{%- schema -%}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "class": "newsletter-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Receive our Newsletter"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>And get the scoop on new drops, events and special perks at Jumbo Press.</p>"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Email placeholder text",
+      "default": "your@email.com"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Sign me up!"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thanks for subscribing!"
+    },
+    {
+      "type": "text",
+      "id": "error_message",
+      "label": "Error message",
+      "default": "Please provide a valid email address."
+    },
+    {
+      "type": "header",
+      "content": "GDPR Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gdpr",
+      "label": "Show GDPR checkbox",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "gdpr_text",
+      "label": "GDPR consent text",
+      "default": "I agree to receive promotional emails and updates from Jumbo Press."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Content alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_on_mobile",
+      "label": "Stack content on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1600,
+      "step": 50,
+      "label": "Max width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "label": "Padding",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F7F7F7"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#4A4A4A"
+    },
+    {
+      "type": "color",
+      "id": "input_background",
+      "label": "Input background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border color",
+      "default": "#E0E0E0"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#005BFF"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "label": "Border radius",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter",
+      "category": "Forms"
+    }
+  ]
+}
+{%- endschema -%}

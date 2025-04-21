@@ -71,7 +71,7 @@ class HeaderNavigation {
       
       // Hide header on scroll down, show on scroll up
       if (currentScrollPosition > this.lastScrollPosition && currentScrollPosition > 200) {
-        this.header.style.transform = `translateY(-${this.header.offsetHeight}px)`;
+        this.header.style.transform = `translateY(-${this.header.offsetHeight}px + ${this.headerHeight}px)`;
       } else {
         this.header.style.transform = 'translateY(0)';
       }

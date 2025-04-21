@@ -5,6 +5,90 @@
       "disabled": true,
       "settings": {}
     },
+    "hero_iUbce9": {
+      "type": "hero",
+      "blocks": {
+        "column_mwNnBX": {
+          "type": "column",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/8F1A3362_1.png",
+            "autoplay": true,
+            "show_controls": false,
+            "heading": "",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_text": "Shop with us",
+            "button_link": "\/collections\/all",
+            "button_bg_color": "#fced49",
+            "button_text_color": "#2a160d",
+            "overlay_content": false,
+            "content_alignment": "center",
+            "background_color": "rgba(0,0,0,0)",
+            "text_color": "#2a160d",
+            "padding": 20
+          }
+        },
+        "column_W9q4Bz": {
+          "type": "column",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/8F1A3273_1.png",
+            "autoplay": true,
+            "show_controls": false,
+            "heading": "",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_text": "Print with us",
+            "button_link": "\/pages\/services",
+            "button_bg_color": "#aae1ed",
+            "button_text_color": "#2a160d",
+            "overlay_content": false,
+            "content_alignment": "center",
+            "background_color": "rgba(0,0,0,0)",
+            "text_color": "#2a160d",
+            "padding": 20
+          }
+        }
+      },
+      "block_order": [
+        "column_mwNnBX",
+        "column_W9q4Bz"
+      ],
+      "settings": {
+        "full_width": true,
+        "single_column": false,
+        "reverse_columns": false,
+        "mobile_stack": true,
+        "section_height": "600px",
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "#2a160d",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "text_cta_gDU7YA": {
+      "type": "text-cta",
+      "settings": {
+        "heading": "",
+        "heading_size": "h2",
+        "text": "<p>Jumbo Press is an independent book publisher and print service collaborating with emerging artists from around the world.<\/p>",
+        "button_text": "Find out more",
+        "button_link": "shopify:\/\/pages\/blog",
+        "button_new_tab": false,
+        "text_alignment": "center",
+        "text_color": "#2a160d",
+        "button_style": "outline",
+        "button_bg_color": "#fcfcf8",
+        "button_text_color": "#2a160d",
+        "max_width": 500,
+        "full_width": false,
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "text_cta_gap": 18,
+        "background_color": "rgba(0,0,0,0)"
+      }
+    },
     "dynamic_section": {
       "type": "dynamic-section",
       "blocks": {
@@ -12,35 +96,64 @@
           "type": "image",
           "disabled": true,
           "settings": {
-            "image": "shopify:\/\/shop_images\/theme_cover_image.jpg",
             "type": "background",
-            "size": "cover"
-          }
+            "size": "cover",
+            "aspect_mobile": "var(--aspect-auto)",
+            "aspect_desktop": "var(--aspect-auto)",
+            "border_radius": "var(--radius-none)",
+            "border_weight": "var(--border-none)",
+            "border_style": "solid"
+          },
+          "blocks": {}
         },
         "group_i9bgM7": {
           "type": "group",
           "settings": {
+            "color_scheme": "",
+            "width_mobile": "fit-content",
+            "height_mobile": "fit-content",
             "direction_mobile": "column",
             "gap_mobile": 16,
             "alignment_mobile": "start",
             "justification_mobile": "start",
+            "text_align_mobile": "left",
+            "width_desktop": "fit-content",
+            "height_desktop": "fit-content",
             "direction_desktop": "column",
             "gap_desktop": 16,
             "alignment_desktop": "start",
-            "justification_desktop": "start"
+            "justification_desktop": "start",
+            "text_align_desktop": "left",
+            "padding_h": "var(--padding-none)",
+            "padding_v": "var(--padding-none)",
+            "border_radius": "var(--radius-none)",
+            "border_weight": "var(--border-none)",
+            "border_style": "solid"
           },
           "blocks": {
             "group_gc9Fzk": {
               "type": "group",
               "settings": {
+                "color_scheme": "",
+                "width_mobile": "fit-content",
+                "height_mobile": "fit-content",
                 "direction_mobile": "column",
                 "gap_mobile": 0,
                 "alignment_mobile": "start",
                 "justification_mobile": "end",
+                "text_align_mobile": "left",
+                "width_desktop": "fit-content",
+                "height_desktop": "fit-content",
                 "direction_desktop": "column",
                 "gap_desktop": 0,
                 "alignment_desktop": "start",
-                "justification_desktop": "end"
+                "justification_desktop": "end",
+                "text_align_desktop": "left",
+                "padding_h": "var(--padding-none)",
+                "padding_v": "var(--padding-none)",
+                "border_radius": "var(--radius-none)",
+                "border_weight": "var(--border-none)",
+                "border_style": "solid"
               },
               "blocks": {
                 "heading_dXdLmc": {
@@ -49,7 +162,8 @@
                     "heading": "Heading",
                     "size": "h2",
                     "tag": "h2"
-                  }
+                  },
+                  "blocks": {}
                 },
                 "heading_wBEQhL": {
                   "type": "heading",
@@ -57,7 +171,8 @@
                     "heading": "Subheading",
                     "size": "h2",
                     "tag": "h3"
-                  }
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
@@ -75,10 +190,19 @@
         "image_UUXFCf",
         "group_i9bgM7"
       ],
+      "disabled": true,
       "settings": {
         "width": "contained",
+        "padding_h": "var(--padding-none)",
+        "padding_v": "var(--padding-none)",
         "direction_mobile": "column",
+        "gap_mobile": 16,
+        "alignment_mobile": "start",
+        "justification_mobile": "start",
         "direction_desktop": "row",
+        "gap_desktop": 16,
+        "alignment_desktop": "start",
+        "justification_desktop": "start",
         "radius": "var(--radius-md)"
       }
     },
@@ -89,38 +213,267 @@
           "type": "image",
           "settings": {
             "type": "inline",
-            "size": "cover"
-          }
+            "size": "cover",
+            "aspect_mobile": "var(--aspect-auto)",
+            "aspect_desktop": "var(--aspect-auto)",
+            "border_radius": "var(--radius-none)",
+            "border_weight": "var(--border-none)",
+            "border_style": "solid"
+          },
+          "blocks": {}
         },
         "group_TbTQjF": {
           "type": "group",
           "settings": {
+            "color_scheme": "",
+            "width_mobile": "fit-content",
+            "height_mobile": "fit-content",
             "direction_mobile": "column",
             "gap_mobile": 16,
             "alignment_mobile": "start",
             "justification_mobile": "start",
+            "text_align_mobile": "left",
+            "width_desktop": "fit-content",
+            "height_desktop": "fit-content",
             "direction_desktop": "column",
             "gap_desktop": 16,
             "alignment_desktop": "start",
-            "justification_desktop": "start"
-          }
+            "justification_desktop": "start",
+            "text_align_desktop": "left",
+            "padding_h": "var(--padding-none)",
+            "padding_v": "var(--padding-none)",
+            "border_radius": "var(--radius-none)",
+            "border_weight": "var(--border-none)",
+            "border_style": "solid"
+          },
+          "blocks": {}
         }
       },
       "block_order": [
         "image_b9hrtJ",
         "group_TbTQjF"
       ],
+      "disabled": true,
       "settings": {
         "width": "contained",
+        "padding_h": "var(--padding-none)",
+        "padding_v": "var(--padding-none)",
         "direction_mobile": "column",
+        "gap_mobile": 16,
+        "alignment_mobile": "start",
+        "justification_mobile": "start",
         "direction_desktop": "row",
+        "gap_desktop": 16,
+        "alignment_desktop": "start",
+        "justification_desktop": "start",
         "radius": "var(--radius-none)"
+      }
+    },
+    "color_showcase_aFrn9M": {
+      "type": "color-showcase",
+      "blocks": {
+        "color_row_Ub3Ly4": {
+          "type": "color_row",
+          "settings": {
+            "color_name": "Jumbo Red",
+            "primary_hex_code": "#F93B00",
+            "rgb_values": "249\/59\/0",
+            "pantone_code": "172 U",
+            "cmyk_values": "0\/80\/100\/0",
+            "tint_direction": "dark_to_light",
+            "custom_tints": false,
+            "custom_tint_hex_codes": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF"
+          }
+        },
+        "color_row_B4JEXW": {
+          "type": "color_row",
+          "settings": {
+            "color_name": "Jumbo Yellow",
+            "primary_hex_code": "#ffe800",
+            "rgb_values": "255\/232\/0",
+            "pantone_code": "Yellow U",
+            "cmyk_values": "0\/2\/100\/0",
+            "tint_direction": "dark_to_light",
+            "custom_tints": false,
+            "custom_tint_hex_codes": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF"
+          }
+        },
+        "color_row_aNemdB": {
+          "type": "color_row",
+          "settings": {
+            "color_name": "Jumbo Green",
+            "primary_hex_code": "#01a458",
+            "rgb_values": "1\/164\/88",
+            "pantone_code": "348 U",
+            "cmyk_values": "93\/0\/100\/0",
+            "tint_direction": "dark_to_light",
+            "custom_tints": false,
+            "custom_tint_hex_codes": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF"
+          }
+        },
+        "color_row_BDLfgG": {
+          "type": "color_row",
+          "settings": {
+            "color_name": "Jumbo Blue",
+            "primary_hex_code": "#0078bf",
+            "rgb_values": "0\/120\/191",
+            "pantone_code": "Process Blue U",
+            "cmyk_values": "100\/20\/0\/0",
+            "tint_direction": "dark_to_light",
+            "custom_tints": false,
+            "custom_tint_hex_codes": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF"
+          }
+        },
+        "color_row_9Gi4tR": {
+          "type": "color_row",
+          "settings": {
+            "color_name": "Jumbo Aqua",
+            "primary_hex_code": "#5ec8e5",
+            "rgb_values": "249\/59\/0",
+            "pantone_code": "172 U",
+            "cmyk_values": "0\/80\/100\/0",
+            "tint_direction": "dark_to_light",
+            "custom_tints": false,
+            "custom_tint_hex_codes": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF"
+          }
+        },
+        "color_row_kRJrJM": {
+          "type": "color_row",
+          "settings": {
+            "color_name": "Jumbo Purple",
+            "primary_hex_code": "#F93B00",
+            "rgb_values": "249\/59\/0",
+            "pantone_code": "172 U",
+            "cmyk_values": "0\/80\/100\/0",
+            "tint_direction": "dark_to_light",
+            "custom_tints": false,
+            "custom_tint_hex_codes": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF"
+          }
+        }
+      },
+      "block_order": [
+        "color_row_Ub3Ly4",
+        "color_row_B4JEXW",
+        "color_row_aNemdB",
+        "color_row_BDLfgG",
+        "color_row_9Gi4tR",
+        "color_row_kRJrJM"
+      ],
+      "settings": {
+        "heading": "Our 11 colors",
+        "description": "",
+        "tint_count": 10,
+        "section_padding": 60,
+        "row_spacing": 20,
+        "circle_size": 40,
+        "background_color": "rgba(0,0,0,0)",
+        "heading_color": "#1A1A1A",
+        "text_color": "#333333"
+      }
+    },
+    "collection_carousel_zACHfP": {
+      "type": "collection-carousel",
+      "blocks": {
+        "collection_bFN4gM": {
+          "type": "collection",
+          "settings": {
+            "collection": "zines",
+            "custom_image": "shopify:\/\/shop_images\/magnum-web-1_1.jpg_1.png",
+            "pill_color": "#5ec8e5"
+          }
+        },
+        "collection_MnC7yw": {
+          "type": "collection",
+          "settings": {
+            "collection": "soft-goods",
+            "custom_image": "shopify:\/\/shop_images\/CAPNEW1.jpg_1.png",
+            "pill_color": "#01a458"
+          }
+        },
+        "collection_CNmUC3": {
+          "type": "collection",
+          "settings": {
+            "collection": "prints-1",
+            "custom_image": "shopify:\/\/shop_images\/laminacarbu_1.png",
+            "pill_color": "#ff48b0"
+          }
+        },
+        "collection_NPdpKh": {
+          "type": "collection",
+          "settings": {
+            "collection": "objects",
+            "custom_image": "shopify:\/\/shop_images\/BADGE1_1.jpg",
+            "pill_color": "#fced49"
+          }
+        }
+      },
+      "block_order": [
+        "collection_bFN4gM",
+        "collection_MnC7yw",
+        "collection_CNmUC3",
+        "collection_NPdpKh"
+      ],
+      "settings": {
+        "title": "",
+        "title_style": "h2",
+        "show_description": false,
+        "show_cta": false,
+        "cta_text": "View Collection",
+        "cta_style": "secondary",
+        "slides_mobile": 1,
+        "slides_tablet": 2,
+        "slides_desktop": 3,
+        "gap": 16,
+        "enable_loop": true,
+        "autoplay": false,
+        "autoplay_delay": 5000,
+        "animation_speed": 500,
+        "show_navigation": true,
+        "show_pagination": true,
+        "pagination_type": "bullets",
+        "background_color": "rgba(0,0,0,0)",
+        "default_pill_color": "#2a160d",
+        "pill_background_opacity": 85,
+        "nav_color": "#2a160d",
+        "indicator_color": "#2a160d",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "newsletter_CQFdEw": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Receive our Newsletter",
+        "description": "<p>And get the scoop on new drops, events and special perks at <em><strong>Jumbo Press.<\/strong><\/em><\/p>",
+        "placeholder": "your@email.com",
+        "button_text": "Sign me up!",
+        "success_message": "Thanks for subscribing!",
+        "error_message": "Please provide a valid email address.",
+        "show_gdpr": false,
+        "gdpr_text": "I agree to receive promotional emails and updates from Jumbo Press.",
+        "alignment": "left",
+        "stack_on_mobile": true,
+        "max_width": 650,
+        "padding": 40,
+        "background_color": "rgba(0,0,0,0)",
+        "heading_color": "#1a1a1a",
+        "text_color": "#4a4a4a",
+        "input_background": "rgba(0,0,0,0)",
+        "input_border_color": "#c3bcbc",
+        "button_background": "#0078bf",
+        "button_text_color": "#fcfcf8",
+        "border_radius": 50
       }
     }
   },
   "order": [
     "styleguide",
+    "hero_iUbce9",
+    "text_cta_gDU7YA",
     "dynamic_section",
-    "dynamic_section_2"
+    "dynamic_section_2",
+    "color_showcase_aFrn9M",
+    "collection_carousel_zACHfP",
+    "newsletter_CQFdEw"
   ]
 }

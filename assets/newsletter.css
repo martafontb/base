@@ -1,0 +1,148 @@
+/* assets/newsletter.css */
+.newsletter {
+    margin: 60px 0;
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius);
+    padding: var(--padding);
+  }
+  
+  .newsletter__container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    gap: 2rem;
+    padding: 30px;
+  }
+  
+
+  
+  .newsletter__heading {
+    color: var(--heading-color);
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-family: var(--h2-font, inherit);
+    font-size: 22px;
+  }
+  
+  .newsletter__description {
+    color: var(--text-color);
+    font-family: var(--body-font, inherit);
+    font-size: 13px;
+    /* font-size: var(--body-size, 1rem); */
+  }
+  
+  .newsletter__field-wrapper {
+    display: flex;
+    position: relative;
+    width: 100%;
+  }
+  
+  .newsletter__field {
+    flex-grow: 1;
+    min-width: 0;
+    height: 25px;
+    padding: 0 1rem;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: calc(var(--border-radius) / 2);
+    color: var(--text-color);
+    font-size: 13px;
+  }
+  
+  .newsletter__field:focus {
+    outline: none;
+    border-color: var(--button-bg);
+  }
+  
+  .newsletter__button {
+    font-family: 'Ronzino-Medium';
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: 100%;
+    padding: 0 1.5rem;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: calc(var(--border-radius) / 2);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .newsletter__button:hover,
+  .newsletter__button:focus {
+    background-color: color-mix(in srgb, var(--button-bg) 90%, black);
+    outline: none;
+    font-family: 'Ronzino-MediumOblique';
+    font-style: italic;
+  }
+  
+  .newsletter__success,
+  .newsletter__error {
+    margin-bottom: 1rem;
+    font-size:13px;
+    padding: 0.2rem 1.5rem;
+    width: fit-content;
+    border-radius: calc(var(--border-radius) / 2);
+  }
+  
+  .newsletter__success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  .newsletter__error {
+    background-color: #ffebee;
+    color: #c62828;
+  }
+  
+  .newsletter__gdpr {
+    margin-top: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .newsletter__gdpr input {
+    margin-top: 0.25rem;
+  }
+  
+  .newsletter__gdpr label {
+    font-size: 0.875rem;
+    color: var(--text-color);
+  }
+  
+  @media screen and (max-width: 768px) {
+    .newsletter {
+      padding: calc(var(--padding) * 0.75);
+    }
+    
+    .newsletter__container {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .newsletter__form-wrapper {
+      width: 100%;
+    }
+    
+    .newsletter__button {
+      padding: 0 1rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  @media screen and (min-width: 780px) {
+    .newsletter__content {
+        flex: 1 1 300px;
+      }
+      
+      .newsletter__form-wrapper {
+        flex: 1 1 300px;
+      }
+  }
