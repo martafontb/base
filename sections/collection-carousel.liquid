@@ -1,0 +1,385 @@
+{%- assign config = section.settings -%}
+
+<div 
+  class="collection-carousel"
+  style="
+    --section-padding-top: {{ config.padding_top | divided_by: 16.00 | append: 'rem' }};
+    --section-padding-bottom: {{ config.padding_bottom | divided_by: 16.00 | append: 'rem' }};
+    --carousel-gap: {{ config.gap | divided_by: 16.00 | append: 'rem' }};
+    --carousel-indicator-color: {{ config.indicator_color }};
+    --carousel-nav-color: {{ config.nav_color }};
+    --carousel-animation-speed: {{ config.animation_speed }}ms;
+    --pill-background-opacity: {{ config.pill_background_opacity | divided_by: 100.0 }};
+    background-color: {{ config.background_color }};
+  "
+>
+  <div class="container">
+    {%- if config.title != blank -%}
+      <h2 class="collection-carousel__title {{ config.title_style }}">{{ config.title }}</h2>
+    {%- endif -%}
+    
+    <div class="swiper collection-carousel__container">
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          {%- assign collection = collections[block.settings.collection] -%}
+          {%- if collection == blank -%}{% continue %}{%- endif -%}
+          
+          {%- assign pill_color = block.settings.pill_color | default: config.default_pill_color -%}
+          {%- assign image = block.settings.custom_image | default: collection.image -%}
+          {%- if image == blank and collection.products.first != blank -%}
+            {%- assign image = collection.products.first.featured_image -%}
+          {%- endif -%}
+          
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <a href="{{ collection.url }}" class="collection-card">
+              <div class="collection-card__image-container">
+                {%- if image != blank -%}
+                  {%- render 'component_image', 
+                    image: image,
+                    width: 600,
+                    widths: '375, 550, 750, 1100',
+                    sizes: '(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 90vw',
+                    class: 'collection-card__image',
+                    is_eager: forloop.index < 3
+                  -%}
+                {%- else -%}
+                  {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'collection-card__image placeholder' }}
+                {%- endif -%}
+              </div>
+              
+              <div class="collection-card__pill" style="background-color: {{ pill_color }};">
+                {{ collection.title }}
+              </div>
+              
+              {%- if config.show_description and collection.description != blank -%}
+                <div class="collection-card__description">
+                  {{ collection.description | strip_html | truncatewords: 15 }}
+                </div>
+              {%- endif -%}
+              
+              {%- if config.show_cta -%}
+                <div class="collection-card__cta">
+                  <span class="btn btn--{{ config.cta_style }}">{{ config.cta_text | default: 'View Collection' }}</span>
+                </div>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+      
+      {%- if config.show_navigation -%}
+        <div class="swiper-button-prev collection-carousel__prev-button"></div>
+        <div class="swiper-button-next collection-carousel__next-button"></div>
+      {%- endif -%}
+      
+      {%- if config.show_pagination -%}
+        <div class="swiper-pagination collection-carousel__pagination"></div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{%- capture swiper_config -%}
+    {
+      "slidesPerView": {{ config.slides_mobile }},
+      "spaceBetween": {{ config.gap }},
+      "loop": {{ config.enable_loop }},
+      "autoplay": {% if config.autoplay %}{ "delay": {{ config.autoplay_delay }} }{% else %}false{% endif %},
+      "speed": {{ config.animation_speed }},
+      "grabCursor": true,
+      "a11y": true,
+      "keyboard": {
+        "enabled": true,
+        "onlyInViewport": true
+      },
+      {% if config.show_pagination %}
+      "pagination": {
+        "el": ".collection-carousel__pagination",
+        "clickable": true,
+        "type": "{{ config.pagination_type }}"
+      },
+      {% endif %}
+      {% if config.show_navigation %}
+      "navigation": {
+        "nextEl": ".collection-carousel__next-button",
+        "prevEl": ".collection-carousel__prev-button"
+      },
+      {% endif %}
+      "breakpoints": {
+        "768": {
+          "slidesPerView": {{ config.slides_tablet }}
+        },
+        "1024": {
+          "slidesPerView": {{ config.slides_desktop }}
+        }
+      }
+    }
+    {%- endcapture -%}
+    
+    {%- render 'component_swiper', 
+      tag: '.collection-carousel__container',
+      props: swiper_config
+    -%}
+
+{{ 'collection-carousel.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+{
+  "name": "Collection Carousel",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured Collections"
+    },
+    {
+      "type": "select",
+      "id": "title_style",
+      "label": "Heading style",
+      "options": [
+        { "value": "h1", "label": "Primary heading" },
+        { "value": "h2", "label": "Secondary heading" },
+        { "value": "h3", "label": "Tertiary heading" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show collection description",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show call-to-action button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "View Collection"
+    },
+    {
+      "type": "select",
+      "id": "cta_style",
+      "label": "Button style",
+      "options": [
+        { "value": "primary", "label": "Primary" },
+        { "value": "secondary", "label": "Secondary" }
+      ],
+      "default": "secondary"
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "min": 1,
+      "max": 2,
+      "step": 0.5,
+      "label": "Cards per view (mobile)",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "min": 1,
+      "max": 3,
+      "step": 0.5,
+      "label": "Cards per view (tablet)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 0.5,
+      "label": "Cards per view (desktop)",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Space between cards",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_loop",
+      "label": "Enable infinite loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay carousel",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "min": 1000,
+      "max": 9000,
+      "step": 500,
+      "unit": "ms",
+      "label": "Autoplay interval",
+      "default": 5000
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "min": 200,
+      "max": 1000,
+      "step": 100,
+      "unit": "ms",
+      "label": "Animation speed",
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show pagination indicators",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "pagination_type",
+      "label": "Pagination type",
+      "options": [
+        { "value": "bullets", "label": "Dots" },
+        { "value": "fraction", "label": "Numbers" },
+        { "value": "progressbar", "label": "Progress bar" }
+      ],
+      "default": "bullets"
+    },
+    {
+      "type": "header",
+      "content": "Design"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FCFCF8"
+    },
+    {
+      "type": "color",
+      "id": "default_pill_color",
+      "label": "Default pill color",
+      "default": "#2A160D"
+    },
+    {
+      "type": "range",
+      "id": "pill_background_opacity",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Pill background opacity",
+      "default": 85
+    },
+    {
+      "type": "color",
+      "id": "nav_color",
+      "label": "Navigation arrow color",
+      "default": "#2A160D"
+    },
+    {
+      "type": "color",
+      "id": "indicator_color",
+      "label": "Pagination indicator color",
+      "default": "#2A160D"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom image",
+          "info": "Optional. Overrides the collection image."
+        },
+        {
+          "type": "color",
+          "id": "pill_color",
+          "label": "Pill color",
+          "info": "Overrides the default pill color"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Carousel",
+      "settings": {
+        "title": "Featured Collections"
+      },
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -299,6 +299,7 @@ search-modal {
     justify-content: center;
     background: none;
     border: none;
+    gap:0.5rem;
     padding: 0.5rem;
     cursor: pointer;
     color: var(--color-text);
