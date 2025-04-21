@@ -90,6 +90,15 @@
   .footer__social-dot--beige {
     background-color: #E6D9C5;
   }
+
+  .footer__logo-image {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
   
   @media (min-width: 768px) {
     .footer__columns {
@@ -119,14 +128,7 @@
       font-size: 4.5rem;
     }
 
-    .footer__logo-image {
-      width: 100%;
-      height: auto;
-      display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    }
+
     
     .footer__social-info {
         gap:0.3rem;
