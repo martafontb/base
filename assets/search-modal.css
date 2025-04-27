@@ -94,10 +94,10 @@ search-modal {
   
   .search-modal__input {
     width: 100%;
-    padding: 0.875rem 3rem 0.875rem 1rem;
+    padding: 0.875rem 3rem 0.875rem 1.5rem;
     font-size: 1rem;
     border: 2px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     background-color: var(--color-background);
     transition: border-color var(--transition-duration) var(--transition-ease);
   }
@@ -108,7 +108,7 @@ search-modal {
   
   .search-modal__submit {
     position: absolute;
-    right: 0.5rem;
+    right: 1rem;
     top: 50%;
     transform: translateY(-50%);
     display: flex;

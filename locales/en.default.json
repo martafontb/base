@@ -96,6 +96,16 @@
       "previous": "Previous",
       "next": "Next",
       "current_page": "Page {{ current }} of {{ total }}"
+    },
+    "navigation": {
+      "menu": "Menu",
+      "main_menu": "Main menu",
+      "mobile_menu": "Mobile menu",
+      "view_all": "View {{ title }}"
+    },
+    "language": {
+      "label": "Language",
+      "update": "Update language"
     }
   },
   "404": {

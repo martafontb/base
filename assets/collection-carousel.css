@@ -81,11 +81,11 @@
   }
   
   .collection-carousel__prev-button {
-    left: 0;
+    left: 1rem;
   }
   
   .collection-carousel__next-button {
-    right: 0;
+    right: 1rem;
   }
   
   /* Pagination Styling */

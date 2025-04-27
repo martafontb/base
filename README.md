@@ -54,7 +54,7 @@ A custom Shopify theme built for risograph printing services and products, featu
 1. Clone the repository:
 ```bash
 git clone [repository-url]
-cd risograph-theme
+cd base
 ```
 
 2. Log in to Shopify with the CLI:
@@ -64,7 +64,7 @@ shopify login
 
 3. Connect to your development store:
 ```bash
-shopify theme dev --store=[your-store-name].myshopify.com
+shopify theme dev --store jakelucas.myshopify.com
 ```
 
 4. The theme will be served locally and changes will automatically sync to your development store.

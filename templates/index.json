@@ -72,7 +72,7 @@
       "settings": {
         "heading": "",
         "heading_size": "h2",
-        "text": "<p>Jumbo Press is an independent book publisher and print service collaborating with emerging artists from around the world.<\/p>",
+        "text": "<p>Jumbo Press is an independent book publisher and risograph print service collaborating with emerging artists from around the world.<\/p>",
         "button_text": "Find out more",
         "button_link": "shopify:\/\/pages\/blog",
         "button_new_tab": false,
@@ -276,7 +276,7 @@
           "type": "color_row",
           "settings": {
             "color_name": "Jumbo Red",
-            "primary_hex_code": "#F93B00",
+            "primary_hex_code": "#f93b00",
             "rgb_values": "249\/59\/0",
             "pantone_code": "172 U",
             "cmyk_values": "0\/80\/100\/0",
@@ -341,7 +341,7 @@
           "type": "color_row",
           "settings": {
             "color_name": "Jumbo Purple",
-            "primary_hex_code": "#F93B00",
+            "primary_hex_code": "#f93b00",
             "rgb_values": "249\/59\/0",
             "pantone_code": "172 U",
             "cmyk_values": "0\/80\/100\/0",
@@ -359,6 +359,7 @@
         "color_row_9Gi4tR",
         "color_row_kRJrJM"
       ],
+      "disabled": true,
       "settings": {
         "heading": "Our 11 colors",
         "description": "",
@@ -367,7 +368,7 @@
         "row_spacing": 20,
         "circle_size": 40,
         "background_color": "rgba(0,0,0,0)",
-        "heading_color": "#1A1A1A",
+        "heading_color": "#1a1a1a",
         "text_color": "#333333"
       }
     },
@@ -433,7 +434,7 @@
         "pagination_type": "bullets",
         "background_color": "rgba(0,0,0,0)",
         "default_pill_color": "#2a160d",
-        "pill_background_opacity": 85,
+        "pill_background_opacity": 100,
         "nav_color": "#2a160d",
         "indicator_color": "#2a160d",
         "padding_top": 40,

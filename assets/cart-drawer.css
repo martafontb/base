@@ -68,7 +68,7 @@ cart-drawer {
   .cart-drawer__close {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     background: none;
     border: none;
     width: 30px;

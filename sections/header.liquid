@@ -1,85 +1,94 @@
 {{ 'hamburger.css' | asset_url | stylesheet_tag }}
 {{ 'navigation.css' | asset_url | stylesheet_tag }}
-{% comment %} {{ 'scroll-header.css' | asset_url | stylesheet_tag }} {% endcomment %}
+
 
 <header class="header" data-section-id="{{ section.id }}">
-  <div class="container header__container">
-    <div class="header__left risograph-description">
-      <button type="button" class="hamburger" aria-label="{{ 'general.navigation.menu' | t }}" aria-expanded="false" data-menu-toggle>
-        <span class="hamburger-box">
-          <span class="hamburger-inner"></span>
-        </span>
-      </button>
-      
-      <nav class="nav-desktop" aria-label="{{ 'general.navigation.main_menu' | t }}">
-        {%- if section.settings.menu != blank -%}
-          <ul class="nav-desktop__menu">
-            {%- for link in section.settings.menu.links -%}
-              {%- assign has_dropdown = false -%}
-              {%- if link.links.size > 0 -%}
-                {%- assign has_dropdown = true -%}
-              {%- endif -%}
-              
-              <li class="nav-desktop__item{% if has_dropdown %} has-dropdown{% endif %}">
-                <a href="{{ link.url }}" class="nav-desktop__link{% if link.active %} active{% endif %}">
-                  {{ link.title }}
-                  {%- if has_dropdown -%}
-                    {% render 'icon-chevron-down' %}
-                  {%- endif -%}
-                </a>
-                
-                {%- if has_dropdown -%}
-                  <div class="nav-dropdown">
-                    <ul class="nav-dropdown__menu">
-                      {%- for childlink in link.links -%}
-                        <li class="nav-dropdown__item">
-                          <a href="{{ childlink.url }}" class="nav-dropdown__link{% if childlink.active %} active{% endif %}">
-                            {{ childlink.title }}
-                          </a>
-                        </li>
-                      {%- endfor -%}
-                    </ul>
-                  </div>
+  <div class="header__container">
+    <div class="header__main">
+      <div class="header__left risograph-description">
+        <button type="button" class="hamburger" aria-label="{{ 'general.navigation.menu' | t }}" aria-expanded="false" data-menu-toggle>
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+        
+        <nav class="nav-desktop" aria-label="{{ 'general.navigation.main_menu' | t }}">
+          {%- if section.settings.menu != blank -%}
+            <ul class="nav-desktop__menu">
+              {%- for link in section.settings.menu.links -%}
+                {%- assign has_dropdown = false -%}
+                {%- if link.links.size > 0 -%}
+                  {%- assign has_dropdown = true -%}
                 {%- endif -%}
-              </li>
-            {%- endfor -%}
-          </ul>
+                
+                <li class="nav-desktop__item{% if has_dropdown %} has-dropdown{% endif %}" {% if has_dropdown %}data-dropdown-trigger="{{ link.handle }}"{% endif %}>
+                  <a href="{{ link.url }}" class="nav-desktop__link{% if link.active %} active{% endif %}">
+                    {{ link.title }}
+                    {%- if has_dropdown -%}
+                      {% render 'icon-chevron-down' %}
+                    {%- endif -%}
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </nav>
+      </div>
+
+      <div class="header__center">
+        <a href="/" class="header__logo">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 210 | image_tag: 
+            class: 'header__logo-image',
+            widths: '100, 150, 210, 250, 300',
+            alt: section.settings.logo.alt | default: shop.name
+          }}
+        {%- else -%}
+          <span class="h2">{{ shop.name }}</span>
         {%- endif -%}
-      </nav>
-    </div>
+        </a>
+      </div>
 
-    <div class="header__center">
-      <a href="/" class="header__logo">
-      {%- if section.settings.logo != blank -%}
-        {{ section.settings.logo | image_url: width: 210 | image_tag: 
-          class: 'header__logo-image',
-          widths: '100, 150, 210, 250, 300',
-          alt: section.settings.logo.alt | default: shop.name
-        }}
-      {%- else -%}
-        <span class="h2">{{ shop.name }}</span>
-      {%- endif -%}
-      </a>
-    </div>
-
-    <div class="header__right risograph-description">
-
+      <div class="header__right risograph-description">
         <div class="header__search">
           {% render 'search-toggle' %}
         </div>
-  
-
-      <a href="{{ routes.account_url }}" class="header__account">
-        {% render 'icon-account' %}
-        <span>{{ 'action.account' | t }}</span>
-      </a>
-      
-      <cart-toggle count="{{ cart.item_count }}" class="header__cart">
-        <button type="button" aria-label="{{ 'action.cart' | t }}" aria-expanded="false">
-          {% render 'icon-cart' %}
-          <span data-cart-count>({{ cart.item_count }})</span>
-        </button>
-      </cart-toggle>
+    
+        <a href="{{ routes.account_url }}" class="header__account">
+          {% render 'icon-account' %}
+          <span>{{ 'action.account' | t }}</span>
+        </a>
+        
+        <cart-toggle count="{{ cart.item_count }}" class="header__cart">
+          <button type="button" aria-label="{{ 'action.cart' | t }}" aria-expanded="false">
+            {% render 'icon-cart' %}
+            <span data-cart-count>({{ cart.item_count }})</span>
+          </button>
+        </cart-toggle>
+      </div>
+    </div>
+    
+    <!-- Dropdown container that extends the header -->
+    <div class="header__dropdown-container">
+      {%- if section.settings.menu != blank -%}
+        {%- for link in section.settings.menu.links -%}
+          {%- if link.links.size > 0 -%}
+            <div class="nav-dropdown" data-dropdown-content="{{ link.handle }}">
+              <div class="nav-dropdown__inner">
+                <ul class="nav-dropdown__menu">
+                  {%- for childlink in link.links -%}
+                    <li class="nav-dropdown__item">
+                      <a href="{{ childlink.url }}" class="nav-dropdown__link{% if childlink.active %} active{% endif %}">
+                        {{ childlink.title }}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
     </div>
   </div>
 
@@ -170,22 +179,10 @@
   </div>
 </header>
 
-{% comment %} <cart-drawer open="false" aria-hidden="true" tabindex="-1">
-  <div class="cart-drawer">
-    <div class="cart-drawer__header">
-      <h2 class="h3">{{ 'cart.title' | t }}</h2>
-      <button type="button" class="cart-drawer__close" aria-label="{{ 'cart.close' | t }}">
-        {% render 'icon-close' %}
-      </button>
-    </div>
-    <div class="cart-drawer__body"></div>
-  </div>
-</cart-drawer> {% endcomment %}
-
 <div class="mobile-menu-overlay" aria-hidden="true"></div>
 
 <script src="{{ 'navigation.js' | asset_url }}" defer></script>
-{% comment %} <script src="{{ 'scroll-header.js' | asset_url }}" defer></script> {% endcomment %}
+
 
 {% schema %}
 {
