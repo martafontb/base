@@ -1,4 +1,5 @@
 // assets/add-to-cart.js
+(function() {
 class AddToCartForm extends HTMLElement {
     constructor() {
       super();
@@ -98,6 +99,7 @@ class AddToCartForm extends HTMLElement {
   if (!customElements.get('add-to-cart-form')) {
     customElements.define('add-to-cart-form', AddToCartForm);
   }
+})();
   
   // Initialize variant selectors if they exist
   document.addEventListener('DOMContentLoaded', () => {
