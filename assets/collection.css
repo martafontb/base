@@ -30,7 +30,7 @@
   }
   
   .collection__count {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     opacity: 0.7;
   }
   
@@ -246,7 +246,7 @@
     padding: 0.5rem 0.75rem;
     background-color: var(--color-border);
     border-radius: var(--radius-lg);
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     transition: background-color var(--transition-duration) var(--transition-ease);
   }
   
@@ -464,7 +464,7 @@
   }
   
   .product-card__rating {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;

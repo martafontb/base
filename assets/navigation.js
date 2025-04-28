@@ -1,4 +1,13 @@
 // assets/navigation.js
+function debounce(func, wait = 20) {
+  let timeout;
+  return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), wait);
+  };
+}
 class HeaderNavigation {
   constructor() {
     this.header = document.querySelector('.header');
@@ -27,8 +36,9 @@ class HeaderNavigation {
     // Initialize cart drawer
     this.cartClose?.addEventListener('click', this.closeCartDrawer.bind(this));
     
-    // Handle scroll events for hiding/showing header
-    window.addEventListener('scroll', this.handleScroll.bind(this));
+    // Use debounced scroll handler for better performance
+    this.debouncedScrollHandler = debounce(this.handleScroll.bind(this), 10);
+    window.addEventListener('scroll', this.debouncedScrollHandler, { passive: true });
     
     // Initialize dropdown functionality
     this.initDropdowns();
@@ -42,27 +52,110 @@ class HeaderNavigation {
     this.initCustomElements();
   }
   
-  initDropdowns() {
-    if (window.innerWidth < 1024 || !this.dropdownTriggers.length) return;
+
+
+initDropdowns() {
+  if (window.innerWidth < 1024 || !this.dropdownTriggers.length) return;
+  
+  let timeoutId = null;
+  
+  // Add a single event listener to the header for mouse enter events
+  this.header.addEventListener('mouseenter', (e) => {
+    const trigger = e.target.closest('[data-dropdown-trigger]');
+    if (!trigger) return;
     
-    let timeoutId = null;
+    // Clear any existing timeout
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
     
-    this.dropdownTriggers.forEach(trigger => {
+    const dropdownId = trigger.getAttribute('data-dropdown-trigger');
+    const dropdown = document.querySelector(`[data-dropdown-content="${dropdownId}"]`);
+    
+    if (!dropdown) return;
+    
+    // Close any open dropdown
+    if (this.activeDropdown && this.activeDropdown !== dropdown) {
+      this.activeDropdown.classList.remove('active');
+    }
+    
+    // Open this dropdown
+    this.header.classList.add('dropdown-active');
+    dropdown.classList.add('active');
+    this.activeDropdown = dropdown;
+  }, true);
+  
+  // Add delegated event listeners for mouse leave
+  this.header.addEventListener('mouseleave', (e) => {
+    const target = e.target;
+    const relatedTarget = e.relatedTarget;
+    
+    // Check if we're leaving a trigger or a dropdown
+    const isTrigger = target.hasAttribute('data-dropdown-trigger');
+    const isDropdown = target.hasAttribute('data-dropdown-content');
+    
+    if (isTrigger || isDropdown) {
+      // Don't start timer if we're moving between related trigger and dropdown
+      const dropdownId = isTrigger ? 
+        target.getAttribute('data-dropdown-trigger') : 
+        target.getAttribute('data-dropdown-content');
+        
+      const relatedElement = isTrigger ?
+        document.querySelector(`[data-dropdown-content="${dropdownId}"]`) :
+        document.querySelector(`[data-dropdown-trigger="${dropdownId}"]`);
+      
+      if (relatedTarget === relatedElement) return;
+      
+      // Start timeout to close dropdown
+      timeoutId = setTimeout(() => {
+        this.closeDropdown();
+      }, 150);
+    }
+  }, true);
+  
+  // Delegate mouseenter for dropdowns themselves
+  document.addEventListener('mouseenter', (e) => {
+    const dropdown = e.target.closest('[data-dropdown-content]');
+    if (dropdown && timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+  }, true);
+  
+  // Single click listener for document
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('[data-dropdown-trigger]') && !e.target.closest('[data-dropdown-content]')) {
+      this.closeDropdown();
+    }
+  });
+
+  this.header.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' && e.key !== 'Enter' && e.key !== ' ') return;
+    
+    const trigger = e.target.closest('[data-dropdown-trigger]');
+    if (!trigger) {
+      // If Escape is pressed while a dropdown is open, close it
+      if (e.key === 'Escape' && this.activeDropdown) {
+        this.closeDropdown();
+        e.preventDefault();
+      }
+      return;
+    }
+    
+    // Toggle dropdown on Enter or Space
+    if (e.key === 'Enter' || e.key === ' ') {
       const dropdownId = trigger.getAttribute('data-dropdown-trigger');
       const dropdown = document.querySelector(`[data-dropdown-content="${dropdownId}"]`);
       
       if (!dropdown) return;
       
-      // Mouse enter handler for trigger
-      trigger.addEventListener('mouseenter', () => {
-        // Clear any existing timeout
-        if (timeoutId) {
-          clearTimeout(timeoutId);
-          timeoutId = null;
-        }
-        
+      // If dropdown is already active, close it
+      if (this.activeDropdown === dropdown) {
+        this.closeDropdown();
+      } else {
         // Close any open dropdown
-        if (this.activeDropdown && this.activeDropdown !== dropdown) {
+        if (this.activeDropdown) {
           this.activeDropdown.classList.remove('active');
         }
         
@@ -70,34 +163,58 @@ class HeaderNavigation {
         this.header.classList.add('dropdown-active');
         dropdown.classList.add('active');
         this.activeDropdown = dropdown;
-      });
+        
+        // Focus the first focusable element in the dropdown
+        setTimeout(() => {
+          const focusableElements = dropdown.querySelectorAll(
+            'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+          if (focusableElements.length) {
+            focusableElements[0].focus();
+          }
+        }, 100);
+      }
       
-      // Mouse enter handler for dropdown itself
-      dropdown.addEventListener('mouseenter', () => {
-        if (timeoutId) {
-          clearTimeout(timeoutId);
-          timeoutId = null;
-        }
-      });
-      
-      // Mouse leave handlers
-      const handleMouseLeave = () => {
-        timeoutId = setTimeout(() => {
-          this.closeDropdown();
-        }, 150);
-      };
-      
-      trigger.addEventListener('mouseleave', handleMouseLeave);
-      dropdown.addEventListener('mouseleave', handleMouseLeave);
-    });
+      e.preventDefault();
+    }
     
-    // Close dropdown when clicking elsewhere
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('[data-dropdown-trigger]') && !e.target.closest('[data-dropdown-content]')) {
-        this.closeDropdown();
+    // Close dropdown on Escape
+    if (e.key === 'Escape' && this.activeDropdown) {
+      this.closeDropdown();
+      // Return focus to the trigger
+      trigger.focus();
+      e.preventDefault();
+    }
+  });
+  
+  // Add focus trap within dropdowns for keyboard navigation
+  this.dropdowns.forEach(dropdown => {
+    dropdown.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        const focusableElements = dropdown.querySelectorAll(
+          'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        
+        // If Shift+Tab on first element, go back to trigger
+        if (e.shiftKey && document.activeElement === firstElement) {
+          const dropdownId = dropdown.getAttribute('data-dropdown-content');
+          const trigger = document.querySelector(`[data-dropdown-trigger="${dropdownId}"]`);
+          if (trigger) {
+            trigger.focus();
+            e.preventDefault();
+          }
+        } 
+        // If Tab on last element, close dropdown and move to next item
+        else if (!e.shiftKey && document.activeElement === lastElement) {
+          this.closeDropdown();
+        }
       }
     });
-  }
+  });
+}
   
   closeDropdown() {
     if (this.activeDropdown) {
@@ -135,24 +252,25 @@ class HeaderNavigation {
     this.cartDrawer.setAttribute('open', 'false');
   }
   
-  handleScroll() {
+  handleScroll = () => {
+    const { menuOpen, header } = this;
     const currentScrollPosition = window.pageYOffset;
     
     // Don't run if menu is open
-    if (this.menuOpen) return;
+    if (menuOpen) return;
     
     // Add background when scrolled
     if (currentScrollPosition > 50) {
-      this.header.classList.add('scrolled');
+      header.classList.add('scrolled');
     } else {
-      this.header.classList.remove('scrolled');
+      header.classList.remove('scrolled');
     }
     
     // Hide header on scroll down, show on scroll up
     if (currentScrollPosition > this.lastScrollPosition && currentScrollPosition > 200) {
-      this.header.style.transform = `translateY(-75px)`;
+      header.style.transform = `translateY(-75px)`;
     } else {
-      this.header.style.transform = 'translateY(0)';
+      header.style.transform = 'translateY(0)';
     }
     
     this.lastScrollPosition = currentScrollPosition;

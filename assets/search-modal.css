@@ -29,11 +29,12 @@ search-modal {
   .search-modal__container {
     position: relative;
     width: 100%;
-    max-width: 680px;
+    max-width: 320px;
     max-height: 90vh;
     margin: 5vh auto;
     background-color: var(--color-background);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     transform: translateY(-30px);
@@ -52,7 +53,6 @@ search-modal {
     align-items: center;
     justify-content: space-between;
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--color-border);
   }
   
   .search-modal__title {
@@ -94,9 +94,9 @@ search-modal {
   
   .search-modal__input {
     width: 100%;
-    padding: 0.875rem 3rem 0.875rem 1.5rem;
-    font-size: 1rem;
-    border: 2px solid var(--color-border);
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    font-size: 0.8125rem;
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     background-color: var(--color-background);
     transition: border-color var(--transition-duration) var(--transition-ease);
@@ -169,7 +169,7 @@ search-modal {
   }
   
   .search-modal__filter label {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     cursor: pointer;
   }
   
@@ -253,7 +253,7 @@ search-modal {
   }
   
   .search-modal__result-title {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 500;
     margin-bottom: 0.25rem;
     white-space: nowrap;
@@ -269,7 +269,7 @@ search-modal {
   }
   
   .search-modal__result-price {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 500;
     color: #FF6AC2; /* Risograph pink for prices */
   }
@@ -309,6 +309,10 @@ search-modal {
 @media (min-width: 768px) {
     .search-toggle {
       display: block;
+    }
+    .search-modal__container {
+      width: 100%;
+      max-width: 680px;
     }
   }
   .search-toggle__text {

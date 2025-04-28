@@ -1,0 +1,90 @@
+<div class="cart-items" id="CartItems">
+  <div class="cart-items__header">
+    <div class="cart-items__header-product">{{ 'cart.label.product' | t }}</div>
+    <div class="cart-items__header-quantity">{{ 'cart.label.quantity' | t }}</div>
+    <div class="cart-items__header-total">{{ 'cart.label.total' | t }}</div>
+  </div>
+
+  {% for item in cart.items %}
+    <div class="cart-item" data-item-key="{{ item.key }}" data-item-id="{{ item.id }}">
+      <div class="cart-item__image">
+        <a href="{{ item.url }}">
+          {% render 'component_image', image: item.image, alt: item.title, sizes: '120px' %}
+        </a>
+      </div>
+      
+      <div class="cart-item__content">
+        <h3 class="cart-item__title">
+          <a href="{{ item.url }}">{{ item.product.title }}</a>
+        </h3>
+        
+        {% if section.settings.show_vendor and item.vendor %}
+          <div class="cart-item__vendor">{{ item.vendor }}</div>
+        {% endif %}
+        
+        {%- unless item.product.has_only_default_variant or item.variant.title contains 'Default Title' -%}
+          <div class="cart-item__variant">
+            {{ item.variant.title }}
+          </div>
+        {%- endunless -%}
+        
+        {% if item.properties %}
+          <div class="cart-item__properties">
+            {% for property in item.properties %}
+              {% unless property.first contains '_' %}
+                <div class="cart-item__property">
+                  {{ property.first }}: 
+                  {% if property.last contains '/uploads/' %}
+                    <a href="{{ property.last }}">{{ property.last | split: '/' | last }}</a>
+                  {% else %}
+                    {{ property.last }}
+                  {% endif %}
+                </div>
+              {% endunless %}
+            {% endfor %}
+          </div>
+        {% endif %}
+        
+        <div class="cart-item__price">
+          {% if item.original_price != item.final_price and section.settings.enable_savings %}
+            <span class="cart-item__price-regular">{{ item.original_price | money }}</span>
+            <span class="cart-item__price-sale">{{ item.final_price | money }}</span>
+          {% else %}
+            {{ item.final_price | money }}
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="cart-item__quantity">
+        {% render 'component_quantity-selector',
+        id: 'Cart-Quantity-' | append: item.key,
+        min: 1,
+        value: item.quantity,
+        cart_item: item,
+        name: 'updates[' | append: item.key | append: ']'
+      %}
+        
+        <button type="button" class="cart-item__remove" aria-label="{{ 'cart.label.remove' | t: title: item.title }}" data-remove data-item-key="{{ item.key }}">
+          {{ 'cart.label.remove' | t }}
+        </button>
+      </div>
+      
+      <div class="cart-item__total">
+        <div class="cart-item__price">
+          {% if item.original_line_price != item.final_line_price %}
+            <span class="cart-item__price-regular">{{ item.original_line_price | money }}</span>
+            <span class="cart-item__price-sale">{{ item.final_line_price | money }}</span>
+          {% else %}
+            {{ item.final_line_price | money }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  
+  <div class="cart-items__update">
+    <button type="submit" name="update" class="cart-items__update-button btn btn--secondary">
+      {{ 'cart.general.update' | t }}
+    </button>
+  </div>
+</div>

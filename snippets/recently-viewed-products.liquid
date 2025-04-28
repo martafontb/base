@@ -1,0 +1,38 @@
+{%- if recommendations.performed -%}
+    <div class="recently-viewed">
+      <div class="recently-viewed__header">
+        <h2 class="recently-viewed__title h2">{{ 'cart.recently_viewed.title' | t }}</h2>
+      </div>
+      
+      <div class="recently-viewed__products">
+        <div class="recently-viewed__slider">
+          {%- for product in recommendations.products -%}
+            <div class="recently-viewed__product">
+              <div class="recently-viewed__product-inner">
+                <a href="{{ product.url }}" class="recently-viewed__product-image-link">
+                  {% render 'responsive-image', image: product.featured_image, alt: product.title %}
+                </a>
+                
+                <div class="recently-viewed__product-content">
+                  <a href="{{ product.url }}" class="recently-viewed__product-title">{{ product.title }}</a>
+                  
+                  <div class="recently-viewed__product-price">
+                    {% if product.price_varies %}
+                      {{ 'products.product.from_price_html' | t: price: product.price_min | money }}
+                    {% else %}
+                      {% if product.compare_at_price > product.price %}
+                        <span class="recently-viewed__product-price-regular">{{ product.compare_at_price | money }}</span>
+                        <span class="recently-viewed__product-price-sale">{{ product.price | money }}</span>
+                      {% else %}
+                        {{ product.price | money }}
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}

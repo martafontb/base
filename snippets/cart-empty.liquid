@@ -1,0 +1,17 @@
+<div class="cart-empty">
+  <div class="cart-empty__container">
+    <div class="cart-empty__icon">
+      {% render 'icon-cart-empty' %}
+    </div>
+    
+    <h2 class="cart-empty__title h2">{{ section.settings.empty_cart_title | default: 'Your cart is empty' }}</h2>
+    
+    <p class="cart-empty__text">{{ 'cart.general.empty_text' | t }}</p>
+    
+    <div class="cart-empty__button-wrapper">
+      <a href="{{ section.settings.continue_url | default: '/collections/all' }}" class="cart-empty__button btn btn--primary">
+        {{ section.settings.continue_shopping_text | default: 'Continue shopping' }}
+      </a>
+    </div>
+  </div>
+</div>

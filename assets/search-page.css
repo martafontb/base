@@ -23,15 +23,17 @@
   
   .search-page__input-wrapper {
     position: relative;
+    display: flex;
+    align-items: center;
     margin-bottom: 1.5rem;
   }
   
   .search-page__input {
     width: 100%;
     padding: 1rem 3rem 1rem 1.5rem;
-    font-size: 1.125rem;
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-md);
+    font-size: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     background-color: var(--color-background);
     transition: border-color var(--transition-duration) var(--transition-ease);
   }
@@ -45,8 +47,6 @@
   .search-page__submit {
     position: absolute;
     right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,7 +76,7 @@
   }
   
   .search-page__filter label {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     cursor: pointer;
   }
   
@@ -185,19 +185,15 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    padding: 1.25rem;
+    padding-top: 1rem;
   }
   
   .search-page__result-title {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+    font-size: 0.8125rem;
   }
   
   .search-page__result-price {
-    font-weight: 500;
-    color: #FF6AC2; /* Risograph pink */
-    margin-bottom: 0.5rem;
+    font-size: 0.8125rem;
   }
   
   .search-page__result-price-from {
@@ -206,19 +202,19 @@
   }
   
   .search-page__result-vendor {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     opacity: 0.8;
     margin-bottom: 0.5rem;
   }
   
   .search-page__result-date {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     opacity: 0.8;
     margin-bottom: 0.5rem;
   }
   
   .search-page__result-excerpt {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     opacity: 0.8;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -251,7 +247,7 @@
   }
   
   .search-page__pagination-info {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
   }
   
   /* Style filter by result type */

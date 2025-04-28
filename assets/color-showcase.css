@@ -48,7 +48,7 @@
     color: var(--text-color);
     font-family: var(--body-font, inherit);
     font-size: var(--body-size, 0.9rem);
-    opacity: 0.8;
+    opacity: 0.8125;
   }
   
   .color-row__swatches {
@@ -163,7 +163,7 @@
   }
   
   .color-spec__label {
-    font-size: 0.8rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     color: #666;
     margin-right: 10px;
@@ -172,7 +172,7 @@
   
   .color-spec__value {
     flex: 1;
-    font-size: 0.8rem;
+    font-size: 0.8125rem;
   }
   
   .color-spec__copy {
@@ -197,7 +197,7 @@
   .color-dropdown__copy-message {
     height: 20px;
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.8125rem;
     color: #4CAF50;
     visibility: hidden;
     opacity: 0;

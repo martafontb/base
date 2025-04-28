@@ -2,7 +2,7 @@
 :root {
   --header-height-mobile: 70px;
   --header-height-desktop: 48px;
-  --dropdown-height: 200px;
+  --dropdown-height: 165px;
 }
 
 /* Header Styles */
@@ -128,24 +128,23 @@ header {
   font-style: italic !important;
 }
 
+
 /* Dropdown Container */
 .header__dropdown-container {
   height: var(--dropdown-height);
   max-height: 0;
   overflow: hidden;
   transition: max-height var(--transition-duration) var(--transition-ease);
-  border-top: 1px solid transparent;
 }
 
 .header.dropdown-active .header__dropdown-container {
-  max-height: 500px; /* Adjust based on your content */
-  border-top-color: var(--color-border);
+  max-height: 500px; 
 }
 
 /* Dropdown Menu */
 .nav-dropdown {
   display: none;
-  padding: 1.5rem 2rem;
+  padding: 0 2rem;
 }
 
 .nav-dropdown.active {
@@ -170,7 +169,7 @@ header {
 
 .nav-dropdown__link {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.8125rem;
   transition: background-color var(--transition-duration) var(--transition-ease);
 }
 
@@ -379,7 +378,19 @@ body.menu-open .mobile-menu-overlay {
   .mobile-menu-overlay {
     display: none;
   }
+
+  .header__dropdown-container {
+    height: 100%;
+    min-height: fit-content;
+    overflow: visible;
+    transition: max-height var(--transition-duration) var(--transition-ease);
+  }
 }
+
+body.menu-open .header {
+  border: none;
+}
+
 
 /* Cart Drawer Styles */
 cart-drawer {
@@ -486,7 +497,7 @@ cart-drawer[open="true"] .cart-drawer-overlay {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
 }
 
 .cart-item__price-wrapper {
@@ -515,7 +526,7 @@ cart-drawer[open="true"] .cart-drawer-overlay {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 0.8125rem;
   line-height: 1;
   opacity: 0.7;
   padding: 0;
@@ -544,7 +555,7 @@ cart-drawer[open="true"] .cart-drawer-overlay {
 
 .cart-disclaimer {
   color: rgba(var(--color-text-rgb), 0.75);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   margin: 0 0 1rem;
 }
 

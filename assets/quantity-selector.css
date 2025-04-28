@@ -8,7 +8,8 @@ quantity-selector {
     font-family: var(--accent-font);
     font-weight: var(--accent-weight);
     font-style: var(--accent-style);
-    font-size: var(--accent-size);
+    font-size: 0.8125rem;
+    /* font-size: var(--accent-size); */
     letter-spacing: var(--accent-letter);
     text-transform: var(--accent-transform);
     margin-right: 1rem;
@@ -28,7 +29,7 @@ quantity-selector {
     min-width: 30px;
     width: 30px;
     height: 30px;
-    font-size: 0.8rem;
+    font-size: 0.8125rem;
     border-radius: var(--btn-radius-icon, var(--radius-full));
     border: var(--border-md, 1px) solid var(--color-border);
     cursor: pointer;
@@ -46,7 +47,7 @@ quantity-selector {
   
   .quantity-selector--input {
     width: 3rem;
-    font-size: 0.8rem;
+    font-size: 0.8125rem;
     text-align: center;
     background-color: transparent;
     padding: 0.5rem 0;

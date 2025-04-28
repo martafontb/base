@@ -1,0 +1,13 @@
+<div class="cart-recommendations" data-cart-recommendations data-product-ids="{{ cart.items | map: 'product_id' | join: ',' }}">
+  <div class="cart-recommendations__header">
+    <h2 class="cart-recommendations__title h2">{{ 'cart.recommendations.title' | t }}</h2>
+  </div>
+  
+  <div class="cart-recommendations__products">
+    <div class="cart-recommendations__slider">
+      {% comment %}
+        This will be populated by JavaScript
+      {% endcomment %}
+    </div>
+  </div>
+</div>

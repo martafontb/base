@@ -8,7 +8,7 @@
   
   <div class="search-page container">
     <div class="search-page__header">
-      <h1 class="search-page__title h1">
+      <h1 class="search-page__title risograph-heading">
         {{ 'general.search.search' | t }}
       </h1>
       
@@ -84,7 +84,7 @@
       {%- if search.performed -%}
         <div class="search-page__results-header">
           {%- if results_count > 0 -%}
-            <h2 class="search-page__results-title h2">
+            <h2 class="search-page__results-title risograph-subheading">
               {{ 'general.search.results_for' | t }}: "{{ search.terms | escape }}"
             </h2>
             <p class="search-page__results-count">
@@ -134,9 +134,9 @@
                           {%- endif -%}
                         </div>
                         
-                        {%- if section.settings.show_vendor and item.vendor -%}
+                        {% comment %} {%- if section.settings.show_vendor and item.vendor -%}
                           <div class="search-page__result-vendor">{{ item.vendor }}</div>
-                        {%- endif -%}
+                        {%- endif -%} {% endcomment %}
                       </div>
                     </a>
                   

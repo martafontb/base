@@ -1,0 +1,135 @@
+<script src="{{ 'cart-page.js' | asset_url }}" defer="defer"></script>
+
+{{ 'cart-page.css' | asset_url | stylesheet_tag }}
+
+{% assign cart = cart %}
+{% assign show_vendor = section.settings.show_vendor %}
+{% assign enable_order_notes = section.settings.enable_order_notes %}
+{% assign enable_savings = section.settings.enable_savings %}
+
+{% if cart.item_count > 0 %}
+  {% assign cart_items = cart.items %}
+  {% assign total_price = cart.total_price %}
+  {% assign taxes_included = cart.taxes_included %}
+{% endif %}
+
+<section class="cart-page" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="cart-page__header">
+      <h1 class="cart-page__title risograph-heading">{{ 'cart.general.title' | t }}</h1>
+    </div>
+
+    {% if cart.item_count > 0 %}
+      <form action="{{ routes.cart_url }}" method="post" novalidate class="cart-page__form">
+        <div class="cart-page__body">
+          {% render 'cart-items' %}
+          
+          <div class="cart-page__actions">
+            <div class="cart-page__note">
+              <label for="CartNote" class="cart-page__note-label">{{ 'cart.general.note' | t }}</label>
+              <textarea name="note" id="CartNote" class="cart-page__note-textarea">{{ cart.note }}</textarea>
+            </div>
+            
+            <div class="cart-page__total">
+              <div class="cart-page__subtotal">
+                <span class="cart-page__subtotal-label">{{ 'cart.general.subtotal' | t }}</span>
+                <span class="cart-page__subtotal-value">{{ cart.total_price | money }}</span>
+              </div>
+              
+              {% if cart.taxes_included %}
+                <div class="cart-page__taxes-included">
+                  {{ 'cart.general.taxes_included' | t }}
+                </div>
+              {% endif %}
+              
+              <div class="cart-page__shipping-notice">
+                {{ 'cart.general.shipping_at_checkout' | t }}
+              </div>
+              
+              <div class="cart-page__checkout">
+                <button type="submit" name="checkout" class="cart-page__checkout-button btn btn--primary btn--full">
+                  {{ 'cart.general.checkout' | t }}
+                </button>
+                
+                {% if additional_checkout_buttons %}
+                  <div class="cart-page__additional-checkout">
+                    {{ content_for_additional_checkout_buttons }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    {% else %}
+      {% render 'cart-empty' %}
+    {% endif %}
+
+    {% if section.settings.show_recently_viewed and cart.item_count > 0 %}
+      {% render 'recently-viewed-products' %}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Cart Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show product vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_order_notes",
+      "label": "Enable order notes",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_savings",
+      "label": "Show savings amount",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Additional Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_recently_viewed",
+      "label": "Show recently viewed products",
+      "default": true,
+      "info": "Shows products the customer has recently viewed"
+    },
+    {
+      "type": "header",
+      "content": "Empty Cart"
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_title",
+      "label": "Empty cart title",
+      "default": "Your cart is empty"
+    },
+    {
+      "type": "text",
+      "id": "continue_shopping_text",
+      "label": "Continue shopping text",
+      "default": "Continue shopping"
+    },
+    {
+      "type": "url",
+      "id": "continue_url",
+      "label": "Continue shopping URL",
+      "default": "/collections/all"
+    }
+  ]
+}
+{% endschema %}
