@@ -52,88 +52,89 @@ class HeaderNavigation {
     this.initCustomElements();
   }
   
-
-
+// initDropdowns method in navigation.js
 initDropdowns() {
   if (window.innerWidth < 1024 || !this.dropdownTriggers.length) return;
   
   let timeoutId = null;
   
-  // Add a single event listener to the header for mouse enter events
-  this.header.addEventListener('mouseenter', (e) => {
-    const trigger = e.target.closest('[data-dropdown-trigger]');
-    if (!trigger) return;
-    
-    // Clear any existing timeout
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-      timeoutId = null;
-    }
-    
-    const dropdownId = trigger.getAttribute('data-dropdown-trigger');
-    const dropdown = document.querySelector(`[data-dropdown-content="${dropdownId}"]`);
-    
-    if (!dropdown) return;
-    
-    // Close any open dropdown
-    if (this.activeDropdown && this.activeDropdown !== dropdown) {
-      this.activeDropdown.classList.remove('active');
-    }
-    
-    // Open this dropdown
-    this.header.classList.add('dropdown-active');
-    dropdown.classList.add('active');
-    this.activeDropdown = dropdown;
-  }, true);
-  
-  // Add delegated event listeners for mouse leave
-  this.header.addEventListener('mouseleave', (e) => {
-    const target = e.target;
-    const relatedTarget = e.relatedTarget;
-    
-    // Check if we're leaving a trigger or a dropdown
-    const isTrigger = target.hasAttribute('data-dropdown-trigger');
-    const isDropdown = target.hasAttribute('data-dropdown-content');
-    
-    if (isTrigger || isDropdown) {
-      // Don't start timer if we're moving between related trigger and dropdown
-      const dropdownId = isTrigger ? 
-        target.getAttribute('data-dropdown-trigger') : 
-        target.getAttribute('data-dropdown-content');
-        
-      const relatedElement = isTrigger ?
-        document.querySelector(`[data-dropdown-content="${dropdownId}"]`) :
-        document.querySelector(`[data-dropdown-trigger="${dropdownId}"]`);
+  // Add event listeners to each trigger directly instead of delegating
+  this.dropdownTriggers.forEach(trigger => {
+    trigger.addEventListener('mouseenter', (e) => {
+      // Clear any existing timeout
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
       
-      if (relatedTarget === relatedElement) return;
+      const dropdownId = trigger.getAttribute('data-dropdown-trigger');
+      const dropdown = document.querySelector(`[data-dropdown-content="${dropdownId}"]`);
+      
+      if (!dropdown) return;
+      
+      // Close any open dropdown
+      if (this.activeDropdown && this.activeDropdown !== dropdown) {
+        this.activeDropdown.classList.remove('active');
+      }
+      
+      // Open this dropdown
+      this.header.classList.add('dropdown-active');
+      dropdown.classList.add('active');
+      this.activeDropdown = dropdown;
+    });
+    
+    trigger.addEventListener('mouseleave', (e) => {
+      const relatedTarget = e.relatedTarget;
+      const dropdownId = trigger.getAttribute('data-dropdown-trigger');
+      const dropdown = document.querySelector(`[data-dropdown-content="${dropdownId}"]`);
+      
+      if (relatedTarget === dropdown) return;
       
       // Start timeout to close dropdown
       timeoutId = setTimeout(() => {
         this.closeDropdown();
       }, 150);
-    }
-  }, true);
+    });
+  });
   
-  // Delegate mouseenter for dropdowns themselves
-  document.addEventListener('mouseenter', (e) => {
-    const dropdown = e.target.closest('[data-dropdown-content]');
-    if (dropdown && timeoutId) {
-      clearTimeout(timeoutId);
-      timeoutId = null;
-    }
-  }, true);
+  // Add event listeners to each dropdown directly
+  this.dropdowns.forEach(dropdown => {
+    dropdown.addEventListener('mouseenter', (e) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
+    });
+    
+    dropdown.addEventListener('mouseleave', (e) => {
+      const relatedTarget = e.relatedTarget;
+      const dropdownId = dropdown.getAttribute('data-dropdown-content');
+      const trigger = document.querySelector(`[data-dropdown-trigger="${dropdownId}"]`);
+      
+      if (relatedTarget === trigger) return;
+      
+      // Start timeout to close dropdown
+      timeoutId = setTimeout(() => {
+        this.closeDropdown();
+      }, 150);
+    });
+  });
   
-  // Single click listener for document
+  // Single click listener for document to close dropdowns when clicking outside
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('[data-dropdown-trigger]') && !e.target.closest('[data-dropdown-content]')) {
+    const closestTrigger = e.target.closest ? e.target.closest('[data-dropdown-trigger]') : null;
+    const closestDropdown = e.target.closest ? e.target.closest('[data-dropdown-content]') : null;
+    
+    if (!closestTrigger && !closestDropdown) {
       this.closeDropdown();
     }
   });
 
+  // The rest of the keyboard event handling remains the same
   this.header.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape' && e.key !== 'Enter' && e.key !== ' ') return;
     
-    const trigger = e.target.closest('[data-dropdown-trigger]');
+    const trigger = e.target.closest ? e.target.closest('[data-dropdown-trigger]') : null;
     if (!trigger) {
       // If Escape is pressed while a dropdown is open, close it
       if (e.key === 'Escape' && this.activeDropdown) {
