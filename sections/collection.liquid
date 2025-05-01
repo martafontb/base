@@ -42,7 +42,7 @@
         </button>
       </div>
       
-      <div class="collection__count">
+      {% comment %} <div class="collection__count">
         {%- liquid
           if collection.results_count == 1
             echo 'collections.general.item_count.one' | t: count: collection.results_count
@@ -50,7 +50,7 @@
             echo 'collections.general.item_count.other' | t: count: collection.results_count
           endif
         -%}
-      </div>
+      </div> {% endcomment %}
       
       <div class="collection__sorting">
         {%- assign sort_options = 'collections.sorting.title-ascending,collections.sorting.title-descending,collections.sorting.price-ascending,collections.sorting.price-descending,collections.sorting.created-ascending,collections.sorting.created-descending' | split: ',' -%}
@@ -93,139 +93,138 @@
           <form id="CollectionFilterForm" class="collection__filter-form">
             {% if section.settings.enable_filtering %}
               {% for filter in collection.filters %}
-                <div class="collection__filter-group" data-index="{{ forloop.index }}">
+                {% assign filter_values_count = filter.values.size %}
+
+                {% if filter.type == 'price_range' or filter_values_count > 1 %}
+                {% capture filter_id %}filter-{{ filter.label | handle }}{% endcapture %}
+                
+                {% capture filter_heading %}
+                  <span>{{ filter.label | escape }}</span>
+                  {% render 'icon-chevron-down' %}
+                {% endcapture %}
+                
+                {% capture filter_content %}
                   {% case filter.type %}
                     {% when 'list' %}
-                      <div class="collection__filter-block">
-                        <div class="collection__filter-header">
-                          <h3 class="collection__filter-title">{{ filter.label | escape }}</h3>
-                        </div>
-                        
-                        <div class="collection__filter-options">
-                          {%- for filter_value in filter.values -%}
-                            <div class="collection__filter-option">
-                              <input 
-                                type="checkbox" 
-                                name="{{ filter_value.param_name }}" 
-                                value="{{ filter_value.value }}" 
-                                id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
-                                {% if filter_value.active %}checked{% endif %}
-                                {% if filter_value.count == 0 and filter_value.active == false %}disabled{% endif %}
-                              >
-                              <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}">
-                                {{ filter_value.label | escape }}
-                                <span class="filter-count">({{ filter_value.count }})</span>
-                              </label>
-                            </div>
-                          {%- endfor -%}
-                        </div>
+                      <div class="collection__filter-options">
+                        {%- for filter_value in filter.values -%}
+                          <div class="collection__filter-option">
+                            <input 
+                              type="checkbox" 
+                              name="{{ filter_value.param_name }}" 
+                              value="{{ filter_value.value }}" 
+                              id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                              {% if filter_value.active %}checked{% endif %}
+                              {% if filter_value.count == 0 and filter_value.active == false %}disabled{% endif %}
+                              class="filter-checkbox"
+                            >
+                            <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="filter-pill">
+                              {{ filter_value.label | escape }}
+                              <span class="filter-count">({{ filter_value.count }})</span>
+                            </label>
+                          </div>
+                        {%- endfor -%}
                       </div>
-                      
                     {% when 'price_range' %}
-                      <div class="collection__filter-block">
-                        <div class="collection__filter-header">
-                          <h3 class="collection__filter-title">{{ filter.label | escape }}</h3>
-                        </div>
-                        
-                        <div class="collection__filter-price-range">
-                          <div class="price-range__inputs">
-                            <div class="price-range__field">
-                              <label for="Filter-{{ filter.label | escape }}-min" class="price-range__label">{{ 'collections.filtering.from' | t }}</label>
-                              <input 
-                                type="number"
-                                name="{{ filter.min_value.param_name }}"
-                                id="Filter-{{ filter.label | escape }}-min"
-                                class="price-range__input"
-                                placeholder="{{ filter.range_min | money_without_trailing_zeros | strip_html }}"
-                                min="0"
+                      <div class="collection__filter-price-range">
+                        <div class="price-range__inputs">
+                          <div class="price-range__field">
+                            <label for="Filter-{{ filter.label | escape }}-min" class="price-range__label">{{ 'collections.filtering.from' | t }}</label>
+                            <input 
+                              type="number"
+                              name="{{ filter.min_value.param_name }}"
+                              id="Filter-{{ filter.label | escape }}-min"
+                              class="price-range__input"
+                              placeholder="{{ filter.range_min | money_without_trailing_zeros | strip_html }}"
+                              min="0"
+                              max="{{ filter.range_max | divided_by: 100 | floor }}"
+                              {%- if filter.min_value.value -%}
+                                value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                              {%- endif -%}
+                            >
+                          </div>
+                          
+                          <div class="price-range__field">
+                            <label for="Filter-{{ filter.label | escape }}-max" class="price-range__label">{{ 'collections.filtering.to' | t }}</label>
+                            <input 
+                              type="number"
+                              name="{{ filter.max_value.param_name }}"
+                              id="Filter-{{ filter.label | escape }}-max"
+                              class="price-range__input"
+                              placeholder="{{ filter.range_max | money_without_trailing_zeros | strip_html }}"
+                              min="0"
+                              {%- if filter.min_value.value -%}
+                                max="{{ filter.range_max | divided_by: 100 | ceil }}"
+                              {%- else -%}
                                 max="{{ filter.range_max | divided_by: 100 | floor }}"
-                                {%- if filter.min_value.value -%}
-                                  value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
-                                {%- endif -%}
-                              >
-                            </div>
-                            
-                            <div class="price-range__field">
-                              <label for="Filter-{{ filter.label | escape }}-max" class="price-range__label">{{ 'collections.filtering.to' | t }}</label>
-                              <input 
-                                type="number"
-                                name="{{ filter.max_value.param_name }}"
-                                id="Filter-{{ filter.label | escape }}-max"
-                                class="price-range__input"
-                                placeholder="{{ filter.range_max | money_without_trailing_zeros | strip_html }}"
-                                min="0"
-                                {%- if filter.min_value.value -%}
-                                  max="{{ filter.range_max | divided_by: 100 | ceil }}"
-                                {%- else -%}
-                                  max="{{ filter.range_max | divided_by: 100 | floor }}"
-                                {%- endif -%}
-                                {%- if filter.max_value.value -%}
-                                  value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
-                                {%- endif -%}
-                              >
-                            </div>
+                              {%- endif -%}
+                              {%- if filter.max_value.value -%}
+                                value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                              {%- endif -%}
+                            >
                           </div>
                         </div>
                       </div>
-                      
                     {% when 'boolean' %}
-                      <div class="collection__filter-block">
-                        <div class="collection__filter-header">
-                          <h3 class="collection__filter-title">{{ filter.label | escape }}</h3>
-                        </div>
-                        
-                        <div class="collection__filter-options">
-                          {%- for filter_value in filter.values -%}
-                            <div class="collection__filter-option">
-                              <input 
-                                type="checkbox" 
-                                name="{{ filter_value.param_name }}" 
-                                value="true" 
-                                id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
-                                {% if filter_value.active %}checked{% endif %}
-                                {% if filter_value.count == 0 and filter_value.active == false %}disabled{% endif %}
-                              >
-                              <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}">
-                                {{ filter_value.label | escape }}
-                                <span class="filter-count">({{ filter_value.count }})</span>
-                              </label>
-                            </div>
-                          {%- endfor -%}
-                        </div>
+                      <div class="collection__filter-options">
+                        {%- for filter_value in filter.values -%}
+                          <div class="collection__filter-option">
+                            <input 
+                              type="checkbox" 
+                              name="{{ filter_value.param_name }}" 
+                              value="true" 
+                              id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                              {% if filter_value.active %}checked{% endif %}
+                              {% if filter_value.count == 0 and filter_value.active == false %}disabled{% endif %}
+                              class="filter-checkbox"
+                            >
+                            <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="filter-pill">
+                              {{ filter_value.label | escape }}
+                              <span class="filter-count">({{ filter_value.count }})</span>
+                            </label>
+                          </div>
+                        {%- endfor -%}
                       </div>
-                      
                     {% when 'color' %}
-                      <div class="collection__filter-block">
-                        <div class="collection__filter-header">
-                          <h3 class="collection__filter-title">{{ filter.label | escape }}</h3>
-                        </div>
-                        
-                        <div class="collection__filter-colors">
-                          {%- for filter_value in filter.values -%}
-                            <div class="collection__filter-color">
-                              <input 
-                                type="checkbox" 
-                                name="{{ filter_value.param_name }}" 
-                                value="{{ filter_value.value }}" 
-                                id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
-                                {% if filter_value.active %}checked{% endif %}
-                                {% if filter_value.count == 0 and filter_value.active == false %}disabled{% endif %}
-                              >
-                              <label 
-                                for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" 
+                      <div class="collection__filter-colors">
+                        {%- for filter_value in filter.values -%}
+                          <div class="collection__filter-color">
+                            <input 
+                              type="checkbox" 
+                              name="{{ filter_value.param_name }}" 
+                              value="{{ filter_value.value }}" 
+                              id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                              {% if filter_value.active %}checked{% endif %}
+                              {% if filter_value.count == 0 and filter_value.active == false %}disabled{% endif %}
+                              class="filter-checkbox"
+                            >
+                            <label 
+                              for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" 
+                              class="color-swatch-container"
+                            >
+                              <span 
                                 class="color-swatch"
                                 title="{{ filter_value.label | escape }}"
                                 data-color="{{ filter_value.label | escape | downcase }}"
-                              >
-                                <span class="visually-hidden">{{ filter_value.label | escape }}</span>
-                              </label>
+                              ></span>
                               <span class="color-swatch-label">{{ filter_value.label | escape }}</span>
-                            </div>
-                          {%- endfor -%}
-                        </div>
+                              <span class="filter-count">({{ filter_value.count }})</span>
+                            </label>
+                          </div>
+                        {%- endfor -%}
                       </div>
                   {% endcase %}
-                </div>
+                {% endcapture %}
+                
+                {% render 'component_accordion',
+                  id: filter_id,
+                  heading: filter_heading,
+                  heading_class: 'collection__filter-title',
+                  content: filter_content,
+                  open: forloop.index == 1
+                %}
+
+              {% endif %}
               {% endfor %}
             {% endif %}
             
@@ -234,8 +233,7 @@
             {% endif %}
             
             <div class="collection__filter-actions">
-              <button type="reset" class="">{{ 'collections.filtering.clear' | t }}</button>
-              <button type="submit" class="">{{ 'collections.filtering.apply' | t }}</button>
+              <button type="reset" class="filter-reset-button">{{ 'collections.filtering.clear' | t }}</button>
             </div>
           </form>
         </div>
@@ -287,6 +285,7 @@
                 
                 {% assign active_filter_count = 0 %}
                 {% for filter in collection.filters %}
+                  
                   {% assign active_filter_count = active_filter_count | plus: filter.active_values.size %}
                   {% if filter.type == "price_range" %}
                     {% if filter.min_value.value != nil or filter.max_value.value != nil %}

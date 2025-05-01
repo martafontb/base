@@ -127,6 +127,7 @@
     font-family: 'Ronzino Regular', sans-serif;
     font-weight: 400;
     font-style: normal;
+    line-height: 1.1;
   }
   
   .filter-count {
@@ -672,3 +673,98 @@
   .product-card:hover .product-card__image--hover {
     opacity: 1;
   }
+
+
+  /* Collection filter accordion styles */
+.collection__filter-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+  padding: 1rem 0;
+}
+
+.collection__filter-title .icon-chevron-down {
+  transition: transform var(--transition-duration) var(--transition-ease);
+}
+
+accordion-content.open .collection__filter-title .icon-chevron-down {
+  transform: rotate(180deg);
+}
+
+/* Ensure the accordion toggle button has space between text and icon */
+.collection__filter-title span {
+  flex: 1;
+}
+
+.collection__filters accordion-content{ 
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Style adjustments for mobile */
+@media (max-width: 1023px) {
+  .collection__filter-title {
+    padding: 1rem 0;
+  }
+}
+
+/* Custom Checkbox Styling */
+.collection__filter-option {
+  position: relative;
+}
+
+.filter-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The pill-style label that replaces the standard checkbox */
+.filter-pill {
+  display: inline-block;
+  font-size: 0.8125rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-lg);
+  font-family: 'Ronzino-Medium';
+  border: 1px solid var(--color-border);
+  background-color: var(--color-background);
+  cursor: pointer;
+  transition: all var(--transition-duration) var(--transition-ease);
+}
+
+/* Selected state */
+.filter-checkbox:checked + .filter-pill {
+  background-color: var(--color-text);
+  color: var(--color-background);
+  border-color: var(--color-text);
+}
+
+/* Focus state for accessibility */
+.filter-checkbox:focus-visible + .filter-pill {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.filter-checkbox:disabled + .filter-pill {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Hover state */
+.filter-pill:hover {
+  background-color: var(--color-border);
+}
+
+.filter-checkbox:checked + .filter-pill:hover {
+  opacity: 0.9;
+}
+
+/* Count of products */
+.filter-count {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-left: 0.25rem;
+}
