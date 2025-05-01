@@ -43,6 +43,7 @@
   
   /* Collection Filters */
   .collection__filters {
+    background-color: var(--color-background);
     position: fixed;
     top: 0;
     left: 0;
@@ -88,7 +89,6 @@
   .collection__filter-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
   }
   
   .collection__filter-block {
@@ -96,7 +96,7 @@
     padding-bottom: 1.5rem;
     padding-top: 1.5rem;
   }
-  
+ 
   .collection__filter-header {
     margin-bottom: 1rem;
   }
@@ -123,6 +123,10 @@
     align-items: center;
     gap: 0.5rem;
     cursor: pointer;
+    font-size: 0.8125rem;
+    font-family: 'Ronzino Regular', sans-serif;
+    font-weight: 400;
+    font-style: normal;
   }
   
   .filter-count {
@@ -213,6 +217,23 @@
     gap: 1rem;
     margin-top: 1.5rem;
   }
+
+  .collection__filter-actions button {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8125rem;  
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    cursor: pointer;
+    font-family: 'Ronzino-Medium';
+    transition: background-color var(--transition-duration) var(--transition-ease);
+  }
+
+  .collection__filter-actions button:hover {
+    background-color: var(--color-border);
+    font-family: 'Ronzino-MediumOblique';
+  }
   
   /* Filter Toggle */
   .collection__filter-toggle {
@@ -243,7 +264,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
+    padding: 0.25rem 0.75rem;
     background-color: var(--color-border);
     border-radius: var(--radius-lg);
     font-size: 0.8125rem;
@@ -295,8 +316,8 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border: var(--btn-1-default-border);
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     transition: background-color var(--transition-duration) var(--transition-ease);
   }
@@ -395,7 +416,7 @@
     position: absolute;
     top: 0.75rem;
     left: 0.75rem;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     padding: 0.25rem 0.75rem;
     border-radius: var(--radius-lg);
     font-family: 'Ronzino-Medium';
