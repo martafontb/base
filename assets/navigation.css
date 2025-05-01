@@ -1,6 +1,6 @@
 /* assets/navigation.css */
 :root {
-  --header-height-mobile: 70px;
+  --header-height-mobile: 50px;
   --header-height-desktop: 48px;
   --dropdown-height: 165px;
 }
@@ -77,7 +77,7 @@ header {
 .header__logo-image {
   display: block;
   height: auto;
-  max-height: calc(var(--header-height-mobile) - 50px);
+  max-height: calc(var(--header-height-mobile) - 30px);
   width: auto;
 }
 
@@ -194,7 +194,7 @@ header {
 /* Mobile Navigation */
 .nav-mobile {
   position: fixed;
-  top: var(--header-height-mobile);
+  top: calc(var(--header-height-mobile)+12px);
   left: 0;
   z-index: 90;
   width: 100%;
