@@ -10,7 +10,17 @@ if(!customElements.get('accordion-content')) {
       this.elToggle = this.querySelector('[data-toggle]');
       this.elContent = this.querySelector('[data-content]');
 
+        // Set initial state based on open attribute
+        if (this.open) {
+          this.classList.add('visible', 'open');
+        }
+
       this.elToggle.addEventListener('click', this.toggleAccordion.bind(this));
+
+        // Enable transitions after a small delay
+        requestAnimationFrame(() => {
+          this.classList.add('ready');
+        });
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

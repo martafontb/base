@@ -402,7 +402,7 @@ class ProductGallery {
     }
     
     updateOptionButtons() {
-      if (!this.optionButtons.length) return;
+      if (!this.optionButtons.length || !this.product || !this.product.variants) return;
       
       // Get all variants and current selected options
       const variants = this.product.variants;
@@ -414,7 +414,7 @@ class ProductGallery {
         const optionValue = button.dataset.optionValue;
         
         // Check if this option value is available with current selections
-        const isAvailable = variants.some(variant => {
+        const availableVariant = variants.find(variant => {
           // Check if this variant has this option value at this position
           if (variant[`option${optionIndex + 1}`] !== optionValue) {
             return false;
@@ -428,12 +428,15 @@ class ProductGallery {
             }
           }
           
-          // Check if variant is available
-          return variant.available;
+          return true; // Variant exists regardless of availability
         });
         
-        // Set button state
-        if (isAvailable) {
+        // Check if the variant exists and is available
+        const isAvailable = availableVariant && availableVariant.available;
+        
+        // Enable the button if variant exists (regardless of availability)
+        // Only disable if no variant exists with this option combination
+        if (availableVariant) {
           button.disabled = false;
           button.classList.remove('disabled');
         } else {
@@ -449,7 +452,7 @@ class ProductGallery {
         }
       });
     }
-    
+
     handleSubmit(event) {
       event.preventDefault();
       

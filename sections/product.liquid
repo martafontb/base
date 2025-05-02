@@ -136,7 +136,7 @@
                     %}
                   </div>
                 {% else %}
-                  <div class="product-variants__buttons" data-option-buttons>
+                  {% comment %} <div class="product-variants__buttons" data-option-buttons>
                     {% for value in option.values %}
                       {% liquid
                         assign variant_available = true
@@ -158,6 +158,58 @@
                         {% unless variant_available %}disabled{% endunless %}
                       >
                         {{ value }}
+                      </button>
+                    {% endfor %}
+                  </div> {% endcomment %}
+                  <div class="product-variants__buttons{% if option.name == 'Color' or option.name == 'Colour' %} product-variants__buttons--color{% endif %}" data-option-buttons>
+                    {% for value in option.values %}
+                      {% liquid
+                        assign variant_available = true
+                        assign color_style = ''
+                        
+                        # Find variant with this color option value
+                        for variant in product.variants
+                          assign variant_option = 'option' | append: forloop.parentloop.index
+                          assign variant_value = variant[variant_option]
+                          if variant_value == value
+                            # Check if variant is available
+                            if variant.available == false
+                              assign variant_available = false
+                            endif
+                            
+                            # Get color metafield if this is a color option
+                            if option.name == 'Color' or option.name == 'Colour'
+                              assign swatch = variant.metafields.color.value
+                              if swatch != blank
+                                assign color_style = 'style="color: ' | append: swatch | append: ';"'
+                              endif
+                            endif
+                          endif
+                        endfor
+                        
+                        assign is_color_option = false
+                        if option.name == 'Color' or option.name == 'Colour'
+                          assign is_color_option = true
+                          
+                          # If no color metafield found, use the option value as color name
+                          if color_style == blank
+                            assign color_style = 'style="color: ' | append: value | downcase | append: ';"'
+                          endif
+                        endif
+                      %}
+                      
+                      <button
+                        type="button"
+                        class="product-variants__button{% if is_color_option %} product-variants__button--color{% endif %}{% if selected_value == value %} active{% endif %}{% unless variant_available %} disabled{% endunless %}"
+                        data-option-value="{{ value | escape }}"
+                        data-option-index="{{ forloop.parentloop.index0 }}"
+                        {% unless variant_available %}disabled{% endunless %}
+                        {% if is_color_option and color_style != blank %}{{ color_style }}{% endif %}
+                        title="{{ value }}"
+                      >
+                        {% unless is_color_option %}
+                          {{ value }}
+                        {% endunless %}
                       </button>
                     {% endfor %}
                   </div>

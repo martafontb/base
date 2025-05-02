@@ -14,7 +14,35 @@ accordion-content > button {
   padding-right: 1rem;
 }
 
-accordion-content > button::before,
+accordion-content[open="true"] {
+  grid-template-rows: max-content 1fr;
+}
+
+accordion-content[open="true"] > div {
+  visibility: visible;
+  height: auto;
+}
+
+
+accordion-content {
+  transition: none;
+}
+
+accordion-content * {
+  transition: none;
+}
+
+/* Enable transitions after component is ready */
+accordion-content.ready {
+  transition: grid-template-rows var(--transition-duration) var(--transition-ease);
+}
+
+accordion-content.ready > div {
+  transition: height var(--transition-duration) var(--transition-ease);
+}
+
+
+/* accordion-content > button::before,
 accordion-content > button::after {
   content: "";
   position: absolute;
@@ -38,7 +66,7 @@ accordion-content > button::after {
 
 accordion-content.open > button::before {
   transform: translateY(calc(-50% + 0.5px)) rotate(90deg);
-}
+} */
 
 accordion-content > div {
   height: var(--closed-height);
@@ -52,4 +80,16 @@ accordion-content > div > * {
 
 accordion-content.visible > div > *  {
   visibility: visible;
+}
+
+accordion-content.no-transition,
+accordion-content.no-transition > div,
+accordion-content.no-transition > button::before,
+accordion-content.no-transition > button::after {
+  transition: none !important;
+}
+
+/* Set initial height for open states */
+accordion-content.open > div {
+  height: auto;
 }

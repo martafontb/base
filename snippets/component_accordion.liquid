@@ -1,15 +1,7 @@
-{% comment %} 
-  Props:
-    id: String,
-    heading: Liquid,
-    heading_class: String,
-    content: Liquid,
-    open: Boolean
-{% endcomment %}
-
 {%- assign details_id = id | append: '-details' -%}
 
-<accordion-content open="{%- if open -%} true {%- else -%} false {%- endif -%}">
+<accordion-content open="{%- if open -%} true {%- else -%} false {%- endif -%}"
+  {%- if open -%} class="visible open" {%- endif -%}>
   <button 
     id="{{ id }}"
     type="button"
