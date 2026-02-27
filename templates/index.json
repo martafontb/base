@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "styleguide": {
@@ -12,14 +21,14 @@
           "type": "column",
           "settings": {
             "media_type": "image",
-            "image": "shopify:\/\/shop_images\/8F1A3362_1.png",
+            "image": "shopify://shop_images/8F1A3362_1.png",
             "autoplay": true,
             "show_controls": false,
             "heading": "",
             "heading_size": "h2",
             "subheading": "",
             "button_text": "Shop with us",
-            "button_link": "\/collections\/all",
+            "button_link": "/collections/all",
             "button_bg_color": "#fced49",
             "button_text_color": "#2a160d",
             "overlay_content": false,
@@ -33,14 +42,14 @@
           "type": "column",
           "settings": {
             "media_type": "image",
-            "image": "shopify:\/\/shop_images\/8F1A3273_1.png",
+            "image": "shopify://shop_images/8F1A3273_1.png",
             "autoplay": true,
             "show_controls": false,
             "heading": "",
             "heading_size": "h2",
             "subheading": "",
             "button_text": "Print with us",
-            "button_link": "\/pages\/services",
+            "button_link": "/pages/services",
             "button_bg_color": "#aae1ed",
             "button_text_color": "#2a160d",
             "overlay_content": false,
@@ -72,9 +81,9 @@
       "settings": {
         "heading": "",
         "heading_size": "h2",
-        "text": "<p>Jumbo Press is an independent book publisher and risograph print service collaborating with emerging artists from around the world.<\/p>",
+        "text": "<p>Jumbo Press is an independent book publisher and risograph print service collaborating with emerging artists from around the world.</p>",
         "button_text": "Find out more",
-        "button_link": "shopify:\/\/pages\/blog",
+        "button_link": "shopify://pages/blog",
         "button_new_tab": false,
         "text_alignment": "center",
         "text_color": "#2a160d",
@@ -277,9 +286,9 @@
           "settings": {
             "color_name": "Jumbo Red",
             "primary_hex_code": "#f93b00",
-            "rgb_values": "249\/59\/0",
+            "rgb_values": "249/59/0",
             "pantone_code": "172 U",
-            "cmyk_values": "0\/80\/100\/0",
+            "cmyk_values": "0/80/100/0",
             "tint_direction": "dark_to_light",
             "custom_tints": false,
             "custom_tint_hex_codes": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF"
@@ -290,9 +299,9 @@
           "settings": {
             "color_name": "Jumbo Yellow",
             "primary_hex_code": "#ffe800",
-            "rgb_values": "255\/232\/0",
+            "rgb_values": "255/232/0",
             "pantone_code": "Yellow U",
-            "cmyk_values": "0\/2\/100\/0",
+            "cmyk_values": "0/2/100/0",
             "tint_direction": "dark_to_light",
             "custom_tints": false,
             "custom_tint_hex_codes": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF"
@@ -303,9 +312,9 @@
           "settings": {
             "color_name": "Jumbo Green",
             "primary_hex_code": "#01a458",
-            "rgb_values": "1\/164\/88",
+            "rgb_values": "1/164/88",
             "pantone_code": "348 U",
-            "cmyk_values": "93\/0\/100\/0",
+            "cmyk_values": "93/0/100/0",
             "tint_direction": "dark_to_light",
             "custom_tints": false,
             "custom_tint_hex_codes": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF"
@@ -316,9 +325,9 @@
           "settings": {
             "color_name": "Jumbo Blue",
             "primary_hex_code": "#0078bf",
-            "rgb_values": "0\/120\/191",
+            "rgb_values": "0/120/191",
             "pantone_code": "Process Blue U",
-            "cmyk_values": "100\/20\/0\/0",
+            "cmyk_values": "100/20/0/0",
             "tint_direction": "dark_to_light",
             "custom_tints": false,
             "custom_tint_hex_codes": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF"
@@ -329,9 +338,9 @@
           "settings": {
             "color_name": "Jumbo Aqua",
             "primary_hex_code": "#5ec8e5",
-            "rgb_values": "249\/59\/0",
+            "rgb_values": "249/59/0",
             "pantone_code": "172 U",
-            "cmyk_values": "0\/80\/100\/0",
+            "cmyk_values": "0/80/100/0",
             "tint_direction": "dark_to_light",
             "custom_tints": false,
             "custom_tint_hex_codes": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF"
@@ -342,9 +351,9 @@
           "settings": {
             "color_name": "Jumbo Purple",
             "primary_hex_code": "#f93b00",
-            "rgb_values": "249\/59\/0",
+            "rgb_values": "249/59/0",
             "pantone_code": "172 U",
-            "cmyk_values": "0\/80\/100\/0",
+            "cmyk_values": "0/80/100/0",
             "tint_direction": "dark_to_light",
             "custom_tints": false,
             "custom_tint_hex_codes": "#F93B00,#FA5F2E,#FB8351,#FCA173,#FDBF96,#FEDDB8,#FEEBDA,#FEF5ED,#FEFAF5,#FFFFFF"
@@ -379,7 +388,7 @@
           "type": "collection",
           "settings": {
             "collection": "zines",
-            "custom_image": "shopify:\/\/shop_images\/magnum-web-1_1.jpg_1.png",
+            "custom_image": "shopify://shop_images/magnum-web-1_1.jpg_1.png",
             "pill_color": "#5ec8e5"
           }
         },
@@ -387,15 +396,15 @@
           "type": "collection",
           "settings": {
             "collection": "soft-goods",
-            "custom_image": "shopify:\/\/shop_images\/CAPNEW1.jpg_1.png",
+            "custom_image": "shopify://shop_images/CAPNEW1.jpg_1.png",
             "pill_color": "#01a458"
           }
         },
         "collection_CNmUC3": {
           "type": "collection",
           "settings": {
-            "collection": "prints-1",
-            "custom_image": "shopify:\/\/shop_images\/laminacarbu_1.png",
+            "collection": "prints",
+            "custom_image": "shopify://shop_images/laminacarbu_1.png",
             "pill_color": "#ff48b0"
           }
         },
@@ -403,7 +412,7 @@
           "type": "collection",
           "settings": {
             "collection": "objects",
-            "custom_image": "shopify:\/\/shop_images\/BADGE1_1.jpg",
+            "custom_image": "shopify://shop_images/BADGE1_1.jpg",
             "pill_color": "#fced49"
           }
         }
@@ -445,7 +454,7 @@
       "type": "newsletter",
       "settings": {
         "heading": "Receive our Newsletter",
-        "description": "<p>And get the scoop on new drops, events and special perks at <em><strong>Jumbo Press.<\/strong><\/em><\/p>",
+        "description": "<p>And get the scoop on new drops, events and special perks at <em><strong>Jumbo Press.</strong></em></p>",
         "placeholder": "your@email.com",
         "button_text": "Sign me up!",
         "success_message": "Thanks for subscribing!",
