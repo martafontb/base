@@ -387,7 +387,7 @@
         "collection_bFN4gM": {
           "type": "collection",
           "settings": {
-            "collection": "zines",
+            "collection": "books",
             "custom_image": "shopify://shop_images/magnum-web-1_1.jpg_1.png",
             "pill_color": "#5ec8e5"
           }
