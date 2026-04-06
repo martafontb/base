@@ -83,7 +83,7 @@
         "heading_size": "h2",
         "text": "<p>Jumbo Press is an independent book publisher and risograph print service collaborating with emerging artists from around the world.</p>",
         "button_text": "Find out more",
-        "button_link": "shopify://pages/blog",
+        "button_link": "shopify://pages/about-us",
         "button_new_tab": false,
         "text_alignment": "center",
         "text_color": "#2a160d",
